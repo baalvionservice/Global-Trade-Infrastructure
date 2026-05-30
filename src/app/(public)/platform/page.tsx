@@ -3,16 +3,19 @@ import { GanttChartSquare, Landmark, ShieldCheck, Truck, Key, Eye, Share2, HardD
 import type { LucideIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
 /**
  * @file src/app/platform/page.tsx
  * @description The public-facing page detailing the Baalvion platform architecture and core principles.
  */
 
-export const metadata: Metadata = {
-    title: "Baalvion Platform | Institutional Operating System for Global Trade",
+export const metadata: Metadata = pageMetadata({
+    title: "Baalvion Platform — Institutional Operating System for Global Trade",
     description: "Baalvion is an institutional-grade operating system for global trade, integrating execution, finance, compliance, and logistics into a single governed infrastructure.",
-};
+    path: "/platform",
+    keywords: ['trade platform', 'trade operating system', 'trade execution', 'settlement', 'compliance', 'logistics infrastructure', 'institutional trade'],
+});
 
 export default function PlatformPage() {
     const functionalLayers: { title: string, description: string, icon: LucideIcon, details: string[] }[] = [

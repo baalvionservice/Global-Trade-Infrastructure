@@ -1,44 +1,35 @@
 import { MetadataRoute } from 'next';
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://trade.baalvion.com';
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3025';
 
-async function safeFetch<T>(url: string): Promise<T[]> {
-  try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const json = await res.json();
-    return Array.isArray(json?.data) ? json.data : [];
-  } catch {
-    return [];
-  }
-}
-
-interface OrgEntry { id: string; updatedAt?: string }
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const orgs = await safeFetch<OrgEntry>(`${API_URL}/v1/organizations?limit=200`);
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/`, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
-    { url: `${BASE_URL}/platform`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE_URL}/banks`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/governments`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/enterprises`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/logistics`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/pricing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${BASE_URL}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
-    { url: `${BASE_URL}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.2 },
+/**
+ * Sitemap of the public, indexable marketing surface only. (Org/enterprise detail
+ * pages are not publicly routable, so they're intentionally excluded — listing
+ * 404-ing URLs here would hurt crawl trust.)
+ */
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+  const routes: { path: string; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']; priority: number }[] = [
+    { path: '/', changeFrequency: 'daily', priority: 1.0 },
+    { path: '/platform', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/banks', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/governments', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/enterprises', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/logistics', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/onboard', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/onboard/buyer', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/onboard/seller', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/pricing', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/about', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/contact', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 },
+    { path: '/terms', changeFrequency: 'yearly', priority: 0.2 },
   ];
 
-  const orgRoutes: MetadataRoute.Sitemap = orgs.map((o) => ({
-    url: `${BASE_URL}/enterprises/${o.id}`,
-    lastModified: o.updatedAt ? new Date(o.updatedAt) : new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.5,
+  return routes.map((r) => ({
+    url: `${BASE_URL}${r.path}`,
+    lastModified: now,
+    changeFrequency: r.changeFrequency,
+    priority: r.priority,
   }));
-
-  return [...staticRoutes, ...orgRoutes];
 }

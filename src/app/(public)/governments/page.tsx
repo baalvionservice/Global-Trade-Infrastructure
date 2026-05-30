@@ -6,11 +6,14 @@ import type { LucideIcon } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { PATHS } from "@/lib/paths";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Sovereign Trade Oversight Solutions',
   description: 'Empower your regulatory authorities with real-time trade visibility, automated customs enforcement, and systemic risk analytics on the Baalvion OS.',
-};
+  path: '/governments',
+  keywords: ['trade oversight', 'customs enforcement', 'regulatory technology', 'sovereign trade', 'systemic risk analytics', 'government trade platform'],
+});
 
 export default function GovernmentsPage() {
 

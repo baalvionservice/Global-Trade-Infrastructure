@@ -5,11 +5,14 @@ import { GanttChartSquare, Landmark, ShieldCheck, Truck, ArrowRight, AreaChart }
 import type { LucideIcon } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { PATHS } from "@/lib/paths";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Global Trade OS for Enterprises',
-  description: 'Consolidate your global trade operations. Baalvion provides enterprises with a shared source of truth for execution, finance, and logistics.',
-};
+  description: 'Consolidate your global trade operations. Baalvion provides enterprises with a shared source of truth for execution, finance, compliance, and logistics.',
+  path: '/enterprises',
+  keywords: ['enterprise trade platform', 'global trade operations', 'supply chain consolidation', 'trade execution', 'enterprise logistics', 'procurement platform'],
+});
 
 export default function EnterprisesPage() {
   const capabilities: { title: string, description: string, icon: LucideIcon, features: string[] }[] = [

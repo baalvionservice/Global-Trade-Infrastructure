@@ -6,11 +6,14 @@ import Link from "next/link";
 import { ArrowRight, GanttChartSquare, Landmark, ShieldCheck, AreaChart, Share2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { PATHS } from "@/lib/paths";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Trade Finance Solutions for Banks',
   description: 'Modernize your trade finance rails with Baalvion. Real-time LC processing, FX transparency, and sovereign-grade risk intelligence for global banking.',
-};
+  path: '/banks',
+  keywords: ['trade finance for banks', 'letter of credit processing', 'cross-border settlement', 'FX transparency', 'correspondent banking', 'bank trade infrastructure'],
+});
 
 export default function BankRolePage() {
   const capabilities = [

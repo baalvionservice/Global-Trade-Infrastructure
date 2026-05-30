@@ -2,17 +2,37 @@ import { MetadataRoute } from 'next';
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://trade.baalvion.com';
 
+/**
+ * Crawl policy: expose the public marketing surface, keep the entire authenticated
+ * trade application out of the index. (Auth pages also redirect bots to /login, so
+ * their content is never crawlable — this is the explicit belt-and-suspenders.)
+ */
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: '*',
-        allow: ['/', '/platform', '/banks', '/governments', '/enterprises', '/logistics', '/pricing', '/about', '/contact'],
+        allow: [
+          '/',
+          '/platform',
+          '/banks',
+          '/governments',
+          '/enterprises',
+          '/logistics',
+          '/pricing',
+          '/about',
+          '/contact',
+          '/onboard',
+          '/privacy',
+          '/terms',
+        ],
         disallow: [
           '/dashboard',
           '/buyer/',
           '/seller/',
+          '/agent/',
           '/governance/',
+          '/oversight/',
           '/deals/',
           '/orders/',
           '/payments/',
@@ -20,6 +40,8 @@ export default function robots(): MetadataRoute.Robots {
           '/escrow/',
           '/financials/',
           '/compliance/',
+          '/compliance-regulatory/',
+          '/customs/',
           '/documents/',
           '/messages/',
           '/profile/',
@@ -27,14 +49,22 @@ export default function robots(): MetadataRoute.Robots {
           '/intelligence-hub/',
           '/negotiations/',
           '/sourcing/',
+          '/discovery/',
           '/shipments/',
+          '/logistics-shipment/',
           '/carriers/',
           '/agents/',
-          '/singularity-command/',
-          '/infinity-command/',
-          '/eternal-command/',
-          '/godsystem-command/',
+          '/suppliers/',
+          '/marketplace/',
+          '/executive/',
+          '/collaboration/',
+          '/field/',
+          '/settings/',
+          '/trade-management/',
+          '/access/',
+          '/login',
           '/api/',
+          '/trade-bff/',
         ],
       },
     ],
