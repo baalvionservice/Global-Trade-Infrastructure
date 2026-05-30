@@ -64,7 +64,7 @@ export default function ProfilePage() {
   const trustConfig = getTrustBadgeConfig(company.trustScore || 0);
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1">
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter">Institutional Identity</h2>
@@ -77,22 +77,22 @@ export default function ProfilePage() {
         </Button>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-3">
         {/* LEFT COLUMN - ACCOUNT PULSE */}
         <div className="space-y-8">
-          <Card className="shadow-xl border-2 border-primary/10 overflow-hidden bg-background rounded-[32px]">
+          <Card className="shadow-xl border-2 border-primary/10 overflow-hidden bg-background rounded-2xl">
              <CardContent className="p-0">
                 <div className="bg-primary h-24 relative overflow-hidden">
                    <div className="absolute inset-0 bg-white/5 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
                 </div>
-                <div className="px-8 pb-10 -mt-12 text-center relative">
-                   <div className="mx-auto h-28 w-24 rounded-[32px] border-4 border-background bg-card flex items-center justify-center text-3xl font-black text-primary shadow-2xl">
+                <div className="px-8 pb-6 -mt-12 text-center relative">
+                   <div className="mx-auto h-28 w-24 rounded-2xl border-4 border-background bg-card flex items-center justify-center text-3xl font-black text-primary shadow-2xl">
                      {profile.name.charAt(0)}
                    </div>
                    <h3 className="mt-6 text-2xl font-black uppercase tracking-tighter">{profile.name}</h3>
-                   <p className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40 mt-1">{profile.email}</p>
+                   <p className="text-[10px] text-muted-foreground font-black uppercase tracking-wide opacity-40 mt-1">{profile.email}</p>
                    <div className="mt-6">
-                      <Badge className="bg-primary text-white uppercase text-[10px] font-black px-4 py-1.5 tracking-[0.2em] rounded-full shadow-lg">
+                      <Badge className="bg-primary text-white uppercase text-[10px] font-black px-4 py-1.5 tracking-wide rounded-full shadow-lg">
                         {role}
                       </Badge>
                    </div>
@@ -100,13 +100,13 @@ export default function ProfilePage() {
              </CardContent>
           </Card>
 
-          <Card className="shadow-xl border-2 border-primary/5 bg-background rounded-[32px]">
-            <CardHeader className="pb-6 border-b border-muted py-8 px-10">
-              <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground flex items-center gap-3">
+          <Card className="shadow-xl border-2 border-primary/5 bg-background rounded-2xl">
+            <CardHeader className="pb-6 border-b border-muted py-8 px-6">
+              <CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground flex items-center gap-3">
                  <ShieldCheck className="h-5 w-5 text-primary" /> Subscription Tier
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-8 pt-10 px-10">
+            <CardContent className="space-y-8 pt-6 px-6">
                <div className="p-6 rounded-3xl bg-indigo-50 border-2 border-indigo-100 space-y-6">
                   <div className="flex items-center justify-between">
                      <Badge className="bg-indigo-600 text-white text-[9px] font-black h-6 px-3 uppercase tracking-widest border-none">INSTITUTIONAL PRO</Badge>
@@ -136,55 +136,55 @@ export default function ProfilePage() {
         {/* RIGHT COLUMN - MANAGEMENT */}
         <div className="lg:col-span-2">
           <Tabs defaultValue="corporate" className="space-y-8">
-            <TabsList className="bg-background border-2 p-1 gap-1 h-16 rounded-[24px] shadow-sm w-fit">
+            <TabsList className="bg-background border-2 p-1 gap-1 h-12 rounded-2xl shadow-sm w-fit">
               <TabsTrigger value="corporate" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-8 rounded-xl tracking-widest">Corporate Profile</TabsTrigger>
               <TabsTrigger value="billing" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-8 rounded-xl tracking-widest">Billing & Usage</TabsTrigger>
               <TabsTrigger value="api" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-8 rounded-xl tracking-widest">API & Keys</TabsTrigger>
             </TabsList>
 
             <TabsContent value="corporate">
-              <Card className="shadow-xl border-2 border-primary/5 rounded-[40px] overflow-hidden">
-                <CardHeader className="bg-muted/10 border-b py-10 px-12">
+              <Card className="shadow-xl border-2 border-primary/5 rounded-2xl overflow-hidden">
+                <CardHeader className="bg-muted/10 border-b py-6 px-6">
                   <CardTitle className="text-2xl font-black uppercase tracking-tighter flex items-center gap-4">
                     <Building className="h-7 w-7 text-primary" /> Institutional Registry
                   </CardTitle>
                   <CardDescription className="font-medium text-sm italic">Maintain your authoritative corporate node data for the global ledger.</CardDescription>
                 </CardHeader>
-                <CardContent className="p-12 space-y-10">
-                  <div className="grid sm:grid-cols-2 gap-10">
+                <CardContent className="p-6 space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Legal Entity Name</Label>
+                      <Label className="text-[10px] font-black uppercase tracking-wide text-muted-foreground ml-1">Legal Entity Name</Label>
                       <Input defaultValue={company.name} className="h-14 font-bold border-2 rounded-2xl" />
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Jurisdictional Node</Label>
+                      <Label className="text-[10px] font-black uppercase tracking-wide text-muted-foreground ml-1">Jurisdictional Node</Label>
                       <Input defaultValue={company.country} disabled className="h-14 font-bold border-2 rounded-2xl bg-muted/30 cursor-not-allowed" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1">Institutional Mission Statement</Label>
-                    <Textarea defaultValue={company.description} rows={5} className="font-medium border-2 rounded-[24px] p-6 leading-relaxed italic" />
+                    <Label className="text-[10px] font-black uppercase tracking-wide text-muted-foreground ml-1">Institutional Mission Statement</Label>
+                    <Textarea defaultValue={company.description} rows={5} className="font-medium border-2 rounded-2xl p-6 leading-relaxed italic" />
                   </div>
-                  <Button onClick={handleUpdate} className="h-14 px-12 font-black uppercase tracking-widest text-[11px] shadow-2xl">Authorize Record Update</Button>
+                  <Button onClick={handleUpdate} className="h-14 px-6 font-black uppercase tracking-widest text-[11px] shadow-2xl">Authorize Record Update</Button>
                 </CardContent>
               </Card>
             </TabsContent>
 
             <TabsContent value="billing">
-               <Card className="shadow-xl border-2 border-primary/5 rounded-[40px] overflow-hidden">
-                  <CardHeader className="bg-muted/10 border-b py-10 px-12">
+               <Card className="shadow-xl border-2 border-primary/5 rounded-2xl overflow-hidden">
+                  <CardHeader className="bg-muted/10 border-b py-6 px-6">
                      <CardTitle className="text-2xl font-black uppercase tracking-tighter flex items-center gap-4">
                         <CreditCard className="h-7 w-7 text-primary" /> Usage Metering
                      </CardTitle>
                   </CardHeader>
-                  <CardContent className="p-12 space-y-12">
+                  <CardContent className="p-6 space-y-8">
                      <div className="grid sm:grid-cols-3 gap-8">
                         {[
                           { label: 'RFQs PROCESSED', val: '42', quota: 'Unlimited', icon: Zap },
                           { label: 'SHIPMENTS TRACKED', val: '124', quota: '500 Max', icon: MapPin },
                           { label: 'TRANS. SETTLED', val: '$12.4M', quota: 'TIER 1', icon: TrendingUp }
                         ].map(kpi => (
-                           <div key={kpi.label} className="p-6 rounded-[32px] border-2 bg-muted/5 space-y-3 hover:border-primary/20 transition-all group">
+                           <div key={kpi.label} className="p-6 rounded-2xl border-2 bg-muted/5 space-y-3 hover:border-primary/20 transition-all group">
                               <kpi.icon className="h-5 w-5 text-primary opacity-40 group-hover:scale-110 transition-transform" />
                               <div>
                                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{kpi.label}</p>
@@ -194,9 +194,9 @@ export default function ProfilePage() {
                            </div>
                         ))}
                      </div>
-                     <div className="p-10 rounded-[32px] bg-slate-900 text-white flex items-center justify-between shadow-2xl">
+                     <div className="p-6 rounded-2xl bg-slate-900 text-white flex items-center justify-between shadow-2xl">
                         <div className="space-y-1">
-                           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Aggregated Fee Pulse</p>
+                           <p className="text-[10px] font-black uppercase tracking-wide text-white/40">Aggregated Fee Pulse</p>
                            <p className="text-3xl font-black tracking-tighter">$1,452.42</p>
                         </div>
                         <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 font-black h-12 rounded-2xl text-[10px] uppercase px-8">PAY STATEMENT</Button>
@@ -206,8 +206,8 @@ export default function ProfilePage() {
             </TabsContent>
 
             <TabsContent value="api">
-               <Card className="shadow-xl border-2 border-primary/5 rounded-[40px] overflow-hidden">
-                  <CardHeader className="bg-muted/10 border-b py-10 px-12 flex flex-row items-center justify-between">
+               <Card className="shadow-xl border-2 border-primary/5 rounded-2xl overflow-hidden">
+                  <CardHeader className="bg-muted/10 border-b py-6 px-6 flex flex-row items-center justify-between">
                      <div>
                         <CardTitle className="text-2xl font-black uppercase tracking-tighter flex items-center gap-4">
                            <Activity className="h-7 w-7 text-primary" /> Integration Oracle
@@ -216,7 +216,7 @@ export default function ProfilePage() {
                      </div>
                      <Button className="font-black text-[9px] uppercase tracking-widest h-11 px-6 rounded-2xl shadow-lg">CREATE API KEY</Button>
                   </CardHeader>
-                  <CardContent className="p-12 space-y-8">
+                  <CardContent className="p-6 space-y-8">
                      <div className="space-y-6">
                         <div className="p-6 rounded-3xl border-2 bg-muted/5 flex items-center justify-between group">
                            <div className="space-y-1">

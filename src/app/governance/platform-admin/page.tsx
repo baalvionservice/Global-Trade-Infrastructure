@@ -89,10 +89,10 @@ export default function PlatformMasterControlPage() {
   }
 
   return (
-    <main className="flex-1 space-y-8 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Master Control</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Master Control</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Global Master Control</h2>
           <p className="text-muted-foreground font-medium italic">Authoritative oversight of multi-tenant institutional clusters, jurisdictional health, and systemic finality.</p>
         </div>
@@ -101,7 +101,7 @@ export default function PlatformMasterControlPage() {
               <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
               Sovereignty Mode: ACTIVE
            </div>
-           <Button variant="outline" onClick={fetchData} className="bg-background shadow-md border-2 font-black h-14 px-10 uppercase tracking-widest hover:bg-muted transition-all">
+           <Button variant="outline" onClick={fetchData} className="bg-background shadow-md border-2 font-black h-14 px-6 uppercase tracking-widest hover:bg-muted transition-all">
               <RefreshCw className="h-4 w-4 mr-2" /> RE-SYNC INFRA
            </Button>
         </div>
@@ -116,9 +116,9 @@ export default function PlatformMasterControlPage() {
           { title: 'Network Pulse', val: health?.status?.toUpperCase(), icon: Activity, color: 'text-purple-600', sub: 'Oracle Sync: Active' },
         ].map((stat, i) => (
           <motion.div key={stat.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-            <Card className="shadow-lg border-2 border-primary/5 bg-background h-full group hover:border-primary/20 transition-all rounded-[24px]">
+            <Card className="shadow-lg border-2 border-primary/5 bg-background h-full group hover:border-primary/20 transition-all rounded-2xl">
               <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{stat.title}</CardTitle>
+                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{stat.title}</CardTitle>
                 <stat.icon className={cn("h-4 w-4", stat.color)} />
               </CardHeader>
               <CardContent className="pt-4">
@@ -130,20 +130,20 @@ export default function PlatformMasterControlPage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* MULTI-TENANT INTENSITY MAP */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Institutional Tenant Matrix</CardTitle>
+                  <CardTitle className="text-sm font-black uppercase tracking-wide">Institutional Tenant Matrix</CardTitle>
                   <CardDescription className="text-xs font-medium">Global mapping of tenant-specific trade velocity and regulatory compliance pass-rates.</CardDescription>
                 </div>
                 <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20 text-[9px] font-black uppercase h-5 tracking-widest px-3 rounded-full">
                    {heatmap.length} NODES
                 </Badge>
               </CardHeader>
-              <CardContent className="p-10">
+              <CardContent className="p-6">
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
                    {heatmap.map((item) => (
                       <motion.div 
@@ -181,10 +181,10 @@ export default function PlatformMasterControlPage() {
               </CardContent>
            </Card>
 
-           <Card className="shadow-2xl border-none bg-slate-950 text-slate-300 overflow-hidden h-[450px] flex flex-col ring-1 ring-white/10 rounded-[32px]">
-              <CardHeader className="border-b border-slate-800 bg-slate-900/50 py-6 px-10">
+           <Card className="shadow-2xl border-none bg-slate-950 text-slate-300 overflow-hidden h-[450px] flex flex-col ring-1 ring-white/10 rounded-2xl">
+              <CardHeader className="border-b border-slate-800 bg-slate-900/50 py-6 px-6">
                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-slate-100 flex items-center gap-3">
+                    <CardTitle className="text-sm font-black uppercase tracking-wide text-slate-100 flex items-center gap-3">
                        <Terminal className="h-4 w-4 text-emerald-500" />
                        Inter-Tenant System Log
                     </CardTitle>
@@ -211,31 +211,31 @@ export default function PlatformMasterControlPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-3 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <ShieldCheck className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4">
                     <History className="h-5 w-5 text-white" />
                     Strategic Governance
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-base font-bold italic leading-relaxed opacity-90 italic">
                     "Platform telemetry indicates a systemic transition toward Tier 1 identity verification for 92% of active tenants. Suggest enabling mandatory ABAC for high-value corridors."
                  </p>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
                     CONFIGURE GLOBAL POLICIES
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b pb-8 px-10">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b pb-8 px-6">
                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Operational Node Health</CardTitle>
+                    <CardTitle className="text-sm font-black uppercase tracking-wide">Operational Node Health</CardTitle>
                     <PulseIcon className="h-5 w-5 text-primary animate-pulse" />
                  </div>
               </CardHeader>
@@ -270,7 +270,7 @@ export default function PlatformMasterControlPage() {
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 text-center space-y-6 rounded-[32px] border-dashed group hover:border-primary/20 transition-all cursor-pointer">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all cursor-pointer">
               <ShieldAlert className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary transition-all duration-500" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-widest text-foreground">Disaster Recovery (DR)</p>
@@ -278,7 +278,7 @@ export default function PlatformMasterControlPage() {
                     "Regional clusters are geographically redundant. Triggering a failover will evacuate institutional workloads to the secondary cluster node in Zurich."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background" onClick={() => handleFailover('us-east-1')}>TRIGGER US-EAST FAILOVER</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background" onClick={() => handleFailover('us-east-1')}>TRIGGER US-EAST FAILOVER</Button>
            </Card>
         </div>
       </div>

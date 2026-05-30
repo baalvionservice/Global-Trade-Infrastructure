@@ -96,7 +96,7 @@ export default function BuyerRfqsPage() {
           data={filteredRfqs} 
           onRowClick={(row) => router.push(`${PATHS.BUYER_RFQS}/${row.id}`)}
           renderMobileCard={(row) => (
-            <div className="bg-background border-2 rounded-[24px] overflow-hidden shadow-md mb-4 group active:scale-[0.98] transition-all">
+            <div className="bg-background border-2 rounded-2xl overflow-hidden shadow-md mb-4 group active:scale-[0.98] transition-all">
                <div className="p-6 space-y-4">
                   <div className="flex justify-between items-start">
                      <div className="flex items-center gap-3">

@@ -75,14 +75,14 @@ export default function DisputeRegistryPage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-4">
-           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary">
+           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary">
               <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Command
            </Button>
            <div className="space-y-1">
-             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Governance Adjudication</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Governance Adjudication</p>
              <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Dispute Registry</h2>
              <p className="text-muted-foreground font-medium italic max-w-2xl">Authoritative management of trade conflicts, arbitration mandates, and resolution finality.</p>
            </div>
@@ -103,9 +103,9 @@ export default function DisputeRegistryPage() {
           { label: 'Financial Exposure', val: '$4.2M', icon: Globe, color: 'text-primary' },
         ].map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-             <Card className="shadow-lg border-2 border-primary/5 bg-background hover:border-primary/20 transition-all rounded-[24px] group">
+             <Card className="shadow-lg border-2 border-primary/5 bg-background hover:border-primary/20 transition-all rounded-2xl group">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 px-8 pt-8">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{stat.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{stat.label}</CardTitle>
                   <stat.icon className={cn("h-4 w-4", stat.color)} />
                 </CardHeader>
                 <CardContent>
@@ -132,7 +132,7 @@ export default function DisputeRegistryPage() {
           </Button>
         </div>
 
-        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-[32px] animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
            <CardContent className="p-0">
               <Table>
                  <TableHeader className="bg-muted/40">
@@ -195,10 +195,10 @@ export default function DisputeRegistryPage() {
                       <TableRow>
                         <TableCell colSpan={5} className="h-96 text-center">
                           <div className="flex flex-col items-center gap-6 opacity-20">
-                             <div className="p-10 rounded-full border-4 border-dashed border-primary/20">
-                                <Gavel className="h-16 w-16" />
+                             <div className="p-6 rounded-full border-4 border-dashed border-primary/20">
+                                <Gavel className="h-12 w-16" />
                              </div>
-                             <p className="text-[11px] font-black uppercase tracking-[0.4em]">No active disputes detected.</p>
+                             <p className="text-[11px] font-black uppercase tracking-widest">No active disputes detected.</p>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -210,13 +210,13 @@ export default function DisputeRegistryPage() {
       </div>
 
       {/* SOVEREIGN INFRASTRUCTURE FOOTER */}
-      <div className="p-12 rounded-[40px] bg-primary text-primary-foreground relative overflow-hidden group shadow-3xl">
+      <div className="p-6 rounded-2xl bg-primary text-primary-foreground relative overflow-hidden group shadow-md">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Scale className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] opacity-60">Arbitration Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Globally Adjudicated. <br />Deterministically Settled.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Arbitration Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Globally Adjudicated. <br />Deterministically Settled.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion Adjudication Hub provides the authoritative legal layer for global trade. Rulings issued by neutral arbiters are cryptographically bound to the institutional ledger, triggering atomic state changes across all affected logistics and treasury nodes."
             </p>

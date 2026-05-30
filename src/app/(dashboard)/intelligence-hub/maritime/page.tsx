@@ -43,10 +43,10 @@ export default function MaritimeIntelligencePage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.INTELLIGENCE_HUB)} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary">
+          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.INTELLIGENCE_HUB)} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Command Hub
           </Button>
           <div className="space-y-1">
@@ -55,21 +55,21 @@ export default function MaritimeIntelligencePage() {
           </div>
         </div>
         <div className="flex gap-4">
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Zap className="mr-2 h-4 w-4" /> RE-SCAN ASSETS
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* LIVE VESSEL STREAM */}
         <div className="lg:col-span-8 space-y-8">
            {events.map((ev, i) => (
-              <Card key={ev.id} className="shadow-xl border-2 hover:border-primary/40 transition-all rounded-[32px] overflow-hidden bg-background group">
-                 <CardContent className="p-8 flex items-center justify-between gap-10">
+              <Card key={ev.id} className="shadow-xl border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
+                 <CardContent className="p-8 flex items-center justify-between gap-6">
                     <div className="flex items-center gap-8 flex-1 min-w-0">
                        <div className={cn(
-                          "h-16 w-16 rounded-[24px] border-2 flex items-center justify-center shadow-inner shrink-0 group-hover:scale-110 transition-transform",
+                          "h-12 w-16 rounded-2xl border-2 flex items-center justify-center shadow-inner shrink-0 group-hover:scale-110 transition-transform",
                           ev.severity === 'high' ? "bg-red-50 border-red-200" : "bg-muted border-primary/5"
                        )}>
                           <Ship className={cn("h-8 w-8", ev.severity === 'high' ? 'text-red-600' : 'text-primary opacity-60')} />
@@ -99,10 +99,10 @@ export default function MaritimeIntelligencePage() {
         </div>
 
         {/* MARITIME SIDEBAR */}
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-none border-2 bg-background p-10 space-y-10 rounded-[40px]">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground">Lane Equilibrium</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">Lane Equilibrium</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
               <div className="space-y-8">
@@ -122,7 +122,7 @@ export default function MaritimeIntelligencePage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-6 rounded-[40px] border-dashed group hover:border-primary/20 transition-all duration-700">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
               <Waves className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary transition-all duration-700" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-widest text-foreground">Ais Mirror Protocol</p>

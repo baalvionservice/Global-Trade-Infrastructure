@@ -152,10 +152,10 @@ export function EntityManager({ config }: EntityManagerProps) {
   ];
 
   return (
-    <div className="space-y-10">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-2">
-           <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Registry: {config.name.toUpperCase()}</p>
+           <p className="text-[10px] font-black uppercase tracking-widest text-primary">Registry: {config.name.toUpperCase()}</p>
            <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">{config.pluralLabel}</h2>
            <p className="text-muted-foreground font-medium italic">Authoritative record management for {config.pluralLabel.toLowerCase()}.</p>
         </div>
@@ -170,13 +170,13 @@ export function EntityManager({ config }: EntityManagerProps) {
                 <Plus className="mr-2 h-4 w-4" /> NEW {config.label.toUpperCase()}
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[550px] rounded-[40px] p-0 overflow-hidden border-none shadow-3xl">
-              <div className="bg-primary p-10 text-white relative overflow-hidden">
+            <DialogContent className="sm:max-w-[550px] rounded-2xl p-0 overflow-hidden border-none shadow-md">
+              <div className="bg-primary p-6 text-white relative overflow-hidden">
                  <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12"><Zap className="h-32 w-32 brightness-0 invert" /></div>
                  <h2 className="text-3xl font-black uppercase tracking-tighter relative z-10">{selectedItem ? 'Authorize Update' : 'New Mandate'}</h2>
                  <p className="text-[10px] font-black uppercase tracking-widest opacity-60 mt-2 relative z-10">Registry Synchronization Node</p>
               </div>
-              <div className="p-10 bg-background max-h-[70vh] overflow-y-auto custom-scrollbar">
+              <div className="p-6 bg-background max-h-[70vh] overflow-y-auto custom-scrollbar">
                  <DynamicForm 
                     fields={config.fields} 
                     onSubmit={handleSubmit} 

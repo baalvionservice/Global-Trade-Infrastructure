@@ -5,6 +5,7 @@
  * Coordinates multi-currency settlements, wallet management, and FX locks.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { recordTransaction } from './ledger-service';
 import { markEscrowAsFunded } from './escrow-service';
 export { markEscrowAsFunded } from './escrow-service';
@@ -80,19 +81,19 @@ export async function fundEscrow(data: {
   return true;
 }
 
-export async function getWallet(): Promise<Wallet> {
+export async function getWallet(): Promise<Wallet | undefined> {
   const res = await apiClient.get<Wallet[]>('/wallets', { companyId: 'COMP-101', currency: 'USD' });
-  return res.data![0];
+  return toList<Wallet>(res)[0];
 }
 
 export async function getWallets(): Promise<Wallet[]> {
   const res = await apiClient.get<Wallet[]>('/wallets', { companyId: 'COMP-101' });
-  return res.data || [];
+  return toList(res);
 }
 
 export async function getTransactions(): Promise<Transaction[]> {
   const res = await apiClient.get<Transaction[]>('/ledger_entries', { companyId: 'COMP-101' });
-  return res.data || [];
+  return toList(res);
 }
 
 export async function getTransactionById(id: string): Promise<Transaction | null> {

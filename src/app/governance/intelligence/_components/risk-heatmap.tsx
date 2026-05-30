@@ -19,14 +19,14 @@ const heatmapData = [
 
 export function RiskHeatmap() {
   return (
-    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-      <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+      <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Global Jurisdictional Heatmap</CardTitle>
+          <CardTitle className="text-sm font-black uppercase tracking-wide">Global Jurisdictional Heatmap</CardTitle>
         </div>
         <Globe className="h-6 w-6 text-primary opacity-30" />
       </CardHeader>
-      <CardContent className="p-10">
+      <CardContent className="p-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
           {heatmapData.map((item, i) => (
             <motion.div 

@@ -67,9 +67,9 @@ export function InsightsPanel({ companyId }: { companyId?: string }) {
 
   return (
     <div className="flex flex-col h-full bg-slate-900/40 backdrop-blur-3xl">
-      <CardHeader className="pb-6 border-b border-white/5 shrink-0 p-10 bg-white/5">
+      <CardHeader className="pb-6 border-b border-white/5 shrink-0 p-6 bg-white/5">
         <div className="flex items-center justify-between">
-           <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] text-white flex items-center gap-3">
+           <CardTitle className="text-[10px] font-black uppercase tracking-widest text-white flex items-center gap-3">
               <BrainCircuit className="h-5 w-5 text-primary" />
               Strategic Intelligence
            </CardTitle>
@@ -88,7 +88,7 @@ export function InsightsPanel({ companyId }: { companyId?: string }) {
               className="flex flex-col items-center justify-center py-40 text-center space-y-6 opacity-20"
             >
                <Database className="h-12 w-12" />
-               <p className="text-[10px] font-black uppercase tracking-[0.3em] px-10 leading-relaxed">Gathering signal pulse... <br />No high-confidence anomalies detected.</p>
+               <p className="text-[10px] font-black uppercase tracking-wide px-6 leading-relaxed">Gathering signal pulse... <br />No high-confidence anomalies detected.</p>
             </motion.div>
           ) : (
             <div className="divide-y divide-white/5">
@@ -98,7 +98,7 @@ export function InsightsPanel({ companyId }: { companyId?: string }) {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className="p-10 space-y-6 group cursor-default hover:bg-white/[0.02] transition-all"
+                  className="p-6 space-y-6 group cursor-default hover:bg-white/[0.02] transition-all"
                 >
                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
@@ -140,10 +140,10 @@ export function InsightsPanel({ companyId }: { companyId?: string }) {
           )}
         </AnimatePresence>
 
-        <div className="p-10 border-t border-white/5 bg-slate-950/40">
+        <div className="p-6 border-t border-white/5 bg-slate-950/40">
            <div className="flex items-center gap-3 mb-4">
               <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Cognitive Health Matrix</p>
+              <p className="text-[10px] font-black uppercase tracking-wide text-slate-500">Cognitive Health Matrix</p>
            </div>
            <p className="text-[10px] text-slate-600 leading-relaxed font-medium italic">
              "Modeling 14,240 cross-jurisdictional nodes. Prediction accuracy 99.98%. All cognitive shards are synchronized with the sovereign kernel."

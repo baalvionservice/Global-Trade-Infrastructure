@@ -31,7 +31,7 @@ export function DashboardHeader() {
   return (
     <header className={cn(
       "sticky top-0 z-40 flex items-center border-b bg-background/80 backdrop-blur-xl px-4 transition-all",
-      isMobile ? "h-16" : "h-20 md:px-8"
+      isMobile ? "h-12" : "h-14 md:px-8"
     )}>
       {isMobile && (
         <Sheet>
@@ -42,7 +42,7 @@ export function DashboardHeader() {
           </SheetTrigger>
           <SheetContent side="left" className="sm:max-w-xs p-0 border-r-2 overflow-hidden">
             <nav className="grid gap-0 h-full">
-              <div className="h-16 flex items-center px-8 border-b bg-muted/30">
+              <div className="h-12 flex items-center px-8 border-b bg-muted/30">
                  <Link href={PATHS.DASHBOARD || '/dashboard'} className="flex items-center gap-3">
                    <BaalvionLogo className="h-6 w-6 text-primary" />
                    <span className="font-black uppercase tracking-tighter">Baalvion</span>
@@ -56,7 +56,7 @@ export function DashboardHeader() {
         </Sheet>
       )}
       
-      <div className="flex-1 flex items-center gap-10">
+      <div className="flex-1 flex items-center gap-6">
         <div className="flex items-center gap-4">
            {!isMobile && <div className="h-8 w-1 bg-primary rounded-full" />}
            <h1 className="text-lg md:text-xl font-black uppercase tracking-tighter text-foreground truncate max-w-[150px] md:max-w-none">
@@ -74,7 +74,7 @@ export function DashboardHeader() {
                 <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Search Commands</span>
                 <kbd className="text-[9px] font-mono opacity-40">⌘K</kbd>
              </button>
-             <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/5 rounded-full border-2 border-primary/10 text-[9px] font-black uppercase tracking-[0.25em] text-primary shadow-inner">
+             <div className="flex items-center gap-2 px-4 py-1.5 bg-primary/5 rounded-full border-2 border-primary/10 text-[9px] font-black uppercase tracking-wide text-primary shadow-inner">
                 <Zap className="h-3 w-3" /> System v4.2 Stable
              </div>
           </div>
@@ -113,11 +113,11 @@ export function DashboardHeader() {
               <ChevronDown className="h-3.5 w-3.5 opacity-30" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-72 rounded-[24px] border-2 shadow-2xl p-2 mt-2">
+          <DropdownMenuContent align="end" className="w-72 rounded-2xl border-2 shadow-2xl p-2 mt-2">
             <DropdownMenuLabel className="text-[10px] font-black uppercase opacity-60 px-4 py-3 tracking-widest">Operational Context</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <div className="p-1 space-y-1">
-               <p className="text-[8px] font-black text-muted-foreground uppercase tracking-[0.3em] px-3 mb-2 opacity-40">Switch Strategic Lens</p>
+               <p className="text-[8px] font-black text-muted-foreground uppercase tracking-wide px-3 mb-2 opacity-40">Switch Strategic Lens</p>
                {availableRoles.map((r) => (
                  <DropdownMenuItem key={r} onClick={() => setRole(r)} className="rounded-xl px-4 py-3 cursor-pointer group">
                     <div className="flex items-center gap-3 w-full">
@@ -139,7 +139,7 @@ export function DashboardHeader() {
             </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-               <Link href={PATHS.LOGIN || '/login'} className="text-red-600 font-black uppercase text-[10px] py-4 hover:bg-red-50 tracking-[0.3em] rounded-xl px-4 justify-center flex">TERMINATE SESSION</Link>
+               <Link href={PATHS.LOGIN || '/login'} className="text-red-600 font-black uppercase text-[10px] py-4 hover:bg-red-50 tracking-wide rounded-xl px-4 justify-center flex">TERMINATE SESSION</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

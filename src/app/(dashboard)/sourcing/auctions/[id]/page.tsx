@@ -76,16 +76,16 @@ export default function AuctionBidRoomPage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground animate-pulse">Synchronizing Bid Node...</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Synchronizing Bid Node...</p>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => router.back()} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+          <Button variant="ghost" size="sm" onClick={() => router.back()} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Auctions
           </Button>
           <div className="flex items-center gap-5">
@@ -107,28 +107,28 @@ export default function AuctionBidRoomPage() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* MAIN AUCTION CLOCK & BEST BID */}
-           <Card className="shadow-2xl border-none bg-primary text-white relative overflow-hidden rounded-[40px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125">
+           <Card className="shadow-2xl border-none bg-primary text-white relative overflow-hidden rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125">
                  <Timer className="h-64 w-64 brightness-0 invert" />
               </div>
-              <CardContent className="p-16 relative z-10 flex flex-col items-center text-center space-y-12">
+              <CardContent className="p-16 relative z-10 flex flex-col items-center text-center space-y-8">
                  <div className="space-y-2">
-                    <p className="text-[11px] font-black uppercase tracking-[0.5em] opacity-60">Auction Finality Window</p>
-                    <p className="text-8xl font-black tabular-nums tracking-tighter">{timeLeft}</p>
+                    <p className="text-[11px] font-black uppercase tracking-widest opacity-60">Auction Finality Window</p>
+                    <p className="text-4xl font-black tabular-nums tracking-tighter">{timeLeft}</p>
                  </div>
                  
                  <div className="grid sm:grid-cols-2 gap-20 w-full max-w-2xl">
                     <div className="space-y-1">
                        <p className="text-[10px] font-black uppercase opacity-40 tracking-widest">Current Floor Price</p>
-                       <p className="text-6xl font-black text-emerald-400 tracking-tighter">{formatCurrency(currentBest)}</p>
+                       <p className="text-4xl font-black text-emerald-400 tracking-tighter">{formatCurrency(currentBest)}</p>
                        <p className="text-[8px] font-bold opacity-40 uppercase">USD PER UNIT (FOB)</p>
                     </div>
                     <div className="space-y-1 border-l border-white/10 pl-10">
                        <p className="text-[10px] font-black uppercase opacity-40 tracking-widest">Savings Yield</p>
-                       <p className="text-6xl font-black text-indigo-300 tracking-tighter">11.4%</p>
+                       <p className="text-4xl font-black text-indigo-300 tracking-tighter">11.4%</p>
                        <p className="text-[8px] font-bold opacity-40 uppercase">VS MARKET BASELINE</p>
                     </div>
                  </div>
@@ -144,9 +144,9 @@ export default function AuctionBidRoomPage() {
            </Card>
 
            {/* LIVE BID LOG */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
-                 <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Real-Time Bid Stream</CardTitle>
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
+                 <CardTitle className="text-sm font-black uppercase tracking-wide">Real-Time Bid Stream</CardTitle>
                  <Activity className="h-5 w-5 text-primary opacity-30 animate-pulse" />
               </CardHeader>
               <CardContent className="p-0">
@@ -180,19 +180,19 @@ export default function AuctionBidRoomPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* PARTICIPANT HEATMAP PANEL */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125">
                  <Flame className="h-48 w-48 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Users className="h-5 w-5 text-white" />
                     Bidding Heatmap
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-base font-bold italic leading-relaxed opacity-90">
                     "Auction Oracle: 8 institutional suppliers are active. Competitive pressure is currently peaking in the APAC sector. Suggest extending window if floor drops below $40.00."
                  </p>
@@ -206,15 +206,15 @@ export default function AuctionBidRoomPage() {
                        <span className="text-sm font-black uppercase">4.2 / Min</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
                     ADJUST BIDDING RULES
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-8 rounded-[40px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground">Market Comparison</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">Market Comparison</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
               <div className="space-y-8">
@@ -234,7 +234,7 @@ export default function AuctionBidRoomPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-6 rounded-[40px] border-dashed group hover:border-primary/20 transition-all cursor-pointer">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all cursor-pointer">
               <Lock className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary transition-all duration-500" />
               <div className="space-y-3">
                  <p className="text-sm font-black uppercase tracking-widest text-foreground">Anti-Shill Protocol</p>

@@ -90,7 +90,7 @@ export default function FieldOperationsPage() {
       <div className="flex flex-col gap-6">
         <div className="flex justify-between items-start">
            <div className="space-y-1">
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Terminal: FIELD_OPS_ALPHA</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary">Terminal: FIELD_OPS_ALPHA</p>
               <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground">Field Operations</h2>
            </div>
            <Button variant="outline" size="icon" className="h-12 w-12 rounded-2xl border-2" onClick={fetchData}>
@@ -133,7 +133,7 @@ export default function FieldOperationsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
               >
-                <Card className="shadow-xl border-2 hover:border-primary/40 transition-all rounded-[32px] overflow-hidden bg-background group">
+                <Card className="shadow-xl border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
                    <CardHeader className="bg-muted/10 border-b p-6 flex flex-row items-center justify-between">
                       <div className="flex items-center gap-5">
                          <div className="h-14 w-14 rounded-2xl bg-background border-2 shadow-inner group-hover:scale-110 transition-transform flex items-center justify-center">
@@ -164,11 +164,11 @@ export default function FieldOperationsPage() {
                       </div>
                    </CardContent>
                    <CardFooter className="bg-muted/30 border-t p-6 flex gap-3">
-                      <Button variant="outline" className="flex-1 h-16 font-black uppercase text-[10px] tracking-widest border-2 bg-background rounded-2xl">
+                      <Button variant="outline" className="flex-1 h-12 font-black uppercase text-[10px] tracking-widest border-2 bg-background rounded-2xl">
                          <Camera className="mr-2 h-4 w-4" /> EVIDENCE
                       </Button>
                       <Button 
-                        className="flex-1 h-16 font-black uppercase text-[10px] tracking-widest shadow-2xl bg-emerald-600 hover:bg-emerald-700 rounded-2xl"
+                        className="flex-1 h-12 font-black uppercase text-[10px] tracking-widest shadow-2xl bg-emerald-600 hover:bg-emerald-700 rounded-2xl"
                         onClick={() => handleComplete(task.id)}
                         disabled={completing === task.id}
                       >
@@ -182,12 +182,12 @@ export default function FieldOperationsPage() {
          </AnimatePresence>
 
          {tasks.length === 0 && (
-            <Card className="border-2 border-dashed shadow-none py-32 text-center bg-card/30 rounded-[40px]">
+            <Card className="border-2 border-dashed shadow-none py-32 text-center bg-card/30 rounded-2xl">
                <CardContent className="space-y-6">
-                  <CheckCircle2 className="h-16 w-16 mx-auto text-muted-foreground opacity-20" />
+                  <CheckCircle2 className="h-12 w-16 mx-auto text-muted-foreground opacity-20" />
                   <div className="space-y-1">
                      <h3 className="text-2xl font-black uppercase tracking-tighter">Queue Reconciled</h3>
-                     <p className="text-xs text-muted-foreground font-medium italic px-10">All operational mandates for this tactical sector are complete.</p>
+                     <p className="text-xs text-muted-foreground font-medium italic px-6">All operational mandates for this tactical sector are complete.</p>
                   </div>
                </CardContent>
             </Card>
@@ -195,10 +195,10 @@ export default function FieldOperationsPage() {
       </div>
 
       {/* SYSTEM INTEGRITY BANNER (GROUND) */}
-      <div className="p-8 rounded-[32px] bg-slate-900 text-white relative overflow-hidden shadow-2xl border-2 border-white/5">
+      <div className="p-8 rounded-2xl bg-slate-900 text-white relative overflow-hidden shadow-2xl border-2 border-white/5">
          <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12 scale-150"><Activity className="h-40 w-40 brightness-0 invert" /></div>
          <div className="relative z-10 space-y-4">
-            <h4 className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Edge Integrity Protocol v4.2</h4>
+            <h4 className="text-[9px] font-black uppercase tracking-widest text-primary">Edge Integrity Protocol v4.2</h4>
             <p className="text-sm font-bold leading-relaxed italic opacity-80">
               "Every ground-truth mutation is cryptographically bound to your biometric signature and operational node location."
             </p>

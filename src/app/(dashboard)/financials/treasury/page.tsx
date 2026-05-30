@@ -65,27 +65,27 @@ export default function TreasuryCommandCenter() {
     return (
       <div className="h-full flex flex-col items-center justify-center gap-6 bg-background">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground animate-pulse">Synchronizing Treasury Rails...</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Synchronizing Treasury Rails...</p>
       </div>
     );
   }
 
   return (
-    <main className="space-y-12 pb-24">
+    <main className="space-y-8 pb-24">
       {/* COMMAND HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Authority Node: TREASURY_CORE_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node: TREASURY_CORE_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Treasury <br />Command.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Treasury <br />Command.</h2>
         </div>
         <div className="flex gap-4">
-          <Button variant="outline" className="h-16 px-10 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md">
+          <Button variant="outline" className="h-12 px-6 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md">
             <Download className="mr-3 h-4 w-4" /> Export Ledger
           </Button>
-          <Button className="h-16 px-12 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-3xl hover:scale-[1.02] transition-all">
+          <Button className="h-12 px-6 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md hover:scale-[1.02] transition-all">
             <Plus className="mr-3 h-5 w-5 fill-current" /> Provision Capital
           </Button>
         </div>
@@ -100,9 +100,9 @@ export default function TreasuryCommandCenter() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
           >
-            <Card className="shadow-none border-2 bg-background rounded-[32px] overflow-hidden group hover:border-primary transition-all duration-500">
+            <Card className="shadow-none border-2 bg-background rounded-2xl overflow-hidden group hover:border-primary transition-all duration-500">
                <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 px-8 pt-8">
-                  <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+                  <CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">
                     {kpi.label}
                   </CardTitle>
                   <div className={cn(
@@ -130,19 +130,19 @@ export default function TreasuryCommandCenter() {
       </div>
 
       {/* CASH POSITIONING MATRIX */}
-      <div className="grid gap-10 lg:grid-cols-12">
-        <Card className="lg:col-span-8 shadow-none border-2 bg-background rounded-[48px] overflow-hidden flex flex-col">
-           <CardHeader className="bg-muted/10 border-b p-10 flex flex-row items-center justify-between">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <Card className="lg:col-span-8 shadow-none border-2 bg-background rounded-2xl overflow-hidden flex flex-col">
+           <CardHeader className="bg-muted/10 border-b p-6 flex flex-row items-center justify-between">
               <div className="space-y-1">
                  <CardTitle className="text-xl font-black uppercase tracking-tighter">Institutional Cash Positioning</CardTitle>
                  <CardDescription className="font-medium italic">Multi-currency liquidity depth across jurisdictional platform nodes.</CardDescription>
               </div>
               <Globe className="h-8 w-8 text-primary opacity-20" />
            </CardHeader>
-           <CardContent className="p-10 flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+           <CardContent className="p-6 flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  {wallets.map((wallet) => (
-                    <div key={wallet.id} className="p-8 rounded-[32px] border-2 bg-muted/5 space-y-6 group hover:border-primary/20 transition-all cursor-default relative overflow-hidden">
+                    <div key={wallet.id} className="p-8 rounded-2xl border-2 bg-muted/5 space-y-6 group hover:border-primary/20 transition-all cursor-default relative overflow-hidden">
                        <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity"><Landmark className="h-24 w-24" /></div>
                        <div className="flex items-center justify-between relative z-10">
                           <Badge className="bg-primary text-white text-[10px] font-black uppercase h-6 px-3 border-none shadow-sm">{wallet.currency} Node</Badge>
@@ -164,12 +164,12 @@ export default function TreasuryCommandCenter() {
                     </div>
                  ))}
                  
-                 <div className="bg-muted/30 rounded-[32px] border-2 border-dashed flex items-center justify-center p-12 relative overflow-hidden group">
+                 <div className="bg-muted/30 rounded-2xl border-2 border-dashed flex items-center justify-center p-6 relative overflow-hidden group">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/5 to-transparent opacity-60 group-hover:scale-110 transition-transform duration-1000" />
                     <div className="text-center space-y-6 relative z-10">
-                       <RefreshCw className="h-16 w-16 text-primary mx-auto opacity-20 group-hover:rotate-180 transition-transform duration-1000" />
+                       <RefreshCw className="h-12 w-16 text-primary mx-auto opacity-20 group-hover:rotate-180 transition-transform duration-1000" />
                        <div className="space-y-1">
-                          <p className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground">Federated Sync</p>
+                          <p className="text-xs font-black uppercase tracking-wide text-muted-foreground">Federated Sync</p>
                           <p className="text-sm font-medium italic opacity-60 max-w-xs mx-auto">"Provision secondary currency nodes for cross-border rebalancing."</p>
                        </div>
                        <Button variant="outline" className="rounded-2xl border-2 font-black text-[10px] uppercase h-11 px-8 bg-background">Launch Provisioning Wizard</Button>
@@ -180,18 +180,18 @@ export default function TreasuryCommandCenter() {
         </Card>
 
         {/* FINANCIAL AI ORACLE */}
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Zap className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 p-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 p-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <ShieldCheck className="h-5 w-5 text-emerald-400 animate-pulse" />
                     Treasury Sentinel
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-2xl font-bold italic leading-tight opacity-95 tracking-tighter">
                     "AI Analysis: Strategic rebalancing into the EUR corridor could reduce settlement friction by 12%. Recommend activating the secondary liquidity swap node."
                  </p>
@@ -205,15 +205,15 @@ export default function TreasuryCommandCenter() {
                        <span className="text-lg font-black text-blue-300">99.8%</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     EXECUTE LIQUIDITY SWAP
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-10 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Capital Integrity</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Capital Integrity</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
               <div className="space-y-8">
@@ -236,10 +236,10 @@ export default function TreasuryCommandCenter() {
       </div>
 
       {/* OPERATIONAL LEDGER FEED */}
-      <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[48px]">
-        <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/10 p-10">
+      <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+        <CardHeader className="flex flex-row items-center justify-between border-b bg-muted/10 p-6">
           <div className="space-y-1">
-            <CardTitle className="text-sm font-black uppercase tracking-[0.3em]">Operational Ledger Stream</CardTitle>
+            <CardTitle className="text-sm font-black uppercase tracking-wide">Operational Ledger Stream</CardTitle>
             <CardDescription className="text-xs font-medium">Real-time immutable trace of institutional settlements and capital releases.</CardDescription>
           </div>
           <div className="flex items-center gap-3 px-6 py-2.5 bg-primary/5 rounded-full border-2 border-primary/10 text-[10px] font-black uppercase tracking-widest text-primary shadow-sm">
@@ -251,17 +251,17 @@ export default function TreasuryCommandCenter() {
               <table className="w-full text-left border-collapse">
                  <thead className="bg-muted/30 border-b-2">
                     <tr>
-                       <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Reference / ID</th>
-                       <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Type</th>
-                       <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Amount</th>
-                       <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Timestamp (UTC)</th>
-                       <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">Integrity</th>
+                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Reference / ID</th>
+                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Type</th>
+                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Amount</th>
+                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Timestamp (UTC)</th>
+                       <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">Integrity</th>
                     </tr>
                  </thead>
                  <tbody className="divide-y-2">
                     {logs.map((log) => (
                        <tr key={log.id} className="group hover:bg-primary/[0.01] transition-colors">
-                          <td className="p-10">
+                          <td className="p-6">
                              <div className="flex items-center gap-5">
                                 <div className="p-3 rounded-xl bg-muted border-2 shadow-inner group-hover:scale-105 transition-transform"><Lock className="h-5 w-5 text-primary opacity-40" /></div>
                                 <div className="space-y-1">
@@ -270,19 +270,19 @@ export default function TreasuryCommandCenter() {
                                 </div>
                              </div>
                           </td>
-                          <td className="p-10">
+                          <td className="p-6">
                              <Badge variant="outline" className={cn(
                                 "text-[9px] font-black h-6 uppercase px-3 border-2 rounded-full",
                                 log.type === 'CREDIT' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-red-50 text-red-700 border-red-200'
                              )}>{log.type}</Badge>
                           </td>
-                          <td className="p-10 font-black text-lg tabular-nums">
+                          <td className="p-6 font-black text-lg tabular-nums">
                              {formatCurrency(log.amount || 0, log.currency)}
                           </td>
-                          <td className="p-10 text-xs font-medium text-muted-foreground">
+                          <td className="p-6 text-xs font-medium text-muted-foreground">
                              {new Date(log.timestamp ?? Date.now()).toLocaleTimeString()}
                           </td>
-                          <td className="p-10 text-right">
+                          <td className="p-6 text-right">
                              <ShieldCheck className="h-5 w-5 text-emerald-600 inline-block opacity-40" />
                           </td>
                        </tr>

@@ -3,6 +3,7 @@
  * @description Authoritative service for Institutional Master Data and Operational Registries.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 
 export interface PortMaster {
   id: string;
@@ -36,7 +37,7 @@ export const masterDataService = {
    */
   async getPorts(): Promise<PortMaster[]> {
     const res = await apiClient.get<PortMaster[]>('/ports');
-    return res.data || [];
+    return toList(res);
   },
 
   /**
@@ -44,7 +45,7 @@ export const masterDataService = {
    */
   async getIncoterms(): Promise<IncotermMaster[]> {
     const res = await apiClient.get<IncotermMaster[]>('/incoterms');
-    return res.data || [];
+    return toList(res);
   },
 
   /**

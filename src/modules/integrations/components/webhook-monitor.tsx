@@ -26,8 +26,8 @@ import { format } from 'date-fns';
 
 export function WebhookMonitor({ logs }: { logs: IntegrationAuditLog[] }) {
   return (
-    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px] animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
         <div className="space-y-1">
           <CardTitle className="text-xl font-black uppercase tracking-tighter leading-none">Interoperability Ledger</CardTitle>
           <CardDescription className="text-xs font-medium italic mt-2">Immutable record of cross-platform handshakes and event propagation finality.</CardDescription>

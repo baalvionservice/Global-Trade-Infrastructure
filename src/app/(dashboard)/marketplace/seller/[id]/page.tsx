@@ -48,14 +48,14 @@ export default function SellerStorefrontPage() {
   const trust = seller?.trustScore || 820;
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       {/* Header */}
-      <Card className="border-2 rounded-[40px] bg-background overflow-hidden">
+      <Card className="border-2 rounded-2xl bg-background overflow-hidden">
         <div className="h-32 bg-gradient-to-r from-primary/15 to-muted" />
-        <CardContent className="p-10 -mt-16">
+        <CardContent className="p-6 -mt-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="flex items-end gap-6">
-              <div className="h-28 w-28 rounded-[32px] bg-background border-4 shadow-xl flex items-center justify-center"><Store className="h-12 w-12 text-primary opacity-60" /></div>
+              <div className="h-28 w-28 rounded-2xl bg-background border-4 shadow-xl flex items-center justify-center"><Store className="h-12 w-12 text-primary opacity-60" /></div>
               <div className="space-y-2 pb-1">
                 <div className="flex items-center gap-3">
                   <h1 className="text-3xl font-black uppercase tracking-tighter">{name}</h1>
@@ -84,14 +84,14 @@ export default function SellerStorefrontPage() {
         </CardContent>
       </Card>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* Listings */}
         <div className="lg:col-span-8 space-y-6">
-          <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground">Active Listings</h2>
+          <h2 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">Active Listings</h2>
           <div className="grid sm:grid-cols-2 gap-6">
             {listings.map((l, i) => (
               <motion.div key={l.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
-                <Card className="border-2 rounded-[28px] bg-background hover:border-primary/50 transition-all group cursor-pointer h-full" onClick={() => router.push(`/marketplace/listing/${l.id}`)}>
+                <Card className="border-2 rounded-2xl bg-background hover:border-primary/50 transition-all group cursor-pointer h-full" onClick={() => router.push(`/marketplace/listing/${l.id}`)}>
                   <CardContent className="p-6 space-y-4">
                     <div className="aspect-video rounded-2xl bg-muted border-2 flex items-center justify-center"><Boxes className="h-10 w-10 text-primary opacity-20" /></div>
                     <div className="space-y-1">
@@ -111,10 +111,10 @@ export default function SellerStorefrontPage() {
 
         {/* Reviews */}
         <div className="lg:col-span-4 space-y-6">
-          <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground">Verified Reviews</h2>
+          <h2 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">Verified Reviews</h2>
           <div className="space-y-4">
             {REVIEWS.map((r) => (
-              <Card key={r.buyer} className="border-2 rounded-[24px] bg-background">
+              <Card key={r.buyer} className="border-2 rounded-2xl bg-background">
                 <CardContent className="p-6 space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black uppercase tracking-tight">{r.buyer}</span>

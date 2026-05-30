@@ -4,6 +4,7 @@
  * Orchestrates multi-priority alerts and cross-channel signaling.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { eventBus, EventType } from '@/orchestration/event-bus';
 import { logger } from '@/services/observability-service';
 
@@ -87,7 +88,7 @@ class NotificationService {
 
   async getNotifications(companyId: string): Promise<PlatformNotification[]> {
     const res = await apiClient.get<PlatformNotification[]>('/notifications', { companyId });
-    return res.data || [];
+    return toList(res);
   }
 
   async markAsRead(id: string) {

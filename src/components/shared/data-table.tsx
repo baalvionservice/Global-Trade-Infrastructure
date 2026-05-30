@@ -73,7 +73,7 @@ export function DataTable<T extends { id: string }>({
 
       <div className={cn(
         "border-2 bg-card shadow-lvl-2 overflow-hidden transition-all duration-300",
-        isCompact ? "rounded-2xl" : "rounded-[32px]"
+        isCompact ? "rounded-2xl" : "rounded-2xl"
       )}>
         <Table>
           <TableHeader className="bg-muted/40">
@@ -82,8 +82,8 @@ export function DataTable<T extends { id: string }>({
                 <TableHead
                   key={colIdx}
                   className={cn(
-                    "text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80",
-                    isCompact ? "py-4 px-6" : "py-8 px-10",
+                    "text-[10px] font-black uppercase tracking-wide text-muted-foreground/80",
+                    isCompact ? "py-4 px-6" : "py-8 px-6",
                     col.className
                   )}
                 >
@@ -99,7 +99,7 @@ export function DataTable<T extends { id: string }>({
                   <TableCell colSpan={columns.length} className="h-96 text-center">
                     <div className="flex flex-col items-center justify-center gap-6">
                       <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-                      <p className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.4em] animate-pulse">Syncing Operational Ledger...</p>
+                      <p className="text-[11px] font-black text-muted-foreground uppercase tracking-widest animate-pulse">Syncing Operational Ledger...</p>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -111,10 +111,10 @@ export function DataTable<T extends { id: string }>({
                       animate={{ opacity: 1, scale: 1 }}
                       className="flex flex-col items-center justify-center gap-8 py-16"
                     >
-                      <div className="p-12 rounded-[32px] bg-muted/30 border-4 border-dashed border-primary/5">
-                         <Inbox className="h-20 w-20 text-muted-foreground opacity-10" />
+                      <div className="p-6 rounded-2xl bg-muted/30 border-4 border-dashed border-primary/5">
+                         <Inbox className="h-14 w-20 text-muted-foreground opacity-10" />
                       </div>
-                      <div className="space-y-2 px-10">
+                      <div className="space-y-2 px-6">
                         <p className="text-2xl font-black uppercase tracking-tighter text-foreground">{emptyMessage}</p>
                         <p className="text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed font-medium italic opacity-50">"Institutional context is required to reconstruct this operational view."</p>
                       </div>
@@ -137,7 +137,7 @@ export function DataTable<T extends { id: string }>({
                         key={colIdx}
                         className={cn(
                           "text-sm font-medium",
-                          isCompact ? "py-2 px-6" : "py-6 px-10",
+                          isCompact ? "py-2 px-6" : "py-6 px-6",
                           col.className
                         )}
                       >

@@ -38,14 +38,35 @@ class TreasuryService {
   }
 
   /**
-   * Retrieves high-fidelity treasury intelligence pulse.
+   * Real treasury intelligence pulse, computed from live wallets, settlements, the invoice-financing
+   * book, and measured platform telemetry (/system/pulse) — no hardcoded figures.
    */
   async getTreasuryKPIs(): Promise<TreasuryKPI[]> {
+    const num = (v: any) => Number(v) || 0;
+    const [walletsRes, settlementsRes, finRes, pulseRes] = await Promise.all([
+      apiClient.get<any[]>('/wallets').catch(() => null),
+      apiClient.get<any[]>('/settlements').catch(() => null),
+      apiClient.get<any[]>('/invoice_financing').catch(() => null),
+      apiClient.get<any>('/system/pulse').catch(() => null),
+    ]);
+    const wallets = toList<any>(walletsRes);
+    const settlements = toList<any>(settlementsRes);
+    const financing = toList<any>(finRes);
+    const pulse = (pulseRes as any)?.data ?? pulseRes ?? null;
+
+    const compact = (n: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', notation: 'compact', maximumFractionDigits: 2 }).format(n);
+    const totalLiquidity = wallets.reduce((s, w) => s + num(w.balance), 0);
+    const fxExposure = wallets.filter((w) => String(w.currency || 'USD').toUpperCase() !== 'USD').reduce((s, w) => s + num(w.balance), 0);
+    const settledOk = settlements.filter((x) => ['settled', 'completed', 'released'].includes(String(x.status || '').toLowerCase())).length;
+    const finalityLatency = pulse ? `${num(pulse.finalityDelay)}ms` : '—';
+    const rates = financing.map((f) => num(f.feeRate)).filter((r) => r > 0);
+    const avgYield = rates.length ? Math.round((rates.reduce((s, r) => s + r, 0) / rates.length) * 1000) / 10 : 0;
+
     return [
-      { label: 'Network Depth', value: '$1.84B', delta: '+14.2%', status: 'optimal', category: 'LIQUIDITY' },
-      { label: 'Settlement Velocity', value: '12.4s', delta: '-0.2s', status: 'optimal', category: 'SETTLEMENT' },
-      { label: 'FX Exposure', value: '$42.8M', delta: '+2.4%', status: 'warning', category: 'EXPOSURE' },
-      { label: 'Yield Variance', value: '4.2%', delta: 'Stable', status: 'optimal', category: 'YIELD' }
+      { label: 'Network Depth', value: compact(totalLiquidity), delta: `${wallets.length} nodes`, status: 'optimal', category: 'LIQUIDITY' },
+      { label: 'Settlement Velocity', value: finalityLatency, delta: `${settledOk} settled`, status: 'optimal', category: 'SETTLEMENT' },
+      { label: 'FX Exposure', value: compact(fxExposure), delta: `${wallets.filter((w) => String(w.currency || 'USD').toUpperCase() !== 'USD').length} corridors`, status: fxExposure > totalLiquidity * 0.5 ? 'warning' : 'optimal', category: 'EXPOSURE' },
+      { label: 'Avg Finance Yield', value: `${avgYield}%`, delta: `${financing.length} facilities`, status: 'optimal', category: 'YIELD' },
     ];
   }
 

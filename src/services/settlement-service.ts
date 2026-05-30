@@ -4,6 +4,7 @@
  * Orchestrates the final release of funds from Escrow to Seller wallets.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { recordTransaction } from './ledger-service';
 import { workflowEngine } from '@/orchestration/workflow-engine';
 import { logger, metricsService } from './observability-service';
@@ -82,5 +83,5 @@ export async function triggerSettlement(escrowId: string, actorId: string): Prom
 export async function getSettlements(companyId?: string): Promise<Settlement[]> {
   const params = companyId ? { sellerId: companyId } : {};
   const res = await apiClient.get<Settlement[]>('/settlements', params);
-  return res.data || [];
+  return toList(res);
 }

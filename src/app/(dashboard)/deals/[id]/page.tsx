@@ -131,8 +131,8 @@ export default function DealRoomPage() {
   return (
     <main className="flex-1 flex flex-col h-[calc(100vh-4rem)] bg-muted/20 overflow-hidden">
       {/* COMMAND HEADER */}
-      <div className="h-24 border-b bg-background px-10 flex items-center justify-between shrink-0 shadow-md z-20">
-        <div className="flex items-center gap-10">
+      <div className="h-24 border-b bg-background px-6 flex items-center justify-between shrink-0 shadow-md z-20">
+        <div className="flex items-center gap-6">
           <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl hover:bg-muted/50 border-2" onClick={() => router.push(PATHS.DEALS)}>
             <ChevronLeft className="h-6 w-6" />
           </Button>
@@ -173,7 +173,7 @@ export default function DealRoomPage() {
             disabled={isFinalized || finalizing}
             onClick={handleFinalize}
             className={cn(
-               "font-black text-[11px] uppercase tracking-[0.3em] h-14 px-10 shadow-2xl rounded-2xl transition-all",
+               "font-black text-[11px] uppercase tracking-wide h-14 px-6 shadow-2xl rounded-2xl transition-all",
                !isFinalized ? "bg-primary hover:scale-[1.02] shadow-primary/20" : "bg-emerald-600 border-none"
             )}
           >
@@ -186,7 +186,7 @@ export default function DealRoomPage() {
       <div className="flex-1 flex overflow-hidden">
         {/* NEGOTIATION WORKSPACE */}
         <div className="flex-1 flex flex-col min-w-0 bg-background/50 border-r relative shadow-inner">
-          <div className="absolute top-0 left-0 right-0 z-10 px-10 py-3 flex justify-center pointer-events-none">
+          <div className="absolute top-0 left-0 right-0 z-10 px-6 py-3 flex justify-center pointer-events-none">
              <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="px-5 py-1.5 bg-background/80 backdrop-blur-md rounded-full border-2 shadow-2xl flex items-center gap-3 text-[9px] font-black text-muted-foreground uppercase tracking-widest border-indigo-100">
                 <Scale className="h-3 w-3 text-indigo-500" /> 
                 Authority Gating: ACTIVE

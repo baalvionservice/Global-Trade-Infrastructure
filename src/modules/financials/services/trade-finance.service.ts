@@ -3,6 +3,7 @@
  * @description Orchestrates the lifecycle of bank-grade trade finance instruments (LCs, SCF, Factoring).
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from '@/services/observability-service';
 import { eventBus } from '@/orchestration/event-bus';
 import { TradeFinanceInstrument, InstrumentType } from '../types/financial.types';
@@ -53,7 +54,7 @@ class TradeFinanceService {
       beneficiaryId: companyId,
       status: 'ISSUED'
     });
-    return res.data || [];
+    return toList(res);
   }
 
   /**

@@ -25,7 +25,7 @@ export function DashboardSidebar({ collapsed }: SidebarProps) {
       collapsed ? "w-20" : "w-full"
     )}>
       <div className={cn(
-        "flex h-20 items-center border-b transition-all",
+        "flex h-14 items-center border-b transition-all",
         collapsed ? "px-0 justify-center" : "px-6 lg:px-8"
       )}>
         <Link href={PATHS.DASHBOARD} className="flex items-center gap-3">

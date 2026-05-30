@@ -75,10 +75,10 @@ export default function CustomsCommandHub() {
   ];
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Jurisdictional Gatekeeper</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Jurisdictional Gatekeeper</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Customs Command.</h2>
           <p className="text-muted-foreground font-medium italic">Authoritative oversight of national trade rules, tariff audits, and regulatory finality.</p>
         </div>
@@ -97,7 +97,7 @@ export default function CustomsCommandHub() {
         {kpis.map((stat, i) => (
           <Card key={stat.label} className="shadow-lg border-2 border-primary/5 bg-background rounded-3xl group hover:border-primary/20 transition-all">
              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 px-8 pt-8">
-                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{stat.label}</CardTitle>
+                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{stat.label}</CardTitle>
                 <stat.icon className={cn("h-4 w-4", stat.color)} />
              </CardHeader>
              <CardContent className="px-8 pb-8">
@@ -107,8 +107,8 @@ export default function CustomsCommandHub() {
         ))}
       </div>
 
-      <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-         <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+      <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+         <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
             <div className="space-y-1">
                <CardTitle className="text-xl font-black uppercase tracking-tighter">Jurisdictional Clearance Ledger</CardTitle>
                <CardDescription className="text-xs font-medium">Authoritative record of jurisdictional audits and state transitions.</CardDescription>

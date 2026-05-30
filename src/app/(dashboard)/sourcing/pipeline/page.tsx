@@ -55,20 +55,20 @@ export default function SourcingPipelinePage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
            <div className="flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Authority Node: PROCUREMENT_OPS_ALPHA</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node: PROCUREMENT_OPS_ALPHA</p>
            </div>
-           <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Sourcing <br />Pipeline.</h2>
+           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Sourcing <br />Pipeline.</h2>
         </div>
         <div className="flex gap-4">
-           <Button variant="outline" className="h-16 px-10 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md">
+           <Button variant="outline" className="h-12 px-6 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md">
               <History className="mr-3 h-4 w-4" /> Pipeline Audit
            </Button>
-           <Button className="h-16 px-12 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-3xl hover:scale-[1.02] transition-all">
+           <Button className="h-12 px-6 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md hover:scale-[1.02] transition-all">
               <Plus className="mr-3 h-4 w-4" /> Initiate Sourcing
            </Button>
         </div>
@@ -84,7 +84,7 @@ export default function SourcingPipelinePage() {
                 <div className="flex items-center justify-between px-4">
                    <div className="flex items-center gap-3">
                       <div className={cn("h-1.5 w-1.5 rounded-full shadow-[0_0_8px_currentColor]", stage.color.replace('bg-', 'text-'))} />
-                      <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-foreground/80">{stage.label}</h3>
+                      <h3 className="text-[11px] font-black uppercase tracking-wide text-foreground/80">{stage.label}</h3>
                    </div>
                    <Badge variant="outline" className="text-[9px] font-black h-5 border-2 bg-background">{items.length}</Badge>
                 </div>
@@ -99,7 +99,7 @@ export default function SourcingPipelinePage() {
                           exit={{ opacity: 0, scale: 0.95 }}
                         >
                            <Card 
-                             className="shadow-xl border-2 border-primary/5 hover:border-primary/40 hover:shadow-2xl transition-all group cursor-pointer bg-background rounded-[32px] overflow-hidden"
+                             className="shadow-xl border-2 border-primary/5 hover:border-primary/40 hover:shadow-2xl transition-all group cursor-pointer bg-background rounded-2xl overflow-hidden"
                              onClick={() => router.push(`${PATHS.BUYER_RFQS}/${rfq.id}`)}
                            >
                               <CardContent className="p-8 space-y-6">
@@ -146,7 +146,7 @@ export default function SourcingPipelinePage() {
                         </motion.div>
                       ))}
                       {items.length === 0 && (
-                        <div className="h-40 rounded-[32px] border-2 border-dashed border-primary/5 flex items-center justify-center">
+                        <div className="h-40 rounded-2xl border-2 border-dashed border-primary/5 flex items-center justify-center">
                            <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-20">Queue Empty</p>
                         </div>
                       )}
@@ -158,14 +158,14 @@ export default function SourcingPipelinePage() {
       </div>
 
       {/* PIPELINE FOOTER INTELLIGENCE */}
-      <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
+      <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <GanttChartSquare className="h-64 w-64 brightness-0 invert" />
          </div>
          <CardContent className="p-16 relative z-10 grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
-               <h4 className="text-[10px] font-black uppercase tracking-[0.5em] opacity-60">Sourcing Efficiency Matrix</h4>
-               <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Autonomous <br />Throughput.</h3>
+               <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Sourcing Efficiency Matrix</h4>
+               <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Autonomous <br />Throughput.</h3>
                <p className="text-xl font-medium leading-relaxed italic opacity-80 max-w-xl">
                  "Baalvion Pipeline Orchestration reduces procurement friction by 14.2% through deterministic stage-gating and real-time counterparty synchronization."
                </p>
@@ -177,7 +177,7 @@ export default function SourcingPipelinePage() {
                  { label: 'Network Depth', val: '14k Nodes', icon: LayoutGrid, color: 'text-blue-400' },
                  { label: 'Risk Factor', val: 'Minimal', icon: TrendingUp, color: 'text-indigo-400' }
                ].map(stat => (
-                  <div key={stat.label} className="p-8 rounded-[32px] bg-white/10 border border-white/10 backdrop-blur-md space-y-4">
+                  <div key={stat.label} className="p-8 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md space-y-4">
                      <stat.icon className={cn("h-6 w-6", stat.color)} />
                      <div className="space-y-1">
                         <p className="text-[10px] font-black uppercase tracking-widest opacity-60">{stat.label}</p>

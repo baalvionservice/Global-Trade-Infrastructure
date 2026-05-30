@@ -3,6 +3,7 @@
  * @description Service for managing sovereign trade intelligence and jurisdictional compliance metadata.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 
 export interface RegulatoryRule {
   id: string;
@@ -19,7 +20,7 @@ export const countryIntelligenceService = {
    */
   async getRulesByCountry(countryId: string): Promise<RegulatoryRule[]> {
     const res = await apiClient.get<RegulatoryRule[]>('/regulatory_rules', { countryId });
-    return res.data || [];
+    return toList(res);
   },
 
   /**

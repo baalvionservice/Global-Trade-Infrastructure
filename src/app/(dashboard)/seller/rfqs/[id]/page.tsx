@@ -44,32 +44,32 @@ export default function SellerRFQDetailPage() {
       <div className="flex h-[80vh] flex-col items-center justify-center p-8 text-center">
         <h2 className="text-3xl font-black uppercase tracking-tighter">Opportunity Not Found</h2>
         <p className="text-muted-foreground mb-10 font-medium italic">This request may have been awarded or restricted by platform governance.</p>
-        <Button onClick={() => router.push('/seller/rfqs')} className="h-14 px-12 font-black uppercase tracking-widest shadow-xl">Return to Discovery</Button>
+        <Button onClick={() => router.push('/seller/rfqs')} className="h-14 px-6 font-black uppercase tracking-widest shadow-xl">Return to Discovery</Button>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="space-y-6">
         <Button 
           variant="ghost" 
           size="sm" 
-          className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary transition-all"
+          className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary transition-all"
           onClick={() => router.push('/seller/rfqs')}
         >
           <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to discovery hub
         </Button>
         
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-10">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
            <div className="space-y-4">
               <div className="flex items-center gap-4">
-                 <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Procurement Brief</p>
+                 <p className="text-[10px] font-black uppercase tracking-widest text-primary">Procurement Brief</p>
                  <Badge variant="outline" className="text-[9px] font-black px-2 py-0.5 border-2 bg-primary/5 text-primary border-primary/10">
                    ID: {rfq.rfq_id || rfq.id}
                  </Badge>
               </div>
-              <h1 className="text-5xl font-black tracking-tight text-foreground uppercase tracking-tighter leading-[0.9] max-w-3xl">
+              <h1 className="text-4xl font-black tracking-tight text-foreground uppercase tracking-tighter leading-[0.9] max-w-3xl">
                 {rfq.title || rfq.productName}
               </h1>
               <div className="flex items-center gap-8 pt-2">
@@ -91,21 +91,21 @@ export default function SellerRFQDetailPage() {
               <Button variant="outline" className="font-black border-2 bg-background h-14 px-8 uppercase tracking-widest shadow-md">
                  <Activity className="mr-2 h-4 w-4" /> Market Data
               </Button>
-              <Button className="font-black shadow-2xl h-14 px-10 uppercase tracking-widest hover:scale-105 transition-transform bg-primary">
+              <Button className="font-black shadow-2xl h-14 px-6 uppercase tracking-widest hover:scale-105 transition-transform bg-primary">
                  <Zap className="mr-2 h-5 w-5 fill-current" /> Express Quote
               </Button>
            </div>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2 space-y-6">
           {/* CRITICAL KPI ROW */}
           <div className="grid sm:grid-cols-3 gap-6">
              <Card className="shadow-lg border-2 bg-background relative overflow-hidden group hover:border-primary transition-all">
                 <div className="absolute top-0 right-0 p-3 opacity-[0.03] group-hover:opacity-10 transition-opacity"><Box className="h-10 w-10" /></div>
                 <CardContent className="p-8 space-y-3">
-                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Required Volume</p>
+                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-wide">Required Volume</p>
                    <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-black tracking-tighter">{(rfq.quantity?.value || rfq.quantity || 0).toLocaleString()}</span>
                       <span className="text-xs font-black text-muted-foreground uppercase pb-1 tracking-widest">{rfq.quantity?.unit || rfq.unit || 'Units'}</span>
@@ -115,7 +115,7 @@ export default function SellerRFQDetailPage() {
              <Card className="shadow-lg border-2 bg-background relative overflow-hidden group hover:border-primary transition-all">
                 <div className="absolute top-0 right-0 p-3 opacity-[0.03] group-hover:opacity-10 transition-opacity"><TrendingUp className="h-10 w-10" /></div>
                 <CardContent className="p-8 space-y-3">
-                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Target Unit Price</p>
+                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-wide">Target Unit Price</p>
                    <div className="flex items-baseline gap-2">
                       <span className="text-xs font-black text-muted-foreground uppercase pb-1">{rfq.pricing?.currency || rfq.currency || 'USD'}</span>
                       <span className="text-4xl font-black text-primary tracking-tighter">{(rfq.pricing?.target_price || rfq.targetPrice || 0).toLocaleString()}</span>
@@ -125,7 +125,7 @@ export default function SellerRFQDetailPage() {
              <Card className="shadow-lg border-2 bg-background relative overflow-hidden group hover:border-primary transition-all">
                 <div className="absolute top-0 right-0 p-3 opacity-[0.03] group-hover:opacity-10 transition-opacity"><Calendar className="h-10 w-10" /></div>
                 <CardContent className="p-8 space-y-3">
-                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Deadline (UTC)</p>
+                   <p className="text-[10px] font-black text-muted-foreground uppercase tracking-wide">Deadline (UTC)</p>
                    <div className="flex items-baseline gap-3">
                       <span className="text-2xl font-black tracking-tighter uppercase">{format(new Date(rfq.timeline?.deadline || rfq.createdAt), "MMM dd")}</span>
                       <Badge className="bg-orange-600 text-white text-[8px] font-black uppercase tracking-tighter px-2 h-5 border-none shadow-sm">{rfq.timeline?.urgency || 'Normal'}</Badge>
@@ -135,15 +135,15 @@ export default function SellerRFQDetailPage() {
           </div>
 
           <Card className="shadow-xl border-2 bg-background">
-            <CardHeader className="border-b bg-muted/10 py-8 px-10">
-              <CardTitle className="text-sm font-black uppercase tracking-[0.3em] flex items-center gap-3">
+            <CardHeader className="border-b bg-muted/10 py-8 px-6">
+              <CardTitle className="text-sm font-black uppercase tracking-wide flex items-center gap-3">
                  <Info className="h-5 w-5 text-primary" />
                  Institutional Procurement Mandate
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-10 space-y-12">
+            <CardContent className="p-6 space-y-8">
                <div className="space-y-6">
-                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">Strategic Requirements</h4>
+                  <h4 className="text-[11px] font-black uppercase tracking-wide text-muted-foreground">Strategic Requirements</h4>
                   <p className="text-lg font-medium leading-relaxed italic opacity-80 border-l-4 border-primary/20 pl-8">
                     "Request for high-fidelity {rfq.productName} matching {rfq.category} sector standards. Quality Score threshold set to {rfq.flags?.quality_score || 90}% finality. Documentation dossier must include verified Certificate of Origin and ESG compliance report."
                   </p>
@@ -151,7 +151,7 @@ export default function SellerRFQDetailPage() {
 
                <div className="grid sm:grid-cols-2 gap-16 pt-6">
                   <div className="space-y-8">
-                     <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground border-b-2 pb-4">Logistics Architecture</h4>
+                     <h4 className="text-[11px] font-black uppercase tracking-wide text-muted-foreground border-b-2 pb-4">Logistics Architecture</h4>
                      <div className="space-y-6">
                         <div className="flex gap-5">
                            <div className="h-12 w-12 rounded-2xl bg-muted flex items-center justify-center border-2 shadow-inner shrink-0">
@@ -175,7 +175,7 @@ export default function SellerRFQDetailPage() {
                   </div>
 
                   <div className="space-y-8">
-                     <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground border-b-2 pb-4">Mandatory Compliance</h4>
+                     <h4 className="text-[11px] font-black uppercase tracking-wide text-muted-foreground border-b-2 pb-4">Mandatory Compliance</h4>
                      <div className="flex flex-wrap gap-3">
                         {(rfq.compliance?.certifications || ['ISO 9001', 'ESG-V']).map(cert => (
                            <div key={cert} className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl border-2 bg-muted/20 group hover:border-primary/40 transition-all cursor-default">
@@ -190,20 +190,20 @@ export default function SellerRFQDetailPage() {
           </Card>
         </div>
 
-        <div className="space-y-10">
+        <div className="space-y-6">
           <QuoteForm rfqId={rfq.id} />
           
           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group">
-             <div className="absolute top-0 right-0 p-10 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+             <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                 <TrendingUp className="h-40 w-40 brightness-0 invert" />
              </div>
              <CardHeader className="pb-4 relative border-b border-white/10 px-8 py-8">
-                <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] opacity-80 flex items-center gap-3">
+                <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-3">
                    <Activity className="h-5 w-5" />
                    Market Intelligence
                 </CardTitle>
              </CardHeader>
-             <CardContent className="p-10 relative space-y-10">
+             <CardContent className="p-6 relative space-y-6">
                 <p className="text-sm font-bold leading-relaxed opacity-90 italic">
                    "Demand for {rfq.productName} in the {rfq.buyer?.region || 'Active'} corridor is currently trending +14% WoW. Bids within 5% of target price have a 92% conversion success rate for this institution."
                 </p>
@@ -217,7 +217,7 @@ export default function SellerRFQDetailPage() {
                        <span className="text-xl font-black text-green-300 tracking-tighter">92%</span>
                     </div>
                 </div>
-                <div className="pt-4 flex items-center justify-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] opacity-40">
+                <div className="pt-4 flex items-center justify-center gap-2 text-[9px] font-black uppercase tracking-wide opacity-40">
                    <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
                    Model Accuracy: 98.4%
                 </div>
@@ -225,7 +225,7 @@ export default function SellerRFQDetailPage() {
           </Card>
 
           <Card className="shadow-lg border-2 border-dashed bg-muted/10">
-             <CardContent className="p-10 text-center space-y-5">
+             <CardContent className="p-6 text-center space-y-5">
                 <Info className="h-10 w-10 mx-auto text-muted-foreground opacity-30" />
                 <div className="space-y-2">
                    <p className="text-xs font-black uppercase tracking-widest">Pricing Strategy Support</p>

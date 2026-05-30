@@ -78,15 +78,15 @@ export default function InteroperabilityHubPage() {
   }
 
   return (
-    <main className="space-y-12 pb-24">
+    <main className="space-y-8 pb-24">
       {/* COMMAND HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-8">
         <div className="space-y-4">
            <div className="flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Authority Node: FED_GATEWAY_ALPHA</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node: FED_GATEWAY_ALPHA</p>
            </div>
-           <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Interoperability <br />Command.</h2>
+           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Interoperability <br />Command.</h2>
            <p className="text-muted-foreground font-medium italic text-lg max-w-2xl">"Authoritative planetary oversight of institutional connectors, ERP federation, and banking interoperability."</p>
         </div>
         <div className="flex gap-4">
@@ -94,7 +94,7 @@ export default function InteroperabilityHubPage() {
               <Lock className="h-4 w-4" />
               E2E Signature: VERIFIED
            </div>
-           <Button className="h-16 px-12 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-3xl hover:scale-[1.02] transition-all">
+           <Button className="h-12 px-6 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md hover:scale-[1.02] transition-all">
               <Plus className="mr-3 h-5 w-5 fill-current" /> Provision Connector Node
            </Button>
         </div>
@@ -109,9 +109,9 @@ export default function InteroperabilityHubPage() {
           { label: 'Provisioned Nodes', val: metrics.activeConnectors, sub: 'Institutional Clusters', icon: Cpu, color: 'text-primary' },
         ].map((kpi, i) => (
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-             <Card className="shadow-none border-2 border-primary/5 bg-background rounded-[32px] overflow-hidden group hover:border-primary/20 transition-all">
+             <Card className="shadow-none border-2 border-primary/5 bg-background rounded-2xl overflow-hidden group hover:border-primary/20 transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 p-8 space-y-0">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.3em]">{kpi.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{kpi.label}</CardTitle>
                   <kpi.icon className={cn("h-5 w-5", kpi.color)} />
                 </CardHeader>
                 <CardContent className="px-8 pb-8 pt-0">
@@ -123,14 +123,14 @@ export default function InteroperabilityHubPage() {
         ))}
       </div>
 
-      <Tabs defaultValue="registry" className="space-y-12">
-        <TabsList className="bg-background border-2 p-1.5 gap-1.5 h-16 rounded-[24px] shadow-sm w-fit">
-          <TabsTrigger value="registry" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-10 rounded-xl tracking-widest transition-all">Connector Registry</TabsTrigger>
-          <TabsTrigger value="ledger" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-10 rounded-xl tracking-widest transition-all">Exchange Ledger</TabsTrigger>
-          <TabsTrigger value="governance" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-10 rounded-xl tracking-widest transition-all">Policy Runtime</TabsTrigger>
+      <Tabs defaultValue="registry" className="space-y-8">
+        <TabsList className="bg-background border-2 p-1.5 gap-1.5 h-12 rounded-2xl shadow-sm w-fit">
+          <TabsTrigger value="registry" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-6 rounded-xl tracking-widest transition-all">Connector Registry</TabsTrigger>
+          <TabsTrigger value="ledger" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-6 rounded-xl tracking-widest transition-all">Exchange Ledger</TabsTrigger>
+          <TabsTrigger value="governance" className="data-[state=active]:bg-primary data-[state=active]:text-white font-black text-[10px] uppercase h-full px-6 rounded-xl tracking-widest transition-all">Policy Runtime</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="registry" className="space-y-10">
+        <TabsContent value="registry" className="space-y-6">
            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <AnimatePresence>
                  {connectors.map((node, i) => (
@@ -138,7 +138,7 @@ export default function InteroperabilityHubPage() {
                  ))}
               </AnimatePresence>
               
-              <div className="bg-muted/30 rounded-[40px] border-2 border-dashed border-primary/10 flex flex-col items-center justify-center p-12 text-center space-y-6 group hover:border-primary/40 transition-all cursor-pointer">
+              <div className="bg-muted/30 rounded-2xl border-2 border-dashed border-primary/10 flex flex-col items-center justify-center p-6 text-center space-y-6 group hover:border-primary/40 transition-all cursor-pointer">
                  <div className="p-6 rounded-full bg-background border-4 border-dashed border-primary/5 group-hover:scale-110 transition-transform duration-700">
                     <Share2 className="h-12 w-12 text-primary opacity-20" />
                  </div>
@@ -158,44 +158,44 @@ export default function InteroperabilityHubPage() {
         </TabsContent>
 
         <TabsContent value="governance">
-           <div className="grid gap-12 lg:grid-cols-2">
-              <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
+           <div className="grid gap-6 lg:grid-cols-2">
+              <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
                  <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                     <Workflow className="h-80 w-80 brightness-0 invert" />
                  </div>
-                 <CardHeader className="pb-6 border-b border-white/10 relative p-12">
-                    <CardTitle className="text-[11px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-6 text-white">
+                 <CardHeader className="pb-6 border-b border-white/10 relative p-6">
+                    <CardTitle className="text-[11px] font-black uppercase tracking-widest opacity-80 flex items-center gap-6 text-white">
                        <Zap className="h-6 w-6 text-yellow-400 animate-pulse" />
                        Interoperability Oracle
                     </CardTitle>
                  </CardHeader>
-                 <CardContent className="p-12 relative space-y-12">
+                 <CardContent className="p-6 relative space-y-8">
                     <p className="text-3xl font-bold italic leading-[1.1] opacity-95 tracking-tighter">
                        "Gateway Insight: Systemic latency spike detected in the Mumbai banking corridor. Recommending autonomous routing rebalancing to the Singapore Node to ensure settlement finality."
                     </p>
-                    <div className="grid grid-cols-2 gap-10">
-                       <div className="p-10 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="grid grid-cols-2 gap-6">
+                       <div className="p-6 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                           <p className="text-[10px] font-black uppercase opacity-60 mb-2 text-white tracking-widest">Optimized Delta</p>
-                          <p className="text-5xl font-black text-emerald-300 tabular-nums tracking-tighter">-140ms</p>
+                          <p className="text-4xl font-black text-emerald-300 tabular-nums tracking-tighter">-140ms</p>
                        </div>
-                       <div className="p-10 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                       <div className="p-6 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                           <p className="text-[10px] font-black uppercase opacity-60 mb-2 text-white tracking-widest">Model Conf.</p>
-                          <p className="text-5xl font-black text-blue-300 tabular-nums tracking-tighter">99.8%</p>
+                          <p className="text-4xl font-black text-blue-300 tabular-nums tracking-tighter">99.8%</p>
                        </div>
                     </div>
-                    <Button variant="secondary" className="w-full h-24 font-black uppercase text-base tracking-[0.4em] shadow-4xl bg-white text-primary border-none rounded-[24px] hover:scale-[1.02] transition-transform">
+                    <Button variant="secondary" className="w-full h-24 font-black uppercase text-base tracking-widest shadow-lg bg-white text-primary border-none rounded-2xl hover:scale-[1.02] transition-transform">
                        EXECUTE CORRIDOR REBALANCE
                     </Button>
                  </CardContent>
               </Card>
 
-              <div className="space-y-10">
-                 <Card className="shadow-none border-2 bg-background p-12 space-y-12 rounded-[48px]">
+              <div className="space-y-6">
+                 <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
                     <div className="flex items-center justify-between">
-                       <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Protocol Schema State</h4>
+                       <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Protocol Schema State</h4>
                        <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                     </div>
-                    <div className="space-y-10">
+                    <div className="space-y-6">
                        {[
                          { label: 'ISO 20022 Sync', val: 'LOCKED', icon: Landmark, color: 'text-emerald-500' },
                          { label: 'WCO HS v2024', val: 'VERIFIED', icon: Database, color: 'text-blue-500' },
@@ -214,15 +214,15 @@ export default function InteroperabilityHubPage() {
                     </div>
                  </Card>
 
-                 <Card className="shadow-none border-2 bg-background p-12 text-center space-y-8 rounded-[48px] border-dashed group hover:border-primary/20 transition-all">
-                    <History className="h-16 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-[-45deg]" />
+                 <Card className="shadow-none border-2 bg-background p-6 text-center space-y-8 rounded-2xl border-dashed group hover:border-primary/20 transition-all">
+                    <History className="h-12 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-[-45deg]" />
                     <div className="space-y-3">
-                       <p className="text-sm font-black uppercase tracking-[0.3em] text-muted-foreground">Federation Audit Replay</p>
+                       <p className="text-sm font-black uppercase tracking-wide text-muted-foreground">Federation Audit Replay</p>
                        <p className="text-xs font-medium italic leading-relaxed px-4 opacity-60">
                           "Institutional administrators can reconstruct historical system states by replaying the exchange ledger across federated nodes. Absolute provenance verified."
                        </p>
                     </div>
-                    <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">LAUNCH FORENSIC REPLAY</Button>
+                    <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">LAUNCH FORENSIC REPLAY</Button>
                  </Card>
               </div>
            </div>

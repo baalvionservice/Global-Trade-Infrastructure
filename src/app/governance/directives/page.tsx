@@ -8,6 +8,8 @@
 
 import { useEffect, useState } from 'react';
 import { commandCenterService } from '@/services/command-center-service';
+import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { ExecutiveDirective } from '@/types/institutional';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -49,37 +51,14 @@ export default function DirectivesRegistryPage() {
 
   const fetchData = async () => {
     setLoading(true);
-    // Simulation of directives registry
-    const mockDirectives: ExecutiveDirective[] = [
-      {
-        id: 'DIR-881',
-        title: 'Q4 Cross-Border Settlement Protocol',
-        content: 'Mandating the use of the Singapore Treasury node for all high-value APAC settlements to reduce FX volatility exposure.',
-        scope: 'regional',
-        targetJurisdiction: 'Singapore',
-        issuedBy: 'Governance Council',
-        priority: 'strategic' as any,
-        status: 'active',
-        orgId: 'GOV-MASTER',
-        createdAt: new Date(Date.now() - 86400000).toISOString(),
-        updatedAt: new Date().toISOString()
-      },
-      {
-        id: 'DIR-882',
-        title: 'Emergency Corridor Halt: Red Sea Corridor',
-        content: 'Immediate operational halt for all commercial traffic in the Red Sea zone due to systemic security disruption.',
-        scope: 'global',
-        targetJurisdiction: 'Global',
-        issuedBy: 'Sovereign Command',
-        priority: 'emergency',
-        status: 'active',
-        orgId: 'GOV-MASTER',
-        createdAt: new Date(Date.now() - 3600000).toISOString(),
-        updatedAt: new Date().toISOString()
-      }
-    ];
-    setDirectives(mockDirectives);
-    setLoading(false);
+    try {
+      const res = await apiClient.get<ExecutiveDirective[]>('/directives', { sortBy: 'createdAt', order: 'desc' });
+      setDirectives(toList<ExecutiveDirective>(res));
+    } catch {
+      setDirectives([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -105,7 +84,7 @@ export default function DirectivesRegistryPage() {
   };
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-4">
           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.OVERSIGHT_PLATFORM_ADMIN)} className="-ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-transparent hover:text-primary transition-all">
@@ -124,7 +103,7 @@ export default function DirectivesRegistryPage() {
            </div>
            <Dialog open={isNewModalOpen} onOpenChange={setIsNewModalOpen}>
               <DialogTrigger asChild>
-                 <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+                 <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
                    <Plus className="mr-2 h-4 w-4" /> Issue New Directive
                  </Button>
               </DialogTrigger>
@@ -178,7 +157,7 @@ export default function DirectivesRegistryPage() {
                        </div>
                     </div>
                     <DialogFooter>
-                       <Button type="submit" className="w-full h-18 font-black uppercase tracking-[0.2em] shadow-2xl text-base" disabled={submitting}>
+                       <Button type="submit" className="w-full h-12 font-black uppercase tracking-wide shadow-2xl text-base" disabled={submitting}>
                           {submitting ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : "Authorize & Broadcast Mandate"}
                        </Button>
                     </DialogFooter>
@@ -191,9 +170,9 @@ export default function DirectivesRegistryPage() {
       <div className="grid gap-8">
         <AnimatePresence>
           {loading ? (
-            <div className="flex h-64 flex-col items-center justify-center gap-6 rounded-[32px] border-2 border-dashed bg-card/50">
+            <div className="flex h-64 flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed bg-card/50">
                <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-               <p className="text-[11px] font-black uppercase text-muted-foreground tracking-[0.3em] animate-pulse">Syncing Directive Registry...</p>
+               <p className="text-[11px] font-black uppercase text-muted-foreground tracking-wide animate-pulse">Syncing Directive Registry...</p>
             </div>
           ) : (
             directives.map((dir, i) => (
@@ -203,21 +182,21 @@ export default function DirectivesRegistryPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className="shadow-lg border-2 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-[24px]">
+                <Card className="shadow-lg border-2 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-2xl">
                   <CardContent className="p-0">
                     <div className="flex items-stretch h-full">
                        <div className={cn(
                           "w-2 transition-all duration-500",
                           dir.priority === 'emergency' ? "bg-red-600 animate-pulse shadow-[0_0_20px_rgba(220,38,38,0.4)]" : "bg-indigo-600 shadow-[0_0_15px_rgba(79,70,229,0.2)]"
                        )} />
-                       <div className="flex-1 p-10 flex flex-col md:flex-row items-start justify-between gap-10">
+                       <div className="flex-1 p-6 flex flex-col md:flex-row items-start justify-between gap-6">
                           <div className="space-y-6 flex-1 min-w-0">
                              <div className="flex items-center gap-6">
                                 <Badge className={cn(
                                    "text-[9px] uppercase font-black tracking-widest px-3 h-6 border-none shadow-sm",
                                    dir.priority === 'emergency' ? "bg-red-600" : "bg-indigo-600"
                                 )}>{dir.priority} MANDATE</Badge>
-                                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-40">
+                                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wide text-muted-foreground opacity-40">
                                    <Globe className="h-3.5 w-3.5" /> Scope: {dir.scope}
                                 </div>
                              </div>
@@ -226,16 +205,16 @@ export default function DirectivesRegistryPage() {
                                 <p className="text-[10px] font-bold text-muted-foreground uppercase mt-2 tracking-widest">ID: {dir.id} • Issued: {format(new Date(dir.createdAt ?? Date.now()), "MMMM d, yyyy HH:mm")}</p>
                              </div>
                              <p className="text-base font-medium leading-relaxed italic opacity-80 max-w-4xl border-l-4 border-muted pl-8">"{dir.content}"</p>
-                             <div className="flex items-center gap-8 pt-2 text-[9px] font-black uppercase text-muted-foreground/60 tracking-[0.2em]">
+                             <div className="flex items-center gap-8 pt-2 text-[9px] font-black uppercase text-muted-foreground/60 tracking-wide">
                                 <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-muted/50 border"><ShieldCheck className="h-3 w-3 text-primary" /> Authority: {dir.issuedBy}</span>
                                 <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-muted/50 border"><FileText className="h-3 w-3 text-primary" /> Ledger Hash: {dir.id.replace('DIR', '0x88')}</span>
                              </div>
                           </div>
                           <div className="flex flex-col gap-3 shrink-0 self-stretch justify-center md:border-l md:pl-12 border-muted">
-                             <Button variant="outline" className="h-14 border-2 px-10 font-black uppercase text-[10px] tracking-widest bg-background group">
+                             <Button variant="outline" className="h-14 border-2 px-6 font-black uppercase text-[10px] tracking-widest bg-background group">
                                 <History className="mr-2 h-4 w-4 group-hover:rotate-[-45deg] transition-transform" /> VIEW AUDIT LINEAGE
                              </Button>
-                             <Button variant="outline" className="h-14 border-2 px-10 font-black uppercase text-[10px] tracking-widest bg-background group">
+                             <Button variant="outline" className="h-14 border-2 px-6 font-black uppercase text-[10px] tracking-widest bg-background group">
                                 <ArrowRight className="mr-2 h-4 w-4 group-hover:translate-x-1 transition-transform" /> PROPAGATION MAP
                              </Button>
                           </div>
@@ -249,13 +228,13 @@ export default function DirectivesRegistryPage() {
         </AnimatePresence>
       </div>
 
-      <div className="p-12 rounded-[40px] bg-slate-900 text-slate-100 relative overflow-hidden group shadow-2xl border-2 border-white/5">
+      <div className="p-6 rounded-2xl bg-slate-900 text-slate-100 relative overflow-hidden group shadow-2xl border-2 border-white/5">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Landmark className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Strategic Policy Framework v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Control Node.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Strategic Policy Framework v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Control Node.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion Command Center provides the authoritative digital layer for sovereign trade directives. Policies issued via the command node are cryptographically verified and deterministically enforced across the global institutional ledger, ensuring absolute regulatory finality."
             </p>

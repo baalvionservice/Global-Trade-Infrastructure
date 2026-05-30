@@ -49,10 +49,10 @@ export default function ProcessIntelligencePage() {
   if (loading) return <div className="h-screen flex items-center justify-center bg-slate-950"><Loader2 className="animate-spin text-primary" /></div>;
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Execution Kernel v4.2</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Execution Kernel v4.2</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter">Process Intelligence</h2>
           <p className="text-muted-foreground font-medium italic max-w-2xl">Autonomous workflow oversight, domain execution tracing, and inter-service orchestration health.</p>
         </div>
@@ -67,12 +67,12 @@ export default function ProcessIntelligencePage() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* EXECUTION STREAM */}
-        <div className="lg:col-span-8 space-y-10">
-           <Card className="shadow-none border-2 bg-slate-950 text-slate-300 rounded-[40px] overflow-hidden flex flex-col h-[700px] relative">
+        <div className="lg:col-span-8 space-y-6">
+           <Card className="shadow-none border-2 bg-slate-950 text-slate-300 rounded-2xl overflow-hidden flex flex-col h-[700px] relative">
               <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-              <CardHeader className="bg-white/5 border-b border-white/5 p-10 flex flex-row items-center justify-between z-10">
+              <CardHeader className="bg-white/5 border-b border-white/5 p-6 flex flex-row items-center justify-between z-10">
                 <div className="space-y-1">
                   <CardTitle className="text-xl font-black uppercase tracking-tighter text-white">Planetary Execution Trace</CardTitle>
                   <CardDescription className="text-slate-500">Real-time telemetry of cross-domain state handshakes and kernel events.</CardDescription>
@@ -80,7 +80,7 @@ export default function ProcessIntelligencePage() {
                 <Terminal className="h-6 w-6 text-emerald-500" />
               </CardHeader>
               <CardContent className="p-0 flex-1 overflow-auto custom-scrollbar font-mono text-[11px] leading-relaxed z-10">
-                 <div className="p-10 space-y-3">
+                 <div className="p-6 space-y-3">
                     <AnimatePresence initial={false}>
                        {events.map((event) => (
                           <motion.div 
@@ -105,18 +105,18 @@ export default function ProcessIntelligencePage() {
         </div>
 
         {/* SIDEBAR: ORCHESTRATION STATS */}
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Cpu className="h-64 w-64 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 p-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 p-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Activity className="h-5 w-5 text-white animate-pulse" />
                     Kernel Heartbeat
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  {[
                    { label: 'System Throughput', val: '42.4 ops/s', status: 'Optimal' },
                    { label: 'Decision Finality', val: '450ms', status: 'Verified' },
@@ -130,15 +130,15 @@ export default function ProcessIntelligencePage() {
                       <Badge className="bg-white/10 text-white text-[8px] font-black border-none uppercase px-2 h-5">{stat.status}</Badge>
                    </div>
                  ))}
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-3xl hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-3xl hover:scale-[1.02] transition-transform">
                     CALIBRATE ENGINE
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-10 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Domain Saturation</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Domain Saturation</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
               <div className="space-y-8">
@@ -158,7 +158,7 @@ export default function ProcessIntelligencePage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-6 rounded-[48px] border-dashed group hover:border-primary/20 transition-all duration-700">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
               <GitBranch className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary transition-all duration-500" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-widest text-foreground">Multi-Stage Consensus</p>
@@ -166,7 +166,7 @@ export default function ProcessIntelligencePage() {
                     "Critical state handovers require n-party cryptographic signatures. Autonomous arbitration is triggered upon consensus timeout or identity drift detection."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">CONFIGURE PROTOCOLS</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">CONFIGURE PROTOCOLS</Button>
            </Card>
         </div>
       </div>

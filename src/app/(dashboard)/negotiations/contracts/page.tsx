@@ -97,10 +97,10 @@ export default function ContractVaultPage() {
   }
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen pb-32">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen pb-32">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Legal Finality Node</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Legal Finality Node</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Contract Vault</h2>
           <p className="text-muted-foreground font-medium italic">Immutable registry of commercial mandates, syndicated agreements, and sovereign legal artifacts.</p>
         </div>
@@ -108,7 +108,7 @@ export default function ContractVaultPage() {
            <Button variant="outline" className="font-black border-2 bg-background h-14 px-8 text-[10px] uppercase tracking-widest shadow-md">
               <FileStack className="mr-2 h-4 w-4" /> MANAGE CLAUSES
            </Button>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Plus className="mr-2 h-4 w-4" /> NEW MSA Node
            </Button>
         </div>
@@ -134,15 +134,15 @@ export default function ContractVaultPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}
                 >
-                  <Card className="shadow-lg border-2 hover:border-primary/50 transition-all group overflow-hidden bg-background rounded-[24px]">
+                  <Card className="shadow-lg border-2 hover:border-primary/50 transition-all group overflow-hidden bg-background rounded-2xl">
                      <CardContent className="p-0 flex">
                         <div className={cn(
                           "w-2 shrink-0 transition-all duration-500",
                           ctr.status === 'EXECUTED' ? "bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]" : "bg-indigo-500 shadow-[0_0_15px_rgba(79,70,229,0.3)]"
                         )} />
-                        <div className="flex-1 p-10 flex flex-col md:flex-row items-center justify-between gap-10">
-                           <div className="flex items-center gap-10 flex-1 min-w-0">
-                              <div className="h-16 w-16 rounded-[24px] border-2 bg-muted flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform shrink-0">
+                        <div className="flex-1 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                           <div className="flex items-center gap-6 flex-1 min-w-0">
+                              <div className="h-12 w-16 rounded-2xl border-2 bg-muted flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform shrink-0">
                                  <FileSignature className="h-7 w-7 text-primary opacity-60" />
                               </div>
                               <div className="space-y-2 min-w-0">
@@ -157,7 +157,7 @@ export default function ContractVaultPage() {
                               </div>
                            </div>
 
-                           <div className="flex items-center gap-12 shrink-0">
+                           <div className="flex items-center gap-6 shrink-0">
                               <div className="text-right space-y-1">
                                  <p className="text-[9px] font-black text-muted-foreground uppercase opacity-40 leading-none">Agreement Value</p>
                                  <p className="text-2xl font-black text-primary tracking-tighter tabular-nums">{formatCurrency(ctr.value, ctr.currency)}</p>
@@ -183,13 +183,13 @@ export default function ContractVaultPage() {
         </div>
       </div>
 
-      <div className="p-12 rounded-[40px] bg-primary text-primary-foreground relative overflow-hidden group shadow-3xl">
+      <div className="p-6 rounded-2xl bg-primary text-primary-foreground relative overflow-hidden group shadow-md">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <ShieldCheck className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] opacity-60">Legal Engineering Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Documentation. <br />Immutable Lineage.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Legal Engineering Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Documentation. <br />Immutable Lineage.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Every contract finalized on Baalvion is cryptographically signed and version-locked. Our legal runtime ensures that operational execution remains perfectly synchronized with commercial mandates, providing 100% audit readiness for national regulators."
             </p>

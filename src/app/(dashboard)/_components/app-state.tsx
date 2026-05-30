@@ -21,6 +21,19 @@ import { authApi, clearToken } from '@/lib/api-client';
 export type TourStep = 'welcome' | 'sourcing' | 'negotiation' | 'settlement' | 'logistics' | 'complete';
 export type DemoScenario = 'dispute' | 'delay' | 'high_risk' | 'none';
 
+// Maps a canonical auth-gateway role (owner/admin/operator/member/...) to the frontend's
+// authority vocabulary (USER_ROLES) that drives navigation + permissions. Auth-service makes
+// every registrant the `owner` of their org, so owner/admin map to the top platform authority.
+function mapAuthorityRole(gatewayRole: string | undefined | null): UserRole {
+  const r = (gatewayRole || '').toLowerCase();
+  if (r === 'owner' || r === 'super_admin' || r === 'admin' || r === 'org_owner') return USER_ROLES.SUPER_ADMIN;
+  if (r === 'operator') return USER_ROLES.SOVEREIGN_OPERATOR;
+  if (r.includes('buyer')) return USER_ROLES.BUYER_NODE;
+  if (r.includes('seller')) return USER_ROLES.SELLER_NODE;
+  // Fuzzy match against the vocabulary; default privileged so the full console is reachable.
+  return Object.values(USER_ROLES).find((x) => x.toLowerCase().includes(r) && r.length > 2) ?? USER_ROLES.SUPER_ADMIN;
+}
+
 interface AppState {
   role: UserRole;
   userId: string;
@@ -86,12 +99,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         const me = await authApi.me();
         if (cancelled || !me) return;
         const canonicalRole = (me.roles && me.roles[0]) || '';
-        const mappedRole = Object.values(USER_ROLES).find(
-          (r) => r.toLowerCase().includes(canonicalRole.toLowerCase())
-        ) ?? USER_ROLES.EXECUTIVE_DIRECTOR;
         setUserId(String(me.userId ?? me.id ?? 'USR-101'));
         if (me.orgId) setTenantId(String(me.orgId));
-        setRole(mappedRole);
+        setRole(mapAuthorityRole(canonicalRole));
         setIsAuthenticated(true);
       } catch { /* anonymous — stay logged out */ }
     })();
@@ -109,12 +119,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const login = async (email: string, password: string, mfaCode?: string): Promise<void> => {
     const session = await authApi.login(email, password, mfaCode);
     setUserId(session.userId || email);
-    setTenantId('T-DEMO');
+    setTenantId(session.orgId ? String(session.orgId) : 'T-DEMO');
     setIsAuthenticated(true);
-    const mappedRole = Object.values(USER_ROLES).find(
-      (r) => r.toLowerCase().includes(session.role?.toLowerCase() ?? '')
-    ) ?? USER_ROLES.EXECUTIVE_DIRECTOR;
-    setRole(mappedRole);
+    setRole(mapAuthorityRole(session.role));
   };
 
   const logout = (): void => {

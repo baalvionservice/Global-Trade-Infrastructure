@@ -20,16 +20,16 @@ export default function NotificationSettingsPage() {
   };
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="space-y-1">
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Operational Pulse</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Operational Pulse</p>
         <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter">Alert Orchestration</h2>
         <p className="text-muted-foreground font-medium italic">Manage institutional alert routing across Email, SMS, and high-priority platform channels.</p>
       </div>
 
       <div className="max-w-4xl space-y-8">
-        <Card className="shadow-xl border-2 rounded-[32px] overflow-hidden">
-           <CardHeader className="bg-muted/10 border-b p-10">
+        <Card className="shadow-xl border-2 rounded-2xl overflow-hidden">
+           <CardHeader className="bg-muted/10 border-b p-6">
               <CardTitle className="text-xl font-black uppercase tracking-tighter flex items-center gap-4">
                  <Bell className="h-7 w-7 text-primary" /> Routing Matrix
               </CardTitle>
@@ -42,9 +42,9 @@ export default function NotificationSettingsPage() {
                    { title: 'Logistics Milestones', icon: Globe, desc: 'Port arrival detections and customs clearance updates.' },
                    { title: 'Market Demands', icon: Store, desc: 'New high-affinity RFQ signals matching your node sector.' }
                  ].map(item => (
-                    <div key={item.title} className="p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 group hover:bg-primary/[0.01] transition-colors">
+                    <div key={item.title} className="p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 group hover:bg-primary/[0.01] transition-colors">
                        <div className="flex items-center gap-6">
-                          <div className="p-4 rounded-[24px] bg-muted border-2 shadow-inner group-hover:scale-105 transition-transform">
+                          <div className="p-4 rounded-2xl bg-muted border-2 shadow-inner group-hover:scale-105 transition-transform">
                              {/* @ts-ignore */}
                              <item.icon className="h-6 w-6 text-primary opacity-60" />
                           </div>
@@ -74,7 +74,7 @@ export default function NotificationSettingsPage() {
         </Card>
         
         <div className="flex justify-end pt-4">
-           <Button onClick={handleUpdate} className="h-14 px-12 font-black uppercase tracking-widest text-[11px] shadow-2xl">Finalize Routing Preferences</Button>
+           <Button onClick={handleUpdate} className="h-14 px-6 font-black uppercase tracking-widest text-[11px] shadow-2xl">Finalize Routing Preferences</Button>
         </div>
       </div>
     </main>

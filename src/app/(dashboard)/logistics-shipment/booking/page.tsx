@@ -101,19 +101,19 @@ export default function LogisticsBookingWizard() {
   };
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="max-w-5xl mx-auto space-y-12">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="max-w-5xl mx-auto space-y-8">
         <div className="space-y-4">
            <div className="flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Provisioning node: FREIGHT_WIZARD_V4</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary">Provisioning node: FREIGHT_WIZARD_V4</p>
            </div>
-           <h2 className="text-5xl font-black tracking-tight uppercase tracking-tighter leading-none text-foreground">Logistics Booking.</h2>
+           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-none text-foreground">Logistics Booking.</h2>
            <p className="text-muted-foreground font-medium italic text-lg">"Standardized multi-step flow for institutional cargo procurement and corridor activation."</p>
         </div>
 
         {/* STEPPER */}
-        <div className="flex items-center justify-between px-10 relative">
+        <div className="flex items-center justify-between px-6 relative">
            <div className="absolute top-1/2 left-0 w-full h-1 bg-muted -translate-y-1/2 z-0" />
            <div className="absolute top-1/2 left-0 h-1 bg-primary -translate-y-1/2 z-0 transition-all duration-700" style={{ width: `${(step-1) / 2 * 100}%` }} />
            
@@ -135,16 +135,16 @@ export default function LogisticsBookingWizard() {
            ))}
         </div>
 
-        <div className="pt-10">
+        <div className="pt-6">
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                 <Card className="shadow-2xl border-2 rounded-[40px] overflow-hidden">
-                    <CardHeader className="bg-muted/10 border-b p-10">
+                 <Card className="shadow-2xl border-2 rounded-2xl overflow-hidden">
+                    <CardHeader className="bg-muted/10 border-b p-6">
                        <CardTitle className="text-xl font-black uppercase tracking-tighter">1. Route Definition</CardTitle>
                        <CardDescription className="font-medium italic">Define origin and destination nodes for the global discovery grid.</CardDescription>
                     </CardHeader>
-                    <CardContent className="p-10 grid md:grid-cols-2 gap-10">
+                    <CardContent className="p-6 grid md:grid-cols-2 gap-6">
                        <div className="space-y-4">
                           <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Origin Hub (Port/Terminal)</Label>
                           <div className="relative group">
@@ -192,8 +192,8 @@ export default function LogisticsBookingWizard() {
                           </Select>
                        </div>
                     </CardContent>
-                    <CardFooter className="bg-muted/10 border-t p-10 flex justify-end">
-                       <Button onClick={handleNext} disabled={!formData.origin || !formData.destination} className="h-14 px-12 font-black uppercase tracking-widest text-xs shadow-xl">
+                    <CardFooter className="bg-muted/10 border-t p-6 flex justify-end">
+                       <Button onClick={handleNext} disabled={!formData.origin || !formData.destination} className="h-14 px-6 font-black uppercase tracking-widest text-xs shadow-xl">
                           DISCOVER CARRIERS <ChevronRight className="ml-2 h-4 w-4" />
                        </Button>
                     </CardFooter>
@@ -203,23 +203,23 @@ export default function LogisticsBookingWizard() {
 
             {step === 2 && (
               <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                 <Card className="shadow-2xl border-2 rounded-[40px] overflow-hidden">
-                    <CardHeader className="bg-muted/10 border-b p-10">
+                 <Card className="shadow-2xl border-2 rounded-2xl overflow-hidden">
+                    <CardHeader className="bg-muted/10 border-b p-6">
                        <CardTitle className="text-xl font-black uppercase tracking-tighter">2. Carrier Marketplace</CardTitle>
                        <CardDescription className="font-medium italic">Select a verified institutional logistics provider for this corridor.</CardDescription>
                     </CardHeader>
-                    <CardContent className="p-10 space-y-6">
+                    <CardContent className="p-6 space-y-6">
                        {carriers.map((carrier) => (
                           <div 
                              key={carrier.id} 
                              className={cn(
-                                "flex flex-col md:flex-row items-center justify-between p-8 rounded-[32px] border-2 transition-all cursor-pointer group",
+                                "flex flex-col md:flex-row items-center justify-between p-8 rounded-2xl border-2 transition-all cursor-pointer group",
                                 formData.carrierId === carrier.id ? "bg-primary text-white border-primary shadow-2xl scale-[1.02]" : "bg-muted/5 border-primary/5 hover:border-primary/20"
                              )}
                              onClick={() => setFormData({ ...formData, carrierId: carrier.id })}
                           >
                              <div className="flex items-center gap-8">
-                                <div className="h-16 w-16 rounded-[24px] bg-background border-2 flex items-center justify-center font-black text-2xl text-primary shadow-inner">
+                                <div className="h-12 w-16 rounded-2xl bg-background border-2 flex items-center justify-center font-black text-2xl text-primary shadow-inner">
                                    {carrier.logo}
                                 </div>
                                 <div className="space-y-1">
@@ -240,9 +240,9 @@ export default function LogisticsBookingWizard() {
                           </div>
                        ))}
                     </CardContent>
-                    <CardFooter className="bg-muted/10 border-t p-10 flex justify-between">
+                    <CardFooter className="bg-muted/10 border-t p-6 flex justify-between">
                        <Button variant="ghost" onClick={handleBack} className="font-black uppercase tracking-widest text-xs"><ChevronLeft className="mr-2 h-4 w-4" /> RE-ALIGN ROUTE</Button>
-                       <Button onClick={handleNext} disabled={!formData.carrierId} className="h-14 px-12 font-black uppercase tracking-widest text-xs shadow-xl">
+                       <Button onClick={handleNext} disabled={!formData.carrierId} className="h-14 px-6 font-black uppercase tracking-widest text-xs shadow-xl">
                           REVIEW MANDATE <ChevronRight className="ml-2 h-4 w-4" />
                        </Button>
                     </CardFooter>
@@ -252,26 +252,26 @@ export default function LogisticsBookingWizard() {
 
             {step === 3 && (
               <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                 <Card className="shadow-2xl border-none bg-primary text-white rounded-[48px] overflow-hidden group">
+                 <Card className="shadow-2xl border-none bg-primary text-white rounded-2xl overflow-hidden group">
                     <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
                        <Zap className="h-64 w-64 brightness-0 invert" />
                     </div>
-                    <CardHeader className="bg-white/5 border-b border-white/10 p-12 relative z-10">
+                    <CardHeader className="bg-white/5 border-b border-white/10 p-6 relative z-10">
                        <CardTitle className="text-3xl font-black uppercase tracking-tighter">3. Execution Mandate</CardTitle>
                        <p className="text-white/60 font-medium italic mt-2 uppercase text-xs tracking-widest">Final Authorization & Ledger Finality</p>
                     </CardHeader>
-                    <CardContent className="p-12 relative z-10 space-y-12">
+                    <CardContent className="p-6 relative z-10 space-y-8">
                        <div className="grid md:grid-cols-2 gap-16">
-                          <div className="space-y-10">
+                          <div className="space-y-6">
                              <div className="flex gap-6">
-                                <div className="p-4 rounded-[24px] bg-white/10 border border-white/20"><Globe className="h-8 w-8 text-emerald-400" /></div>
+                                <div className="p-4 rounded-2xl bg-white/10 border border-white/20"><Globe className="h-8 w-8 text-emerald-400" /></div>
                                 <div className="space-y-1">
                                    <p className="text-[10px] font-black uppercase text-white/40 tracking-widest">Corridor Definition</p>
                                    <p className="text-2xl font-black uppercase tracking-tight">{formData.origin} ↔ {formData.destination}</p>
                                 </div>
                              </div>
                              <div className="flex gap-6">
-                                <div className="p-4 rounded-[24px] bg-white/10 border border-white/20"><Ship className="h-8 w-8 text-blue-400" /></div>
+                                <div className="p-4 rounded-2xl bg-white/10 border border-white/20"><Ship className="h-8 w-8 text-blue-400" /></div>
                                 <div className="space-y-1">
                                    <p className="text-[10px] font-black uppercase text-white/40 tracking-widest">Authorized Carrier</p>
                                    <p className="text-2xl font-black uppercase tracking-tight">{selectedCarrier?.name}</p>
@@ -279,10 +279,10 @@ export default function LogisticsBookingWizard() {
                              </div>
                           </div>
                           
-                          <div className="p-10 rounded-[40px] bg-white/5 border border-white/10 shadow-inner backdrop-blur-md flex flex-col items-center justify-center text-center space-y-6">
+                          <div className="p-6 rounded-2xl bg-white/5 border border-white/10 shadow-inner backdrop-blur-md flex flex-col items-center justify-center text-center space-y-6">
                              <div className="space-y-1">
-                                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40">Total Settlement Value</p>
-                                <p className="text-6xl font-black tracking-tighter text-emerald-400">${(selectedCarrier?.startingPrice || 0).toLocaleString()}</p>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Total Settlement Value</p>
+                                <p className="text-4xl font-black tracking-tighter text-emerald-400">${(selectedCarrier?.startingPrice || 0).toLocaleString()}</p>
                                 <p className="text-[8px] font-bold uppercase text-white/20">Includes Jurisdictional Node Fees</p>
                              </div>
                              <div className="w-full h-px bg-white/10" />
@@ -292,21 +292,21 @@ export default function LogisticsBookingWizard() {
                           </div>
                        </div>
 
-                       <div className="p-8 bg-white/10 border border-white/20 rounded-[32px] flex gap-6 items-start">
+                       <div className="p-8 bg-white/10 border border-white/20 rounded-2xl flex gap-6 items-start">
                           <CheckCircle2 className="h-7 w-7 text-emerald-400 shrink-0 mt-1" />
                           <p className="text-base font-bold italic leading-relaxed opacity-90 leading-tight">
                             "By finalizing this booking, you authorize the sovereign kernel to provision a dedicated logistics node and lock the commercial terms on the global ledger. This action is irreversible once the carrier handshake is signed."
                           </p>
                        </div>
                     </CardContent>
-                    <CardFooter className="bg-white/5 border-t border-white/10 p-12 flex justify-between relative z-10">
+                    <CardFooter className="bg-white/5 border-t border-white/10 p-6 flex justify-between relative z-10">
                        <Button variant="ghost" onClick={handleBack} className="text-white hover:bg-white/10 font-black uppercase tracking-widest text-xs">
                           <ChevronLeft className="mr-2 h-4 w-4" /> ADJUST SELECTION
                        </Button>
                        <Button 
                           onClick={handleFinalize} 
                           disabled={processing}
-                          className="h-20 px-16 bg-white text-primary font-black uppercase tracking-[0.3em] text-base shadow-4xl hover:scale-105 transition-all rounded-[24px]"
+                          className="h-14 px-16 bg-white text-primary font-black uppercase tracking-wide text-base shadow-lg hover:scale-105 transition-all rounded-2xl"
                        >
                           {processing ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <Rocket className="mr-3 h-6 w-6" />}
                           AUTHORIZE & BOOK

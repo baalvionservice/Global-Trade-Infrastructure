@@ -21,22 +21,22 @@ export default function SecuritySettingsPage() {
   };
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="space-y-1">
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Identity Protection</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-primary">Identity Protection</p>
         <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter">Security Controls</h2>
         <p className="text-muted-foreground font-medium italic">Configure node-level encryption, multi-factor authentication, and privileged access protocols.</p>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-8">
-           <Card className="shadow-xl border-2 rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b p-10">
+           <Card className="shadow-xl border-2 rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b p-6">
                  <CardTitle className="text-xl font-black uppercase tracking-tighter flex items-center gap-4">
                     <Fingerprint className="h-7 w-7 text-primary" /> Multi-Factor Authentication
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 space-y-8">
+              <CardContent className="p-6 space-y-8">
                  <div className="flex items-center justify-between p-6 rounded-2xl border-2 bg-muted/5">
                     <div className="space-y-1">
                        <p className="font-black text-sm uppercase">Hardware Token (FIDO2)</p>
@@ -54,13 +54,13 @@ export default function SecuritySettingsPage() {
               </CardContent>
            </Card>
 
-           <Card className="shadow-xl border-2 rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b p-10">
+           <Card className="shadow-xl border-2 rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b p-6">
                  <CardTitle className="text-xl font-black uppercase tracking-tighter flex items-center gap-4">
                     <Lock className="h-7 w-7 text-primary" /> Node-Level Encryption
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 space-y-8">
+              <CardContent className="p-6 space-y-8">
                  <div className="space-y-6">
                     <p className="text-sm font-medium italic opacity-80 leading-relaxed">
                        "Baalvion uses AES-256-GCM for all institutional data fabric storage. Individual trade dossiers are cryptographically keyed to your organization node."
@@ -76,12 +76,12 @@ export default function SecuritySettingsPage() {
         </div>
 
         <div className="space-y-8">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125">
                  <ShieldCheck className="h-48 w-48 brightness-0 invert" />
               </div>
               <CardHeader className="pb-4 relative border-b border-white/10 px-8 py-8">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] opacity-80 flex items-center gap-3">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-3">
                     <Lock className="h-5 w-5 text-white" />
                     Security Posture
                  </CardTitle>

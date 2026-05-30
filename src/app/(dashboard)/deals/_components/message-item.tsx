@@ -17,7 +17,7 @@ export function MessageItem({ message, isMe, onOfferAction }: MessageItemProps) 
   if (message.type === 'system') {
     return (
       <div className="flex justify-center my-6">
-        <span className="px-4 py-1.5 bg-muted/80 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground rounded-full border border-border shadow-sm">
+        <span className="px-4 py-1.5 bg-muted/80 text-[10px] font-black uppercase tracking-wide text-muted-foreground rounded-full border border-border shadow-sm">
           {message.content.replace(/_/g, ' ')}
         </span>
       </div>

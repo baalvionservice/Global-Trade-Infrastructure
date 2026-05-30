@@ -3,6 +3,7 @@
  * @description Authoritative service for National Customs Interoperability and Declaration Orchestration.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from '@/orchestration/event-bus';
 import { CustomsEntry, CustomsClearanceStatus, RegulatoryPulse } from '@/types/regulatory';
@@ -24,7 +25,7 @@ class CustomsService {
    */
   async getCustomsEntries(filters: any = {}): Promise<CustomsEntry[]> {
     const res = await apiClient.get<CustomsEntry[]>('/customs_entries', filters);
-    return res.data || [];
+    return toList(res);
   }
 
   /**

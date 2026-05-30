@@ -50,10 +50,10 @@ export function SellerResponses({ responses, rfq }: SellerResponsesProps) {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between px-2 gap-8">
          <div className="space-y-2">
-            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Evaluation Hub</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-primary">Evaluation Hub</p>
             <h3 className="font-black uppercase tracking-tighter text-4xl">Quotation Ledger</h3>
             <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest opacity-60 flex items-center gap-2">
                <Trophy className="h-4 w-4 text-primary" /> Multi-Factor Ranking Engine Active
@@ -80,7 +80,7 @@ export function SellerResponses({ responses, rfq }: SellerResponsesProps) {
       </div>
       
       <div className={cn(
-         "grid gap-10",
+         "grid gap-6",
          viewMode === 'grid' ? "md:grid-cols-2" : "grid-cols-1"
       )}>
         <AnimatePresence>
@@ -92,7 +92,7 @@ export function SellerResponses({ responses, rfq }: SellerResponsesProps) {
                transition={{ delay: i * 0.1 }}
              >
                <Card className={cn(
-                 "shadow-2xl border-2 transition-all hover:border-primary relative overflow-hidden group rounded-[40px] bg-background",
+                 "shadow-2xl border-2 transition-all hover:border-primary relative overflow-hidden group rounded-2xl bg-background",
                  res.evaluationScore && res.evaluationScore > 80 ? "border-primary/20 ring-1 ring-primary/5" : ""
                )}>
                  {/* SCORE OVERLAY */}
@@ -101,10 +101,10 @@ export function SellerResponses({ responses, rfq }: SellerResponsesProps) {
                     <p className="text-4xl font-black text-primary tracking-tighter leading-none">{res.evaluationScore || 0}</p>
                  </div>
 
-                 <CardContent className="p-12">
-                   <div className="flex flex-col gap-12">
-                     <div className="flex items-start gap-10 min-w-0">
-                       <div className="h-24 w-24 rounded-[32px] border-2 bg-muted/20 shadow-inner flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
+                 <CardContent className="p-6">
+                   <div className="flex flex-col gap-6">
+                     <div className="flex items-start gap-6 min-w-0">
+                       <div className="h-24 w-24 rounded-2xl border-2 bg-muted/20 shadow-inner flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
                           <span className="text-3xl font-black text-primary">{res.sellerName.substring(0, 2).toUpperCase()}</span>
                        </div>
                        
@@ -137,21 +137,21 @@ export function SellerResponses({ responses, rfq }: SellerResponsesProps) {
                        </div>
                      </div>
 
-                     <div className="flex flex-col sm:flex-row justify-between items-center gap-10 pt-10 border-t-2 border-muted/50">
+                     <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-6 border-t-2 border-muted/50">
                        <div className="space-y-2">
-                         <p className="text-[10px] text-muted-foreground uppercase font-black tracking-[0.4em] opacity-60">Proposed Finality</p>
+                         <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest opacity-60">Proposed Finality</p>
                          <div className="flex items-baseline gap-2">
-                            <span className="text-5xl font-black text-primary tracking-tighter leading-none">{formatCurrency(res.price)}</span>
+                            <span className="text-4xl font-black text-primary tracking-tighter leading-none">{formatCurrency(res.price)}</span>
                             <span className="text-xs font-black text-muted-foreground uppercase tracking-widest">{rfq.pricing?.currency || rfq.currency || 'USD'} / UNIT</span>
                          </div>
                        </div>
                        
                        <div className="flex gap-4">
-                          <Button variant="outline" className="h-16 px-10 border-2 border-red-100 text-red-600 font-black text-[11px] uppercase tracking-widest hover:bg-red-50 rounded-2xl" disabled={!!processingId}>
+                          <Button variant="outline" className="h-12 px-6 border-2 border-red-100 text-red-600 font-black text-[11px] uppercase tracking-widest hover:bg-red-50 rounded-2xl" disabled={!!processingId}>
                              <X className="mr-3 h-4 w-4" /> DECLINE
                           </Button>
                           <Button 
-                            className="h-16 px-12 bg-primary text-white font-black text-[11px] uppercase tracking-widest shadow-3xl rounded-2xl hover:scale-[1.02] transition-all" 
+                            className="h-12 px-6 bg-primary text-white font-black text-[11px] uppercase tracking-widest shadow-md rounded-2xl hover:scale-[1.02] transition-all" 
                             onClick={() => handleAccept(res)}
                             disabled={!!processingId}
                           >
@@ -168,7 +168,7 @@ export function SellerResponses({ responses, rfq }: SellerResponsesProps) {
                  </CardContent>
                  
                  <div className="bg-muted/10 p-5 border-t-2 flex items-center justify-center group-hover:bg-primary/[0.02] transition-all cursor-pointer">
-                    <Button variant="link" className="p-0 h-auto font-black text-[10px] text-muted-foreground group-hover:text-primary uppercase tracking-[0.5em] transition-all hover:no-underline flex items-center gap-3">
+                    <Button variant="link" className="p-0 h-auto font-black text-[10px] text-muted-foreground group-hover:text-primary uppercase tracking-widest transition-all hover:no-underline flex items-center gap-3">
                        <Scale className="h-4 w-4" /> 
                        OPEN FORENSIC COMPARISON 
                        <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-2 transition-transform" />

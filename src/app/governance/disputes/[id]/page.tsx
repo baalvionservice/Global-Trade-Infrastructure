@@ -87,10 +87,10 @@ export default function ArbitrationWorkspacePage() {
   }
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.OVERSIGHT_DISPUTES)} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary transition-all">
+          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.OVERSIGHT_DISPUTES)} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary transition-all">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Registry
           </Button>
           <div className="flex items-center gap-5">
@@ -106,7 +106,7 @@ export default function ArbitrationWorkspacePage() {
            {dispute.status !== 'RESOLVED' && (
              <Dialog>
                 <DialogTrigger asChild>
-                   <Button className="bg-emerald-600 hover:bg-emerald-700 font-black h-12 px-10 text-[10px] uppercase tracking-widest shadow-2xl rounded-2xl">
+                   <Button className="bg-emerald-600 hover:bg-emerald-700 font-black h-12 px-6 text-[10px] uppercase tracking-widest shadow-2xl rounded-2xl">
                       <Gavel className="mr-2 h-4 w-4" /> ISSUE RULING
                    </Button>
                 </DialogTrigger>
@@ -141,18 +141,18 @@ export default function ArbitrationWorkspacePage() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* EVIDENCE DOSSIER */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                  <div>
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Forensic Evidence Dossier</CardTitle>
+                    <CardTitle className="text-sm font-black uppercase tracking-wide">Forensic Evidence Dossier</CardTitle>
                     <CardDescription className="text-xs">Immutable evidence records submitted by participants for case review.</CardDescription>
                  </div>
                  <Badge variant="outline" className="text-[9px] font-black border-2 h-6 uppercase px-3 rounded-full">{evidence.length} ASSETS</Badge>
               </CardHeader>
-              <CardContent className="p-10">
+              <CardContent className="p-6">
                  <div className="grid sm:grid-cols-2 gap-6">
                     {evidence.map(item => (
                        <div key={item.id} className="p-6 rounded-3xl border-2 bg-muted/5 group hover:border-primary/40 transition-all cursor-default">
@@ -189,24 +189,24 @@ export default function ArbitrationWorkspacePage() {
            </Card>
 
            {/* OPERATIONAL REPLAY (TIMELINE) */}
-           <Card className="shadow-none border-2 bg-background p-10 rounded-[32px]">
+           <Card className="shadow-none border-2 bg-background p-6 rounded-2xl">
               <InstitutionalTimeline events={[]} />
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* ARBITER NODE */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Scale className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4">
                     <Scale className="h-5 w-5 text-white" />
                     Adjudication Authority
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-base font-bold italic leading-relaxed opacity-90">
                     "This case is being mediated by the <span className="font-bold underline text-white">Baalvion Adjudication Hub</span>. Neutral Arbiter assigned for independent forensic review."
                  </p>
@@ -220,16 +220,16 @@ export default function ArbitrationWorkspacePage() {
                        <Badge className="bg-orange-400 text-orange-950 text-[9px] font-black px-2 uppercase tracking-tighter h-5 rounded-full border-none">ACTIVE</Badge>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
                     INITIATE HEARING
                  </Button>
               </CardContent>
            </Card>
 
            {/* CASE PARTICIPANTS */}
-           <Card className="shadow-none border-2 bg-background rounded-[32px]">
-              <CardHeader className="border-b bg-muted/10 py-6 px-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Case Participants</CardTitle>
+           <Card className="shadow-none border-2 bg-background rounded-2xl">
+              <CardHeader className="border-b bg-muted/10 py-6 px-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Case Participants</CardTitle>
               </CardHeader>
               <CardContent className="p-8 space-y-6">
                  {[

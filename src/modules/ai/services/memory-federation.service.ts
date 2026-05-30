@@ -3,6 +3,7 @@
  * @description Master service for Sovereign Semantic Memory and Vector Knowledge Federation.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger } from '@/services/observability-service';
 import { MemoryFragment } from '../types';
 
@@ -42,7 +43,7 @@ class MemoryFederationService {
       search: query,
       limit: 10
     });
-    return res.data || [];
+    return toList(res);
   }
 }
 

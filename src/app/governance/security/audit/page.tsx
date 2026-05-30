@@ -6,7 +6,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { iamService } from '@/modules/security/services/iam.service';
+import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { SecurityAuditEntry } from '@/modules/security/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -45,14 +46,30 @@ export default function SecurityAuditPage() {
 
   const fetchLogs = async () => {
     setLoading(true);
-    // In production, this pulls from the immutable security log (Kafka/ClickHouse)
-    const mockLogs: SecurityAuditEntry[] = [
-      { id: 'EVT-102A', actorId: 'ADM-001', actorName: 'Alexander Chen', action: 'ROLE_ASSIGNMENT', resource: 'BUYER_NODE_SG', status: 'SUCCESS', severity: 'INFO', ipAddress: '192.168.1.1', timestamp: new Date().toISOString() },
-      { id: 'EVT-992B', actorId: 'SYS-001', actorName: 'Security_Oracle', action: 'TENANT_ISOLATION_TRIGGERED', resource: 'COMP-102', status: 'SUCCESS', severity: 'CRITICAL', ipAddress: '10.0.0.1', timestamp: new Date().toISOString() },
-      { id: 'EVT-442C', actorId: 'USR-992', actorName: 'Anonymous Node', action: 'UNAUTHORIZED_ACCESS_ATTEMPT', resource: 'TREASURY_VAULT_A', status: 'DENIED', severity: 'HIGH', ipAddress: '172.16.0.4', timestamp: new Date().toISOString() }
-    ];
-    setLogs(mockLogs);
-    setLoading(false);
+    try {
+      // Real immutable audit hash-chain from trade-service.
+      const res = await apiClient.get<any[]>('/audit', { limit: 50 });
+      const mapped: SecurityAuditEntry[] = toList<any>(res).map((e: any, i: number) => {
+        const action = String(e.action ?? 'event');
+        const denied = /denied|reject|fail|blocked|reuse/i.test(action);
+        return {
+          id: String(e.id ?? `EVT-${i}`),
+          actorId: String(e.actorId ?? e.userId ?? 'system'),
+          actorName: String(e.actorId ?? e.userId ?? 'System'),
+          action: action.toUpperCase().replace(/[._]/g, ' '),
+          resource: [e.resourceType, e.resourceId].filter(Boolean).join('/') || '—',
+          status: denied ? 'DENIED' : 'SUCCESS',
+          severity: /lock|reuse|denied|tenant|breach/i.test(action) ? 'CRITICAL' : /fail|reject/i.test(action) ? 'HIGH' : 'INFO',
+          ipAddress: String(e.ipAddress ?? e.ip ?? '—'),
+          timestamp: String(e.createdAt ?? e.timestamp ?? new Date().toISOString()),
+        } as SecurityAuditEntry;
+      });
+      setLogs(mapped);
+    } catch {
+      setLogs([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -66,8 +83,8 @@ export default function SecurityAuditPage() {
   );
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-4">
           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-transparent hover:text-primary">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to command
@@ -98,7 +115,7 @@ export default function SecurityAuditPage() {
           />
         </div>
 
-        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-[40px] animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
            <CardContent className="p-0">
               <Table>
                  <TableHeader className="bg-muted/40">
@@ -122,7 +139,7 @@ export default function SecurityAuditPage() {
                           >
                              <TableCell className="pl-12 py-8">
                                 <div className="flex items-center gap-6">
-                                   <div className="h-12 w-12 rounded-[18px] bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                                   <div className="h-12 w-12 rounded-xl bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
                                       <Fingerprint className="h-6 w-6 text-primary opacity-60" />
                                    </div>
                                    <div className="space-y-1">
@@ -164,13 +181,13 @@ export default function SecurityAuditPage() {
         </Card>
       </div>
 
-      <div className="p-12 rounded-[48px] bg-slate-950 text-white relative overflow-hidden group shadow-3xl border-2 border-white/5">
+      <div className="p-6 rounded-2xl bg-slate-950 text-white relative overflow-hidden group shadow-md border-2 border-white/5">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Terminal className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Identity Finality Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign <br />Identity Lineage.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Identity Finality Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign <br />Identity Lineage.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion uses a strictly enforced cryptographical identity model. Every administrative session and state mutation is hashed and linked to the previous state, ensuring 100% visibility into the lifecycle of institutional authority nodes. Truth is derived from the immutable chain of custody."
             </p>

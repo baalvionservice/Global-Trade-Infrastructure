@@ -26,10 +26,9 @@ class EventBus {
   private history: PlatformEvent[] = [];
 
   private constructor() {
-    // Simulate real-time stream if in browser
-    if (typeof window !== 'undefined') {
-       this.simulateStream();
-    }
+    // Real events flow through publish() from live data/actions. The synthetic 5s telemetry
+    // simulator is disabled — it only added fake events + needless global re-renders.
+    // (Re-enable simulateStream() only for offline demos.)
   }
 
   public static getInstance(): EventBus {

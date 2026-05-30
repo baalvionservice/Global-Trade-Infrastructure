@@ -5,6 +5,7 @@
  * Manages high-priority disruptions and executive escalations.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from './event-bus';
 
@@ -56,7 +57,7 @@ export const incidentService = {
    */
   async getActiveIncidents(): Promise<TradeIncident[]> {
     const res = await apiClient.get<TradeIncident[]>('/alerts', { status: 'active', limit: 10 });
-    return res.data || [];
+    return toList(res);
   },
 
   async updateStatus(id: string, status: IncidentStatus) {

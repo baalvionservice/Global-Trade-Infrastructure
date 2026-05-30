@@ -55,27 +55,27 @@ export default function SupplierPerformancePage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Intelligence Node: PERFORMANCE_OPS_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Intelligence Node: PERFORMANCE_OPS_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Performance <br />Analytics.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Performance <br />Analytics.</h2>
         </div>
         <div className="flex gap-4">
-           <Button variant="outline" className="h-16 px-10 border-2 font-black uppercase text-xs bg-background shadow-md">
+           <Button variant="outline" className="h-12 px-6 border-2 font-black uppercase text-xs bg-background shadow-md">
               <History className="mr-3 h-4 w-4" /> Finality Log
            </Button>
-           <Button className="h-16 px-12 bg-primary text-white font-black uppercase text-xs shadow-3xl hover:scale-[1.02] transition-all">
+           <Button className="h-12 px-6 bg-primary text-white font-black uppercase text-xs shadow-md hover:scale-[1.02] transition-all">
               <Zap className="mr-3 h-5 w-5 fill-current" /> Optimize Roster
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-8 space-y-6">
            <div className="grid gap-8">
               {suppliers.map((s, i) => (
                 <motion.div 
@@ -84,12 +84,12 @@ export default function SupplierPerformancePage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all rounded-[40px] overflow-hidden bg-background group">
+                  <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
                      <CardContent className="p-0 flex flex-col lg:flex-row">
-                        <div className="lg:w-72 bg-muted/30 p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r-2 relative overflow-hidden">
+                        <div className="lg:w-72 bg-muted/30 p-6 flex flex-col justify-between border-b lg:border-b-0 lg:border-r-2 relative overflow-hidden">
                            <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity"><Target className="h-40 w-40" /></div>
                            <div className="space-y-6 relative z-10">
-                              <div className="h-16 w-16 rounded-[24px] bg-background border-2 shadow-inner flex items-center justify-center font-black text-2xl text-primary">
+                              <div className="h-12 w-16 rounded-2xl bg-background border-2 shadow-inner flex items-center justify-center font-black text-2xl text-primary">
                                  {s.name.charAt(0)}
                               </div>
                               <div>
@@ -98,7 +98,7 @@ export default function SupplierPerformancePage() {
                               </div>
                            </div>
                            <div className="pt-8 border-t border-primary/5 relative z-10">
-                              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-4">Trust Pulse</p>
+                              <p className="text-[9px] font-black uppercase tracking-wide text-muted-foreground mb-4">Trust Pulse</p>
                               <div className="flex items-end justify-between">
                                  <span className="text-4xl font-black tabular-nums tracking-tighter">{s.trustScore}</span>
                                  <Badge variant="outline" className="text-[8px] font-black h-5 border-2 bg-emerald-50 text-emerald-700 border-emerald-100">TIER 1</Badge>
@@ -106,8 +106,8 @@ export default function SupplierPerformancePage() {
                            </div>
                         </div>
 
-                        <div className="flex-1 p-10 space-y-10">
-                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-10">
+                        <div className="flex-1 p-6 space-y-6">
+                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
                               {[
                                 { label: 'Fulfillment', val: `${Math.round(s.metrics.fulfillmentRate * 100)}%`, icon: Zap },
                                 { label: 'ESG Impact', val: `${s.metrics.esgScore}/100`, icon: Leaf },
@@ -122,7 +122,7 @@ export default function SupplierPerformancePage() {
                               ))}
                            </div>
 
-                           <div className="p-8 rounded-[32px] bg-muted/20 border-2 border-dashed space-y-4">
+                           <div className="p-8 rounded-2xl bg-muted/20 border-2 border-dashed space-y-4">
                               <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                                  <span>Execution Reliability Index</span>
                                  <span className="text-primary">99.8% CONFIDENCE</span>
@@ -140,7 +140,7 @@ export default function SupplierPerformancePage() {
                                  </div>
                                  <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-40">3 Certified Audit Nodes Active</span>
                               </div>
-                              <Button variant="ghost" className="font-black text-[10px] uppercase tracking-[0.2em] group h-12 rounded-2xl" onClick={() => router.push(`/company/${s.id}`)}>
+                              <Button variant="ghost" className="font-black text-[10px] uppercase tracking-wide group h-12 rounded-2xl" onClick={() => router.push(`/company/${s.id}`)}>
                                  FORENSIC DRILLDOWN <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                               </Button>
                            </div>
@@ -152,43 +152,43 @@ export default function SupplierPerformancePage() {
            </div>
         </div>
 
-        <div className="lg:col-span-4 space-y-12">
-           <Card className="shadow-4xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-4 space-y-8">
+           <Card className="shadow-lg border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <BarChart3 className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-10 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Zap className="h-5 w-5 text-yellow-400 animate-pulse" />
                     Strategy Oracle
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter">
                     "AI Analysis: Systemic rebalancing detected in the electronic subsystem tier. 4 preferred sellers are at peak capacity. Recommend diversifying sourcing to the Singapore node cluster."
                  </p>
                  <div className="grid grid-cols-2 gap-8">
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Ecosystem Load</span>
                        <span className="text-4xl font-black text-emerald-300 tracking-tighter block mt-2">HIGH</span>
                     </div>
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Reliability Delta</span>
                        <span className="text-4xl font-black text-blue-300 tracking-tighter block mt-2">99.8%</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     REBALANCE PARTNER ECOSYSTEM
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Reliability Pulse</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Reliability Pulse</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'Network Finality', val: '99.98%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Settlement Depth', val: '$1.24B', icon: Landmark, color: 'text-blue-500' },

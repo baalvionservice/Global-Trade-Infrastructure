@@ -93,7 +93,7 @@ export function DynamicForm({ fields, onSubmit, initialData, isLoading, title, d
         </div>
         <Button 
            type="submit" 
-           className="w-full h-16 font-black uppercase tracking-[0.2em] text-base shadow-xl" 
+           className="w-full h-12 font-black uppercase tracking-wide text-base shadow-xl" 
            disabled={isLoading}
         >
           {isLoading ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <ShieldCheck className="mr-3 h-6 w-6" />}

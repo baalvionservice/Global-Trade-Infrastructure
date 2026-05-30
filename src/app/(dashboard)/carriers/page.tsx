@@ -76,7 +76,7 @@ export default function LogisticsMarketplacePage() {
                <CardContent className="p-0">
                   <div className="flex flex-col sm:flex-row h-full">
                      <div className="w-full sm:w-48 bg-muted/30 flex items-center justify-center p-6 border-b sm:border-b-0 sm:border-r">
-                        <div className="h-16 w-16 rounded-2xl bg-background border-2 border-primary/10 flex items-center justify-center text-2xl font-black text-primary">
+                        <div className="h-12 w-16 rounded-2xl bg-background border-2 border-primary/10 flex items-center justify-center text-2xl font-black text-primary">
                            {carrier.logo}
                         </div>
                      </div>

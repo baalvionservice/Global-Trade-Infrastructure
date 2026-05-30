@@ -40,15 +40,14 @@ export default function PolicyRegistryPage() {
 
   const fetchData = async () => {
     setLoading(true);
-    // In production, this pulls from the authoritative rulebase
-    const mockPolicies = [
-      { id: 'POL-001', name: 'High-Value Escrow Gate', category: 'FINANCIAL', enforcement: 'BLOCKING', rule: 'amount > $1M', status: 'ACTIVE', version: 4 },
-      { id: 'POL-002', name: 'Identity Drift Lockdown', category: 'IDENTITY', enforcement: 'BLOCKING', rule: 'drift_index > 0.05', status: 'ACTIVE', version: 2 },
-      { id: 'POL-003', name: 'Sanctioned Corridor Block', category: 'REGULATORY', enforcement: 'BLOCKING', rule: 'corridor IN restricted_list', status: 'ACTIVE', version: 12 },
-      { id: 'POL-004', name: 'Manual Sourcing Audit', category: 'OPERATIONAL', enforcement: 'GATED', rule: 'category == "Defense"', status: 'DRAFT', version: 1 }
-    ];
-    setPolicies(mockPolicies);
-    setLoading(false);
+    try {
+      const list = await governanceService.getPolicies();
+      setPolicies(list);
+    } catch {
+      setPolicies([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -70,10 +69,10 @@ export default function PolicyRegistryPage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Regulatory Runtime</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Regulatory Runtime</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Policy Registry</h2>
           <p className="text-muted-foreground font-medium italic max-w-2xl">Authoritative management of binding trade rules, jurisdictional constraints, and autonomous enforcement logic.</p>
         </div>
@@ -81,7 +80,7 @@ export default function PolicyRegistryPage() {
            <Button variant="outline" className="font-black border-2 bg-background h-14 px-8 text-[10px] uppercase tracking-widest shadow-md">
               <History className="mr-2 h-4 w-4" /> REVISION HISTORY
            </Button>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Plus className="mr-2 h-4 w-4" /> DEFINE NEW RULE
            </Button>
         </div>
@@ -109,20 +108,20 @@ export default function PolicyRegistryPage() {
                    animate={{ opacity: 1, y: 0 }}
                    transition={{ delay: i * 0.05 }}
                  >
-                    <Card className="shadow-lg border-2 hover:border-primary/40 transition-all rounded-[32px] overflow-hidden bg-background group">
+                    <Card className="shadow-lg border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
                        <CardContent className="p-0 flex items-stretch">
                           <div className={cn(
                              "w-2 shrink-0 transition-all duration-500",
                              policy.status === 'ACTIVE' ? "bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]" : "bg-indigo-500 shadow-[0_0_15px_rgba(79,70,229,0.2)]"
                           )} />
-                          <div className="flex-1 p-10 flex flex-col md:flex-row items-start justify-between gap-10">
+                          <div className="flex-1 p-6 flex flex-col md:flex-row items-start justify-between gap-6">
                              <div className="space-y-6 flex-1 min-w-0">
                                 <div className="flex items-center gap-6">
                                    <Badge className={cn(
                                       "text-[9px] uppercase font-black tracking-widest px-3 h-6 border-none shadow-sm",
                                       policy.category === 'FINANCIAL' ? "bg-indigo-600 text-white" : "bg-slate-900 text-white"
                                    )}>{policy.category}</Badge>
-                                   <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-40">
+                                   <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wide text-muted-foreground opacity-40">
                                       <Terminal className="h-3.5 w-3.5" /> Enforcement: {policy.enforcement}
                                    </div>
                                 </div>
@@ -159,13 +158,13 @@ export default function PolicyRegistryPage() {
         </div>
       </div>
 
-      <div className="p-12 rounded-[48px] bg-slate-950 text-white relative overflow-hidden group shadow-3xl border-2 border-white/5">
+      <div className="p-6 rounded-2xl bg-slate-950 text-white relative overflow-hidden group shadow-md border-2 border-white/5">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Lock className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Regulatory Integrity Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Rulebase. <br />Immutable Runtime.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Regulatory Integrity Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Rulebase. <br />Immutable Runtime.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion OS enforces jurisdictional trade policies at the kernel layer. Every policy change is cryptographically versioned and requires consensus authorization before being propagated to the active enforcement runtime, ensuring 100% auditable regulatory finality."
             </p>

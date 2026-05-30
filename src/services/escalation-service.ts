@@ -4,6 +4,7 @@
  * Orchestrates high-priority interventions across commercial and jurisdictional boundaries.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { communicationService } from './communication-service';
 import { eventBus } from '@/orchestration/event-bus';
@@ -73,7 +74,7 @@ class EscalationService {
       sortBy: 'createdAt',
       order: 'desc'
     });
-    return res.data || [];
+    return toList(res);
   }
 
   /**

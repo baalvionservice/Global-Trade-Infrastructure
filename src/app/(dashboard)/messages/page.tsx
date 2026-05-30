@@ -70,10 +70,10 @@ export default function InboxPage() {
 
   return (
     <main className="flex-1 flex flex-col bg-muted/20 min-h-screen">
-      <div className="p-4 md:p-12 space-y-12">
+      <div className="p-4 md:p-6 space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
            <div className="space-y-1">
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Coordination Network</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary">Coordination Network</p>
               <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Institutional Inbox</h2>
               <p className="text-muted-foreground font-medium italic">Authoritative dialogue nodes for multi-party trade synchronization and systemic escalations.</p>
            </div>
@@ -173,7 +173,7 @@ export default function InboxPage() {
                             <div className="flex-1 p-8 flex items-center justify-between gap-8">
                               <div className="flex items-center gap-6 min-w-0">
                                 <div className={cn(
-                                  "h-16 w-16 rounded-2xl border-2 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-inner",
+                                  "h-12 w-16 rounded-2xl border-2 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-inner",
                                   isCritical ? "bg-red-50 border-red-100" : "bg-muted"
                                 )}>
                                    {isCritical ? <Siren className="h-8 w-8 text-red-600" /> : <User className="h-8 w-8 text-muted-foreground opacity-60" />}
@@ -235,17 +235,17 @@ export default function InboxPage() {
           )}
         </div>
 
-        <div className="p-12 rounded-[40px] bg-primary text-primary-foreground relative overflow-hidden group shadow-2xl">
-           <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
+        <div className="p-6 rounded-2xl bg-primary text-primary-foreground relative overflow-hidden group shadow-2xl">
+           <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
               <Globe className="h-64 w-64 brightness-0 invert" />
            </div>
            <div className="relative z-10 max-w-3xl space-y-8">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.5em] opacity-60">Baalvion Coordination Standard v4.2</h4>
+              <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Baalvion Coordination Standard v4.2</h4>
               <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Globally Synchronized Dialogue.</h3>
               <p className="text-lg font-medium leading-relaxed italic opacity-80">
                 "Trade coordination requires more than messages—it requires context. Baalvion Dialogue Nodes link directly to the operational ledger, providing every participant with a cryptographically verified source of truth."
               </p>
-              <div className="flex gap-12 pt-4">
+              <div className="flex gap-6 pt-4">
                  <div className="space-y-1">
                     <p className="text-[10px] font-black uppercase opacity-60">Registry Node</p>
                     <p className="text-xl font-black tracking-tighter text-emerald-400">SYNC_MASTER_A</p>

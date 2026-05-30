@@ -38,10 +38,10 @@ export default function PermissionsMatrixPage() {
   };
 
   return (
-    <main className="space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Access Management</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Access Management</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter">Authority Matrix</h2>
           <p className="text-muted-foreground font-medium italic">Define role-based access control (RBAC) and contextual permissions for institutional nodes.</p>
         </div>
@@ -53,10 +53,10 @@ export default function PermissionsMatrixPage() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-4">
+      <div className="grid gap-6 lg:grid-cols-4">
         {/* ROLE SELECTOR */}
         <div className="lg:col-span-1 space-y-6">
-           <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground ml-1">Institutional Roles</h3>
+           <h3 className="text-[11px] font-black uppercase tracking-wide text-muted-foreground ml-1">Institutional Roles</h3>
            <div className="space-y-2">
               {Object.values(USER_ROLES).map(r => (
                 <button
@@ -76,8 +76,8 @@ export default function PermissionsMatrixPage() {
 
         {/* PERMISSION TABLE */}
         <div className="lg:col-span-3">
-           <Card className="shadow-2xl border-2 bg-background rounded-[40px] overflow-hidden">
-              <CardHeader className="bg-muted/10 border-b p-10">
+           <Card className="shadow-2xl border-2 bg-background rounded-2xl overflow-hidden">
+              <CardHeader className="bg-muted/10 border-b p-6">
                  <div className="flex justify-between items-center">
                     <div className="space-y-1">
                        <CardTitle className="text-2xl font-black uppercase tracking-tighter">Permissions for {selectedRole}</CardTitle>
@@ -123,12 +123,12 @@ export default function PermissionsMatrixPage() {
               </CardContent>
            </Card>
 
-           <div className="mt-10 p-10 rounded-[40px] bg-primary text-primary-foreground relative overflow-hidden group shadow-2xl">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125">
+           <div className="mt-10 p-6 rounded-2xl bg-primary text-primary-foreground relative overflow-hidden group shadow-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125">
                  <Lock className="h-56 w-56 brightness-0 invert" />
               </div>
               <div className="relative z-10 space-y-6">
-                 <h4 className="text-[10px] font-black uppercase tracking-[0.4em] opacity-60">Security Standard v4.2</h4>
+                 <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Security Standard v4.2</h4>
                  <h3 className="text-3xl font-black uppercase tracking-tighter leading-[0.9]">Zero-Trust Authorization.</h3>
                  <p className="text-base font-medium leading-relaxed italic opacity-80 max-w-2xl">
                     "Baalvion uses a strictly enforced ABAC (Attribute Based Access Control) model. Permissions are context-aware and verified by the Singularity Kernel before any state mutation occurs."

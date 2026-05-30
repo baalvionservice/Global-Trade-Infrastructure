@@ -163,7 +163,7 @@ export default function ApprovalQueuePage() {
           columns={columns as any} 
           data={filtered} 
           renderMobileCard={(row) => (
-            <div className="bg-background border-2 rounded-[24px] overflow-hidden shadow-lg mb-6">
+            <div className="bg-background border-2 rounded-2xl overflow-hidden shadow-lg mb-6">
               <div className="p-6 space-y-6">
                 <div className="flex justify-between items-start">
                   <div className="space-y-1">

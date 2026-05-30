@@ -1,208 +1,172 @@
 'use client';
 
 /**
- * @file page.tsx
- * @description THE BUYER COMMAND OBSERVATORY. 
- * High-fidelity, Bloomberg-grade strategic dashboard for trade oversight.
- * FINALIZED: Integrated High-Density SDL and Geopolitical Velocity Mapping.
+ * @file buyer/dashboard/page.tsx
+ * @description Buyer Command Observatory — live buyer KPIs + real per-country trade velocity.
  */
-
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { getBuyerDashboardData, BuyerDashboardData } from '@/services/buyer-service';
+import { adminService, HeatmapData } from '@/services/admin-service';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Activity, 
-  Globe, 
-  Zap, 
-  TrendingUp, 
-  ShieldCheck, 
-  BarChart3, 
-  ArrowUpRight, 
-  Compass,
-  Database,
-  Lock,
-  Cpu,
-  RefreshCw,
-  Loader2,
-  Scaling,
-  Dna
+import {
+  Activity, Globe, Zap, ShieldCheck, FileText, PackageCheck, Wallet, Truck,
+  RefreshCw, Loader2, ArrowRight, TrendingUp,
 } from 'lucide-react';
 import { cn, formatCurrency, formatNumber, getFlag } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer
-} from 'recharts';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-
-const MOCK_FLOWS = [
-  { jurisdiction: 'United States', volume: 450000000, activeNodes: 42, compliancePassRate: 99.8, intensity: 95 },
-  { jurisdiction: 'China', volume: 380000000, activeNodes: 31, compliancePassRate: 94.2, intensity: 88 },
-  { jurisdiction: 'India', volume: 210000000, activeNodes: 28, compliancePassRate: 98.4, intensity: 75 },
-  { jurisdiction: 'Singapore', volume: 150000000, activeNodes: 14, compliancePassRate: 100, intensity: 62 }
-];
 
 export default function BuyerCommandObservatory() {
+  const [data, setData] = useState<BuyerDashboardData | null>(null);
+  const [heatmap, setHeatmap] = useState<HeatmapData[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
+  const load = () => {
+    Promise.all([getBuyerDashboardData(), adminService.getTradeHeatmapData()])
+      .then(([d, h]) => { setData(d); setHeatmap(Array.isArray(h) ? h : []); })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  };
+  useEffect(() => { load(); const i = setInterval(load, 15000); return () => clearInterval(i); }, []);
 
-  if (loading) {
+  if (loading || !data) {
     return (
-      <div className="h-full flex flex-col items-center justify-center gap-6 bg-slate-950">
-        <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-slate-700 animate-pulse">Synchronizing Authority Nodes...</p>
+      <div className="h-full flex flex-col items-center justify-center gap-4 bg-slate-950">
+        <Loader2 className="h-10 w-10 animate-spin text-primary opacity-30" />
+        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-600">Synchronizing buyer node…</p>
       </div>
     );
   }
 
+  const kpis = [
+    { label: 'Active RFQs', value: String(data.kpis.activeRfqs), sub: 'Open tenders', icon: FileText, tone: 'text-blue-400', href: '/buyer/rfqs' },
+    { label: 'Open Orders', value: String(data.kpis.activeOrders), sub: 'In execution', icon: PackageCheck, tone: 'text-primary', href: '/orders' },
+    { label: 'Pending Payments', value: String(data.kpis.pendingPayments), sub: 'Awaiting release', icon: Wallet, tone: 'text-amber-400', href: '/payments' },
+    { label: 'Shipments In Transit', value: String(data.kpis.shipmentsInTransit), sub: 'Live tracking', icon: Truck, tone: 'text-emerald-400', href: '/logistics-shipment' },
+  ];
+
+  const maxVol = Math.max(1, ...heatmap.map((h) => h.volume));
+
   return (
-    <main className="space-y-12 pb-32">
-      {/* COMMAND HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 border-b border-white/5 pb-12">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-             <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Authority: BUYER_COMMAND_ALPHA</p>
+    <main className="space-y-6 pb-8">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-6">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <p className="text-[10px] font-bold uppercase tracking-wide text-primary">Buyer Command</p>
           </div>
-          <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.8] text-white">Strategic <br />Observatory.</h2>
+          <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase leading-none text-white">Strategic Observatory</h2>
         </div>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="outline" className="h-16 px-10 border-2 border-white/5 bg-white/5 font-black uppercase tracking-widest text-xs rounded-2xl shadow-xl hover:bg-white/10 transition-all">
-            <RefreshCw className="mr-3 h-4 w-4" /> Global Re-Sync
+        <div className="flex flex-wrap gap-3">
+          <Button onClick={load} variant="outline" className="h-11 px-5 border border-white/10 bg-white/5 font-bold uppercase tracking-wider text-xs rounded-xl hover:bg-white/10 transition-all text-white">
+            <RefreshCw className="mr-2 h-4 w-4" /> Re-Sync
           </Button>
-          <Button className="h-16 px-12 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-4xl hover:scale-105 transition-all rounded-2xl">
-            <Zap className="mr-3 h-5 w-5 fill-current" /> Execute Mandate
-          </Button>
+          <Link href="/buyer/rfqs/new">
+            <Button className="h-11 px-6 bg-primary text-white font-bold uppercase tracking-wider text-xs shadow-lg hover:scale-[1.02] transition-all rounded-xl">
+              <Zap className="mr-2 h-4 w-4 fill-current" /> New RFQ
+            </Button>
+          </Link>
         </div>
       </div>
 
-      {/* STRATEGIC KPI GRID - Bloomberg Density */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {[
-          { label: 'Settlement Finality', value: '450ms', trend: -12, status: 'optimal', desc: 'Cross-node latency' },
-          { label: 'Decision Latency', value: '4.2h', trend: -4, status: 'stable', desc: 'Avg. handshake time' },
-          { label: 'Corridor Load', value: '84%', trend: 14, status: 'at_risk', desc: 'Throughput vs Capacity' },
-          { label: 'Integrity Index', value: '99.98%', trend: 0.01, status: 'optimal', desc: 'Ledger consistency' }
-        ].map((kpi, i) => (
-          <motion.div
-            key={kpi.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-          >
-            <Card className="shadow-none border-none bg-slate-900/40 rounded-[32px] overflow-hidden group hover:bg-white/[0.02] transition-all duration-500 relative">
-               <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity"><Scaling className="h-16 w-16" /></div>
-               <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 px-8 pt-8">
-                  <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
-                    {kpi.label}
-                  </CardTitle>
-                  <div className={cn(
-                    "p-2 rounded-lg transition-colors",
-                    kpi.status === 'at_risk' ? 'bg-orange-500/10 text-orange-500' : 'bg-primary/10 text-primary'
-                  )}>
-                    <Activity className="h-4 w-4" />
+      {/* LIVE KPI GRID */}
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
+        {kpis.map((k, i) => (
+          <motion.div key={k.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
+            <Link href={k.href}>
+              <Card className="border border-white/5 bg-slate-900/40 rounded-2xl group hover:bg-white/[0.04] transition-all h-full">
+                <CardContent className="p-5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wide text-slate-400">{k.label}</span>
+                    <k.icon className={cn('h-4 w-4', k.tone)} />
                   </div>
-               </CardHeader>
-               <CardContent className="px-8 pb-8 pt-2 relative z-10">
-                  <div className="text-5xl font-black tracking-tighter tabular-nums text-white">{kpi.value}</div>
-                  <div className="flex items-center gap-3 mt-4">
-                     <span className={cn(
-                       "text-[9px] font-black uppercase tracking-tighter px-2.5 py-1 rounded-full border",
-                       kpi.trend < 0 ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-orange-500/10 text-orange-500 border-orange-500/20'
-                     )}>
-                       {kpi.trend > 0 ? '+' : ''}{kpi.trend}%
-                     </span>
-                     <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest italic opacity-60">{kpi.desc}</span>
-                  </div>
-               </CardContent>
-            </Card>
+                  <div className="text-3xl font-black tracking-tight tabular-nums text-white mt-2">{k.value}</div>
+                  <div className="text-[11px] font-medium text-slate-500 mt-1 flex items-center gap-1">{k.sub} <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-60 transition-opacity" /></div>
+                </CardContent>
+              </Card>
+            </Link>
           </motion.div>
         ))}
       </div>
 
-      {/* MAIN INTELLIGENCE MATRIX */}
-      <div className="grid gap-12 lg:grid-cols-12">
-        <Card className="lg:col-span-8 shadow-none border-none bg-slate-900/20 rounded-[48px] overflow-hidden flex flex-col h-[650px] relative group border border-white/5">
-           <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-           <CardHeader className="bg-white/5 border-b border-white/5 p-12 flex flex-row items-center justify-between z-10">
-              <div className="space-y-1">
-                 <CardTitle className="text-2xl font-black uppercase tracking-tighter text-white">Jurisdictional Trade Velocity</CardTitle>
-                 <CardDescription className="text-slate-400 font-medium italic">High-fidelity intensity mapping of planetary liquidity and node finality.</CardDescription>
-              </div>
-              <Globe className="h-10 w-10 text-primary opacity-20 animate-pulse" />
-           </CardHeader>
-           <CardContent className="p-12 flex-1 grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
-              <div className="space-y-10 overflow-y-auto terminal-scroll pr-6">
-                 {MOCK_FLOWS.map((flow) => (
-                    <div key={flow.jurisdiction} className="space-y-4 group cursor-default">
-                       <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4">
-                             <span className="text-3xl filter drop-shadow-2xl grayscale group-hover:grayscale-0 transition-all">{getFlag(flow.jurisdiction)}</span>
-                             <div className="space-y-0.5">
-                                <span className="text-xs font-black uppercase tracking-[0.2em] text-slate-300">{flow.jurisdiction}</span>
-                                <p className="text-[9px] font-bold text-slate-600 uppercase">Audit Pass: {flow.compliancePassRate}%</p>
-                             </div>
-                          </div>
-                          <div className="text-right">
-                             <span className="text-base font-black text-primary tabular-nums">{formatNumber(flow.volume)}</span>
-                             <p className="text-[8px] font-black text-slate-700 uppercase tracking-widest">Aggregate Flow</p>
-                          </div>
-                       </div>
-                       <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden shadow-inner relative">
-                          <motion.div 
-                            initial={{ width: 0 }}
-                            animate={{ width: `${flow.intensity}%` }}
-                            transition={{ duration: 1.5, ease: "circOut" }}
-                            className="h-full bg-primary relative"
-                          >
-                             <div className="absolute inset-0 bg-white/20 animate-pulse" />
-                          </motion.div>
-                       </div>
+      {/* MAIN GRID */}
+      <div className="grid gap-6 lg:grid-cols-12">
+        {/* REAL TRADE VELOCITY */}
+        <Card className="lg:col-span-8 shadow-sm bg-slate-900/20 rounded-2xl overflow-hidden border border-white/5">
+          <CardHeader className="bg-white/5 border-b border-white/5 px-6 py-5 flex flex-row items-center justify-between">
+            <div className="space-y-0.5">
+              <CardTitle className="text-lg font-black uppercase tracking-tight text-white">Jurisdictional Trade Velocity</CardTitle>
+              <CardDescription className="text-slate-400 font-medium text-xs">Live volume aggregated by counterparty jurisdiction.</CardDescription>
+            </div>
+            <Globe className="h-7 w-7 text-primary opacity-20" />
+          </CardHeader>
+          <CardContent className="p-6 space-y-4">
+            {heatmap.length === 0 && (
+              <div className="py-12 text-center text-slate-600 text-xs font-bold uppercase tracking-widest">No corridor activity yet</div>
+            )}
+            {heatmap.map((flow) => (
+              <div key={flow.country} className="space-y-2 group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl grayscale group-hover:grayscale-0 transition-all">{getFlag(flow.country)}</span>
+                    <div>
+                      <span className="text-sm font-bold tracking-tight text-slate-200">{flow.country}</span>
+                      <p className="text-[10px] font-medium text-slate-500 uppercase tracking-wide">{flow.activeRfqs} RFQs · {flow.activeDeals} deals</p>
                     </div>
-                 ))}
+                  </div>
+                  <div className="text-right">
+                    <span className="text-base font-black text-white tabular-nums">{formatCurrency(flow.volume)}</span>
+                    <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Aggregate Flow</p>
+                  </div>
+                </div>
+                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <motion.div initial={{ width: 0 }} animate={{ width: `${Math.max(4, (flow.volume / maxVol) * 100)}%` }} transition={{ duration: 1, ease: 'circOut' }} className="h-full bg-primary" />
+                </div>
               </div>
-              
-              <div className="bg-slate-950/40 rounded-[40px] border-2 border-dashed border-white/5 flex flex-col items-center justify-center p-12 text-center space-y-8 relative overflow-hidden group">
-                 <Compass className="h-20 w-20 text-primary opacity-10 group-hover:opacity-40 group-hover:rotate-45 transition-all duration-700" />
-                 <div className="space-y-2 relative z-10">
-                    <p className="text-sm font-black uppercase tracking-[0.4em] text-white">Spatial Discovery</p>
-                    <p className="text-xs font-medium italic text-slate-500 leading-relaxed px-6">"Interactive Node Topology is synchronized with the Global SSOT Ledger."</p>
-                 </div>
-                 <Button variant="outline" className="rounded-2xl border-2 border-white/10 text-white font-black text-[10px] uppercase h-12 px-10 bg-slate-900 shadow-2xl hover:bg-slate-800 transition-all">Launch Topology Graph</Button>
-              </div>
-           </CardContent>
+            ))}
+          </CardContent>
         </Card>
 
-        {/* AI STRATEGY ORACLE */}
-        <div className="lg:col-span-4 space-y-12">
-           <Card className="shadow-4xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px] h-[450px]">
-              <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
-                 <Dna className="h-80 w-80 brightness-0 invert" />
+        {/* STRATEGY SENTINEL */}
+        <div className="lg:col-span-4 space-y-6">
+          <Card className="shadow-lg border-none bg-primary text-primary-foreground relative overflow-hidden rounded-2xl">
+            <CardHeader className="border-b border-white/10 p-6">
+              <CardTitle className="text-[10px] font-bold uppercase tracking-widest opacity-90 flex items-center gap-2.5 text-white">
+                <Zap className="h-4 w-4 text-yellow-300" /> Strategy Sentinel
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 space-y-5">
+              <p className="text-xl font-bold leading-snug text-white">
+                {heatmap[0]
+                  ? `${heatmap[0].country} leads your corridor flow at ${formatCurrency(heatmap[0].volume)}. Prioritize RFQ coverage there to capture the active demand.`
+                  : 'Publish your first RFQ to start sourcing across the global marketplace.'}
+              </p>
+              <Link href="/marketplace">
+                <Button variant="secondary" className="w-full h-12 font-bold uppercase text-[11px] tracking-wide bg-white text-primary border-none rounded-xl hover:bg-white/90">
+                  Explore Marketplace
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card className="border border-white/5 bg-slate-900/40 rounded-2xl">
+            <CardContent className="p-6 space-y-3">
+              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wide text-slate-400">
+                <Activity className="h-4 w-4 text-emerald-400" /> Recent Activity
               </div>
-              <CardHeader className="pb-6 relative border-b border-white/10 p-12">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-6 text-white">
-                    <Zap className="h-6 w-6 text-yellow-400 animate-pulse" />
-                    Strategy Sentinel
-                 </CardTitle>
-              </CardHeader>
-              <CardContent className="p-12 relative space-y-12">
-                 <p className="text-3xl font-bold italic leading-[1.1] opacity-95 tracking-tighter text-white">
-                    "AI Forecast: Systemic shift in the APAC electronics corridor detected. Recommend rebalancing liquidity nodes into Mumbai to capture 14.2% yield delta."
-                 </p>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-4xl bg-white text-primary border-none rounded-[24px] hover:scale-[1.02] transition-transform">
-                    OPTIMIZE ROUTING MATRIX
-                 </Button>
-              </CardContent>
-           </Card>
+              {data.activities.slice(0, 4).map((a) => (
+                <div key={a.id} className="flex items-start gap-3 py-1.5 border-t border-white/5 first:border-0">
+                  <div className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-slate-300 truncate">{a.title}</p>
+                    <p className="text-[10px] text-slate-600">{a.timestamp}</p>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </main>

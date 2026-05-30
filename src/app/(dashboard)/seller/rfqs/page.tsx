@@ -101,21 +101,21 @@ export default function SellerMarketplaceDiscovery() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-muted-foreground animate-pulse">Establishing Exchange Handshake...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Establishing Exchange Handshake...</p>
       </div>
     );
   }
 
   return (
-    <main className="space-y-12 pb-24">
+    <main className="space-y-8 pb-24">
       {/* DISCOVERY HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Discovery Node: GLOBAL_DEMAND_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Discovery Node: GLOBAL_DEMAND_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Demand <br />Signals.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Demand <br />Signals.</h2>
           <p className="text-xl text-muted-foreground font-medium italic max-w-2xl leading-relaxed">
             "Absorb institutional trade requirements and respond with cryptographically secure commercial proposals."
           </p>
@@ -125,32 +125,32 @@ export default function SellerMarketplaceDiscovery() {
               <Radio className="h-4 w-4 text-emerald-600 animate-ping" />
               Real-time Pulse Active
            </div>
-           <Button variant="outline" className="h-16 px-10 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md group">
+           <Button variant="outline" className="h-12 px-6 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md group">
               <Compass className="mr-3 h-4 w-4 group-hover:rotate-45 transition-transform" /> Re-Scan Network
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-12 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* DISCOVERY GRID */}
-        <div className="lg:col-span-8 space-y-10">
+        <div className="lg:col-span-8 space-y-6">
            {/* SEARCH ORCHESTRATOR */}
            <div className="flex flex-col lg:flex-row gap-4">
               <div className="relative flex-1">
                  <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground opacity-30" />
                  <input 
                    placeholder="Resolve institutional demand, commodity signatures, or node IDs..." 
-                   className="w-full h-16 pl-14 pr-6 bg-background border-2 rounded-[24px] text-lg font-black tracking-tight shadow-inner focus:outline-none focus:border-primary/20 transition-all"
+                   className="w-full h-12 pl-14 pr-6 bg-background border-2 rounded-2xl text-lg font-black tracking-tight shadow-inner focus:outline-none focus:border-primary/20 transition-all"
                    value={search}
                    onChange={(e) => setSearch(e.target.value)}
                  />
               </div>
               <div className="flex gap-3">
-                 <Button variant="outline" className="h-16 border-2 px-8 rounded-[24px] font-black text-[10px] uppercase tracking-widest shadow-md bg-background">
+                 <Button variant="outline" className="h-12 border-2 px-8 rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-md bg-background">
                     <Filter className="mr-2 h-4 w-4" /> All Sectors
                     <ChevronDown className="ml-2 h-3 w-3 opacity-40" />
                  </Button>
-                 <Button variant="outline" className="h-16 w-16 border-2 rounded-[24px] shadow-md bg-background">
+                 <Button variant="outline" className="h-12 w-16 border-2 rounded-2xl shadow-md bg-background">
                     <SlidersHorizontal className="h-6 w-6" />
                  </Button>
               </div>
@@ -165,10 +165,10 @@ export default function SellerMarketplaceDiscovery() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.05 }}
                     >
-                       <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-[40px]">
+                       <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-2xl">
                           <CardContent className="p-0 flex flex-col md:flex-row">
                              <div className="md:w-3 bg-primary shrink-0 transition-all duration-700 group-hover:bg-indigo-600" />
-                             <div className="flex-1 p-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                             <div className="flex-1 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
                                 <div className="space-y-6 flex-1 min-w-0">
                                    <div className="flex items-center gap-4">
                                       <Badge className="bg-emerald-600 text-white text-[9px] font-black h-6 px-3 border-none shadow-sm uppercase tracking-widest">ACTIVE_DEMAND</Badge>
@@ -188,7 +188,7 @@ export default function SellerMarketplaceDiscovery() {
                                       <p className="text-4xl font-black text-primary tabular-nums tracking-tighter">{formatCurrency(rfq.pricing.target_price)}</p>
                                       <p className="text-[8px] font-bold text-muted-foreground uppercase mt-1">USD PER UNIT (FOB)</p>
                                    </div>
-                                   <div className="flex items-center gap-10">
+                                   <div className="flex items-center gap-6">
                                       <div className="flex flex-col items-end">
                                          <p className="text-[9px] font-black text-muted-foreground uppercase opacity-40 mb-1">Time Finality</p>
                                          <span className="text-sm font-black text-foreground">48h Left</span>
@@ -208,43 +208,43 @@ export default function SellerMarketplaceDiscovery() {
         </div>
 
         {/* SIDEBAR: MARKET INTELLIGENCE */}
-        <div className="lg:col-span-4 space-y-12">
-           <Card className="shadow-4xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-4 space-y-8">
+           <Card className="shadow-lg border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Zap className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-10 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Activity className="h-5 w-5 text-yellow-400 animate-pulse" />
                     Market Oracle
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter">
                     "AI Analysis: Systemic demand for utility-scale energy artifacts in the North America corridor is trending +24% YoY. Bids within 5% of target price have achieved 92% finality in recent cycles."
                  </p>
                  <div className="grid grid-cols-2 gap-8">
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Opportunity Depth</span>
                        <span className="text-4xl font-black text-emerald-300 tracking-tighter block mt-2">HIGH</span>
                     </div>
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Trust Margin</span>
                        <span className="text-4xl font-black text-blue-300 tracking-tighter block mt-2">942</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     EXECUTE BATCH RESPONSE
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Ecosystem Pulse</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Ecosystem Pulse</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'Demand Velocity', val: '+18.4%', icon: TrendingUp, color: 'text-emerald-500' },
                    { label: 'Carrier Density', val: '92.4%', icon: ShipIcon, color: 'text-blue-500' },
@@ -263,15 +263,15 @@ export default function SellerMarketplaceDiscovery() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-8 rounded-[48px] border-dashed group hover:border-primary/20 transition-all duration-700">
-              <Globe className="h-16 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-45" />
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-8 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
+              <Globe className="h-12 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-45" />
               <div className="space-y-3">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-muted-foreground">Ecosystem Finality</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-muted-foreground">Ecosystem Finality</p>
                  <p className="text-xs font-medium italic leading-relaxed px-4 opacity-60">
                     "Baalvion intelligence is currently mapping 14,240 cross-jurisdictional nodes. Zero systemic failure patterns detected in the current cycle."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">AUDIT NETWORK TOPOLOGY</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">AUDIT NETWORK TOPOLOGY</Button>
            </Card>
         </div>
       </div>

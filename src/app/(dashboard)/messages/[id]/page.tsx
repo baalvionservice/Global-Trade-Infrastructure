@@ -104,7 +104,7 @@ export default function ConversationDetailPage() {
       <div className="flex h-[80vh] flex-col items-center justify-center p-8 text-center">
         <h2 className="text-3xl font-black uppercase tracking-tighter">Dialogue Node Not Found</h2>
         <p className="text-muted-foreground mb-10 font-medium italic">The requested coordination thread could not be establishment in this session.</p>
-        <Button onClick={() => router.push('/messages')} className="h-14 px-12 font-black uppercase tracking-widest shadow-xl">Return to Inbox</Button>
+        <Button onClick={() => router.push('/messages')} className="h-14 px-6 font-black uppercase tracking-widest shadow-xl">Return to Inbox</Button>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function ConversationDetailPage() {
     <main className="flex-1 flex flex-col h-[calc(100vh-4rem)] bg-muted/20 overflow-hidden">
       {/* AUTHORITATIVE CONTEXT HEADER */}
       <div className={cn(
-        "h-24 border-b bg-background px-4 md:px-10 flex items-center justify-between shrink-0 shadow-md z-20 relative transition-colors duration-500",
+        "h-24 border-b bg-background px-4 md:px-6 flex items-center justify-between shrink-0 shadow-md z-20 relative transition-colors duration-500",
         isWarRoom ? "border-red-500/30" : ""
       )}>
         <div className="flex items-center gap-8">
@@ -150,7 +150,7 @@ export default function ConversationDetailPage() {
         
         <div className="flex items-center gap-4">
            <div className="hidden xl:flex flex-col items-end gap-1 px-6 border-r">
-              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-40 leading-none">Security Node</span>
+              <span className="text-[9px] font-black uppercase tracking-wide text-muted-foreground opacity-40 leading-none">Security Node</span>
               <div className="flex items-center gap-2">
                  <Lock className="h-3 w-3 text-indigo-500" />
                  <span className="text-xs font-black tracking-tight">{conv.securityProtocol}</span>
@@ -173,7 +173,7 @@ export default function ConversationDetailPage() {
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className={cn(
-            "border-b px-4 py-3 flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] relative z-10 shadow-inner",
+            "border-b px-4 py-3 flex items-center justify-center gap-4 text-[10px] font-black uppercase tracking-wide relative z-10 shadow-inner",
             isWarRoom ? "bg-red-600 text-white border-red-500" : "bg-indigo-600/5 text-indigo-700 border-indigo-100"
           )}
         >
@@ -201,7 +201,7 @@ export default function ConversationDetailPage() {
              disabled={false}
            />
            <div className="max-w-4xl mx-auto flex items-center justify-between mt-4 px-1">
-              <div className="flex items-center gap-4 opacity-40 text-[9px] font-black uppercase tracking-[0.2em] transition-opacity hover:opacity-100">
+              <div className="flex items-center gap-4 opacity-40 text-[9px] font-black uppercase tracking-wide transition-opacity hover:opacity-100">
                  <span className="flex items-center gap-1.5"><div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Live Node Connection</span>
                  <span className="flex items-center gap-1.5 border-l pl-4"><Activity className="h-3 w-3" /> Throughput: 48kbps</span>
               </div>

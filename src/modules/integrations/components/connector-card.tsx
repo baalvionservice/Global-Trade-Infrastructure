@@ -38,7 +38,7 @@ export function ConnectorCard({ node, onSync }: { node: ConnectorNode, onSync: (
 
   return (
     <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-      <Card className="shadow-xl border-2 border-primary/5 bg-background rounded-[32px] overflow-hidden group hover:border-primary/40 transition-all">
+      <Card className="shadow-xl border-2 border-primary/5 bg-background rounded-2xl overflow-hidden group hover:border-primary/40 transition-all">
         <CardHeader className="bg-muted/10 border-b p-8 flex flex-row items-start justify-between">
           <div className="space-y-3">
              <div className="flex items-center gap-3">

@@ -78,11 +78,11 @@ export default function SovereignCertificationPage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Sovereign Validation Hub</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Sovereign Validation Hub</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Readiness & Certification</h2>
           <p className="text-muted-foreground font-medium italic max-w-2xl">High-authority oversight of operational integrity, production readiness, and sovereign compliance audits.</p>
         </div>
@@ -91,7 +91,7 @@ export default function SovereignCertificationPage() {
               <ShieldCheck className="h-4 w-4" />
               Auth Level: SOVEREIGN_AUDITOR
            </div>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary" onClick={handleRunAudit} disabled={auditing}>
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary" onClick={handleRunAudit} disabled={auditing}>
               {auditing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ClipboardCheck className="mr-2 h-4 w-4" />}
               Dispatch Global Audit
            </Button>
@@ -109,7 +109,7 @@ export default function SovereignCertificationPage() {
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
              <Card className="shadow-lg border-2 border-primary/5 bg-background rounded-3xl group hover:border-primary/20 transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{kpi.label} Pulse</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{kpi.label} Pulse</CardTitle>
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -122,13 +122,13 @@ export default function SovereignCertificationPage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* SYSTEMIC INTEGRITY LEDGER */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Operational Integrity Ledger</CardTitle>
+                  <CardTitle className="text-sm font-black uppercase tracking-wide">Operational Integrity Ledger</CardTitle>
                   <CardDescription className="text-xs font-medium">Real-time verification of cross-system state consistency and dependency finality.</CardDescription>
                 </div>
                 <Dna className="h-6 w-6 text-primary opacity-30" />
@@ -136,7 +136,7 @@ export default function SovereignCertificationPage() {
               <CardContent className="p-0">
                  <div className="divide-y-2">
                     {integrity.map(check => (
-                       <div key={check.id} className="p-10 flex items-center justify-between group hover:bg-primary/[0.01] transition-colors">
+                       <div key={check.id} className="p-6 flex items-center justify-between group hover:bg-primary/[0.01] transition-colors">
                           <div className="flex items-center gap-8">
                              <div className={cn(
                                 "h-14 w-14 rounded-3xl border-2 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform",
@@ -160,15 +160,15 @@ export default function SovereignCertificationPage() {
            </Card>
 
            {/* CERTIFICATION REGISTRY */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b pb-6 px-10 flex flex-row items-center justify-between">
-                 <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Sovereign Certification Mandates</CardTitle>
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b pb-6 px-6 flex flex-row items-center justify-between">
+                 <CardTitle className="text-sm font-black uppercase tracking-wide">Sovereign Certification Mandates</CardTitle>
                  <Button variant="link" className="text-[9px] font-black uppercase tracking-widest p-0 h-auto">VIEW REPOSITORY <ArrowRight className="ml-1 h-2 w-2" /></Button>
               </CardHeader>
               <CardContent className="p-0">
                  <div className="divide-y-2">
                     {mandates.map(mandate => (
-                       <div key={mandate.id} className="p-10 flex items-start gap-8 group hover:bg-primary/[0.01] transition-colors">
+                       <div key={mandate.id} className="p-6 flex items-start gap-8 group hover:bg-primary/[0.01] transition-colors">
                           <div className="p-4 rounded-3xl bg-muted/50 border-2 shadow-inner group-hover:scale-105 transition-transform shrink-0">
                              <FileCheck className="h-6 w-6 text-primary opacity-60" />
                           </div>
@@ -194,41 +194,41 @@ export default function SovereignCertificationPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* VALIDATION ORACLE PANEL */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <ShieldCheck className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4">
                     <Zap className="h-5 w-5 text-white animate-pulse" />
                     Validation Oracle
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-lg font-bold italic leading-relaxed opacity-90 leading-snug">
                     "Platform Oracle: All jurisdictional nodes have reached high-fidelity state finality. Production readiness scoring is at peak thresholds. System is authorized for sovereign-grade trade execution."
                  </p>
                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-5 rounded-[24px] bg-white/10 border border-white/10 backdrop-blur-md">
+                    <div className="p-5 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
                        <p className="text-[10px] font-black uppercase opacity-60 mb-1">Audit Coverage</p>
                        <p className="text-xl font-black text-emerald-300">100%</p>
                     </div>
-                    <div className="p-5 rounded-[24px] bg-white/10 border border-white/10 backdrop-blur-md">
+                    <div className="p-5 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md">
                        <p className="text-[10px] font-black uppercase opacity-60 mb-1">Maturity Score</p>
                        <p className="text-xl font-black text-indigo-300">A+</p>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[11px] tracking-[0.4em] shadow-2xl bg-white text-primary border-none rounded-3xl hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[11px] tracking-widest shadow-2xl bg-white text-primary border-none rounded-3xl hover:scale-[1.02] transition-transform">
                     INITIATE PRODUCTION LAUNCH
                  </Button>
               </CardContent>
            </Card>
 
            {/* AUDIT TELEMETRY KPIS */}
-           <Card className="shadow-none border-2 bg-background p-10 space-y-10 rounded-[40px]">
-              <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground">Strategic Readiness</h4>
+           <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
+              <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">Strategic Readiness</h4>
               <div className="space-y-8">
                  {[
                    { label: 'Explainability Delta', val: '0.04%', change: 'Minimal', icon: Activity },
@@ -247,13 +247,13 @@ export default function SovereignCertificationPage() {
                    </div>
                  ))}
               </div>
-              <Button variant="outline" className="w-full h-14 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">Export Certification Package</Button>
+              <Button variant="outline" className="w-full h-14 border-2 font-black uppercase text-[9px] tracking-wide bg-background">Export Certification Package</Button>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-6 rounded-[40px] border-dashed group hover:border-primary/40 transition-all duration-700">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/40 transition-all duration-700">
               <Lock className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary group-hover:opacity-40 transition-all duration-700" />
               <div className="space-y-2">
-                 <p className="text-sm font-black uppercase tracking-[0.2em] text-foreground">Sovereign Version Freeze</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-foreground">Sovereign Version Freeze</p>
                  <p className="text-[10px] text-muted-foreground font-medium italic leading-relaxed px-4">
                     "Post-authorization, the platform architecture enters a frozen state. No structural mutations are permitted without secondary council override."
                  </p>

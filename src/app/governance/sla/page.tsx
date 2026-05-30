@@ -50,10 +50,10 @@ export default function SLAMonitoringPage() {
   if (loading) return <div className="h-screen flex items-center justify-center"><Loader2 className="animate-spin text-primary" /></div>;
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Reliability Layer</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Reliability Layer</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter">SLA Monitoring Hub</h2>
           <p className="text-muted-foreground font-medium italic">Autonomous oversight of cross-border execution finality and operational reliability commitments.</p>
         </div>
@@ -93,7 +93,7 @@ export default function SLAMonitoringPage() {
         columns={columns as any}
         data={monitors}
         emptyMessage="Zero active SLA breaches detected in the current cycle."
-        className="rounded-[32px] border-2 shadow-2xl"
+        className="rounded-2xl border-2 shadow-2xl"
       />
     </main>
   );

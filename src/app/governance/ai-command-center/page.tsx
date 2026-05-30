@@ -54,37 +54,37 @@ export default function AICommandCenterPage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6 bg-slate-950">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Establishing Cognitive Singularity...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Establishing Cognitive Singularity...</p>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-12 bg-slate-950 text-slate-100 min-h-screen p-4 md:p-12">
+    <main className="flex-1 space-y-8 bg-slate-950 text-slate-100 min-h-screen p-4 md:p-6">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/10 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/10 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Sovereign Decision Node: CIVILIZATION_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Sovereign Decision Node: CIVILIZATION_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Cognition Hub.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Cognition Hub.</h2>
           <p className="text-slate-400 font-medium italic text-lg max-w-3xl leading-relaxed">
             "Authoritative planetary oversight of multi-agent reasoning civilizations and autonomous operational finality."
           </p>
         </div>
         <div className="flex gap-4">
-           <Button variant="outline" className="h-16 px-10 border-white/10 bg-white/5 text-white font-black uppercase text-xs tracking-widest hover:bg-white/10 rounded-2xl">
+           <Button variant="outline" className="h-12 px-6 border-white/10 bg-white/5 text-white font-black uppercase text-xs tracking-widest hover:bg-white/10 rounded-2xl">
               <Database className="mr-3 h-4 w-4" /> Replay Reasoning Logs
            </Button>
-           <Button className="h-16 px-12 bg-primary text-white font-black shadow-4xl hover:scale-105 transition-all rounded-2xl uppercase tracking-[0.2em] text-xs">
+           <Button className="h-12 px-6 bg-primary text-white font-black shadow-lg hover:scale-105 transition-all rounded-2xl uppercase tracking-wide text-xs">
               <Sparkles className="mr-3 h-5 w-5 fill-current" /> Calibrate Logic Fabric
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-12">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-8 space-y-8">
            {/* AGENT FLEET MONITOR */}
            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -93,10 +93,10 @@ export default function AICommandCenterPage() {
                 { name: 'Logistics Sentinel', role: 'OPERATIONAL', status: 'THINKING', score: 882 }
               ].map((agent, i) => (
                 <motion.div key={agent.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                   <Card className="shadow-none border-none bg-slate-900/60 rounded-[40px] p-10 space-y-8 group hover:bg-white/5 transition-all relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-10 opacity-[0.03] group-hover:opacity-10 transition-opacity"><Cpu className="h-32 w-32" /></div>
+                   <Card className="shadow-none border-none bg-slate-900/60 rounded-2xl p-6 space-y-8 group hover:bg-white/5 transition-all relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity"><Cpu className="h-32 w-32" /></div>
                       <div className="flex items-center justify-between relative z-10">
-                         <div className="p-4 rounded-[24px] bg-slate-950 border border-white/10 shadow-inner group-hover:bg-primary/20 transition-all">
+                         <div className="p-4 rounded-2xl bg-slate-950 border border-white/10 shadow-inner group-hover:bg-primary/20 transition-all">
                             <BrainCircuit className="h-8 w-8 text-primary" />
                          </div>
                          <Badge className={cn(
@@ -105,7 +105,7 @@ export default function AICommandCenterPage() {
                          )}>{agent.status}</Badge>
                       </div>
                       <div className="space-y-3 relative z-10">
-                         <p className="text-[10px] font-black uppercase text-slate-500 tracking-[0.4em]">{agent.role}</p>
+                         <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest">{agent.role}</p>
                          <h3 className="text-2xl font-black text-white uppercase tracking-tighter group-hover:text-primary transition-colors">{agent.name}</h3>
                       </div>
                       <div className="space-y-4 pt-4 relative z-10 border-t border-white/5">
@@ -123,8 +123,8 @@ export default function AICommandCenterPage() {
            </div>
 
            {/* ACTIVE MISSION MANDATES */}
-           <Card className="shadow-none border-none bg-slate-900/40 rounded-[48px] overflow-hidden flex flex-col">
-              <CardHeader className="bg-white/5 border-b border-white/5 p-12 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-none bg-slate-900/40 rounded-2xl overflow-hidden flex flex-col">
+              <CardHeader className="bg-white/5 border-b border-white/5 p-6 flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-2xl font-black uppercase tracking-tighter text-white">Autonomous Mission Ledger</CardTitle>
                   <CardDescription className="text-slate-500 font-medium mt-1">Real-time trace of civilization-scale operational coordination.</CardDescription>
@@ -134,9 +134,9 @@ export default function AICommandCenterPage() {
               <CardContent className="p-0">
                  <div className="divide-y divide-white/5">
                     {activeMissions.map((mission, i) => (
-                       <div key={mission.id} className="p-12 flex items-center justify-between group hover:bg-white/[0.01] transition-colors">
-                          <div className="flex items-center gap-12 flex-1 min-w-0">
-                             <div className="h-24 w-24 rounded-[32px] border-2 border-white/5 bg-slate-950 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                       <div key={mission.id} className="p-6 flex items-center justify-between group hover:bg-white/[0.01] transition-colors">
+                          <div className="flex items-center gap-6 flex-1 min-w-0">
+                             <div className="h-24 w-24 rounded-2xl border-2 border-white/5 bg-slate-950 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
                                 <Zap className="h-10 w-10 text-primary opacity-60" />
                              </div>
                              <div className="space-y-4 flex-1 min-w-0">
@@ -160,7 +160,7 @@ export default function AICommandCenterPage() {
                                 <p className="text-[9px] font-black uppercase text-slate-600 leading-none">Logic Conf.</p>
                                 <p className="text-4xl font-black text-white tabular-nums tracking-tighter">{mission.confidence}%</p>
                              </div>
-                             <Button variant="ghost" size="icon" className="h-14 w-14 rounded-[20px] border border-white/10 bg-white/5 opacity-20 group-hover:opacity-100 transition-all">
+                             <Button variant="ghost" size="icon" className="h-14 w-14 rounded-xl border border-white/10 bg-white/5 opacity-20 group-hover:opacity-100 transition-all">
                                 <ArrowRight className="h-6 w-6 text-white" />
                              </Button>
                           </div>
@@ -172,28 +172,28 @@ export default function AICommandCenterPage() {
         </div>
 
         {/* SIDEBAR: COGNITIVE OVERSIGHT */}
-        <div className="lg:col-span-4 space-y-12">
+        <div className="lg:col-span-4 space-y-8">
            {/* REASONING SYMMETRY */}
-           <Card className="shadow-4xl border-none bg-primary text-white relative overflow-hidden group rounded-[48px] h-[380px]">
+           <Card className="shadow-lg border-none bg-primary text-white relative overflow-hidden group rounded-2xl h-[380px]">
               <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Dna className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-12">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-6 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-6 text-white">
                     <Radio className="h-6 w-6 text-white animate-pulse" />
                     Cognitive Symmetry Oracle
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter text-white">
                     "Platform Singularity: Multi-agent reasoning state is maintained at Tier-1 threshold. Logic drift index: 0.002%."
                  </p>
                  <div className="grid grid-cols-2 gap-8">
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Inference Velocity</span>
                        <span className="text-4xl font-black text-emerald-300 tracking-tighter block mt-2">142ms</span>
                     </div>
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Consensus</span>
                        <span className="text-4xl font-black text-blue-300 tracking-tighter block mt-2">100%</span>
                     </div>
@@ -202,12 +202,12 @@ export default function AICommandCenterPage() {
            </Card>
 
            {/* SYSTEMIC GOVERNANCE MONITOR */}
-           <Card className="shadow-none border-none bg-slate-900/40 p-12 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-none bg-slate-900/40 p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-500 ml-1">AI Health Matrix</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-500 ml-1">AI Health Matrix</h4>
                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-12">
+              <div className="space-y-8">
                  {[
                    { label: 'Reasoning Finality', val: '99.98%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Artifact Depth', val: '4.2k Petabytes', icon: Database, color: 'text-indigo-500' },
@@ -215,7 +215,7 @@ export default function AICommandCenterPage() {
                  ].map(stat => (
                    <div key={stat.label} className="flex items-center justify-between group cursor-default">
                       <div className="flex items-center gap-8">
-                         <div className="p-4 rounded-[24px] bg-slate-950 border border-white/5 shadow-inner group-hover:bg-white/5 transition-colors">
+                         <div className="p-4 rounded-2xl bg-slate-950 border border-white/5 shadow-inner group-hover:bg-white/5 transition-colors">
                             <stat.icon className={cn("h-6 w-6", stat.color)} />
                          </div>
                          <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">{stat.label}</span>
@@ -226,15 +226,15 @@ export default function AICommandCenterPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-none bg-slate-900/30 p-16 text-center space-y-10 rounded-[48px] border-dashed border-white/5">
-              <Scaling className="h-16 w-16 mx-auto text-slate-700 opacity-20 group-hover:text-primary transition-all duration-700 group-hover:scale-110" />
+           <Card className="shadow-none border-none bg-slate-900/30 p-16 text-center space-y-6 rounded-2xl border-dashed border-white/5">
+              <Scaling className="h-12 w-16 mx-auto text-slate-700 opacity-20 group-hover:text-primary transition-all duration-700 group-hover:scale-110" />
               <div className="space-y-4">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-slate-400">Civilization Evolution</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-slate-400">Civilization Evolution</p>
                  <p className="text-xs font-medium italic leading-relaxed px-8 opacity-40 text-slate-500">
                     "Baalvion intelligence is architected as an autonomous operating civilization. Post-platform evolution is scheduled following 365d stability verification."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-14 border-white/10 font-black uppercase text-[10px] tracking-[0.2em] bg-slate-900/50 hover:bg-slate-800 text-white">RECONSTRUCT GLOBAL KNOWLEDGE</Button>
+              <Button variant="outline" className="w-full h-14 border-white/10 font-black uppercase text-[10px] tracking-wide bg-slate-900/50 hover:bg-slate-800 text-white">RECONSTRUCT GLOBAL KNOWLEDGE</Button>
            </Card>
         </div>
       </div>

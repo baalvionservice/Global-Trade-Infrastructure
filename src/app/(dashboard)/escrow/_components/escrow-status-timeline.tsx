@@ -19,8 +19,8 @@ const steps = [
 export function EscrowStatusTimeline({ status }: EscrowStatusTimelineProps) {
   if (status === 'disputed') {
     return (
-      <div className="flex flex-col items-center justify-center p-10 bg-orange-50 border-2 border-orange-200 rounded-2xl text-orange-700 gap-4 animate-in zoom-in duration-300">
-        <div className="h-16 w-16 bg-orange-100 rounded-full flex items-center justify-center shadow-sm">
+      <div className="flex flex-col items-center justify-center p-6 bg-orange-50 border-2 border-orange-200 rounded-2xl text-orange-700 gap-4 animate-in zoom-in duration-300">
+        <div className="h-12 w-16 bg-orange-100 rounded-full flex items-center justify-center shadow-sm">
            <AlertOctagon className="h-10 w-10 text-orange-600 animate-pulse" />
         </div>
         <div className="text-center">
@@ -33,8 +33,8 @@ export function EscrowStatusTimeline({ status }: EscrowStatusTimelineProps) {
 
   if (status === 'refunded') {
     return (
-      <div className="flex flex-col items-center justify-center p-10 bg-blue-50 border-2 border-blue-200 rounded-2xl text-blue-700 gap-4">
-        <div className="h-16 w-16 bg-blue-100 rounded-full flex items-center justify-center shadow-sm">
+      <div className="flex flex-col items-center justify-center p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl text-blue-700 gap-4">
+        <div className="h-12 w-16 bg-blue-100 rounded-full flex items-center justify-center shadow-sm">
            <Wallet className="h-10 w-10 text-blue-600" />
         </div>
         <div className="text-center">
@@ -48,7 +48,7 @@ export function EscrowStatusTimeline({ status }: EscrowStatusTimelineProps) {
   const currentStepIndex = steps.findIndex(s => s.id === status);
 
   return (
-    <div className="relative flex justify-between w-full max-w-4xl mx-auto py-12">
+    <div className="relative flex justify-between w-full max-w-4xl mx-auto py-8">
       {/* Connector Rail */}
       <div className="absolute top-[48px] left-0 w-full h-1.5 bg-muted rounded-full z-0" />
       <div 

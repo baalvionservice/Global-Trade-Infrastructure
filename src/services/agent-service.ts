@@ -27,6 +27,7 @@ export interface ServiceRequest {
   agentName: string;
   agentType: AgentType;
   userId: string;
+  clientName?: string;
   shipmentId?: string;
   orderId?: string;
   type: string;

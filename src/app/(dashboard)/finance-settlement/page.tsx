@@ -55,10 +55,10 @@ export default function TreasuryCommandPage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Strategic Finance</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Strategic Finance</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Treasury Command</h2>
           <p className="text-muted-foreground font-medium italic">High-fidelity oversight of platform liquidity, settlement finality, and cross-border FX exposure.</p>
         </div>
@@ -77,7 +77,7 @@ export default function TreasuryCommandPage() {
         {kpis.map((stat, i) => (
           <Card key={stat.label} className="shadow-lg border-2 border-primary/5 bg-background rounded-3xl group hover:border-primary/20 transition-all">
              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{stat.label}</CardTitle>
+                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{stat.label}</CardTitle>
                 <Activity className={cn("h-4 w-4", stat.status === 'optimal' ? 'text-emerald-600' : 'text-orange-600')} />
              </CardHeader>
              <CardContent>
@@ -88,21 +88,21 @@ export default function TreasuryCommandPage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* LIQUIDITY HEATMAP */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Institutional Cash positioning</CardTitle>
+                  <CardTitle className="text-sm font-black uppercase tracking-wide">Institutional Cash positioning</CardTitle>
                   <CardDescription className="text-xs font-medium">Aggregated real-time balances across jurisdictional currency nodes.</CardDescription>
                 </div>
                 <Globe className="h-6 w-6 text-primary opacity-30" />
               </CardHeader>
-              <CardContent className="p-10">
+              <CardContent className="p-6">
                 <div className="grid grid-cols-2 gap-8">
                    {wallets.map((pos) => (
-                      <div key={pos.currency} className="p-8 rounded-[32px] border-2 bg-muted/5 space-y-6 group hover:border-primary/20 transition-all cursor-default">
+                      <div key={pos.currency} className="p-8 rounded-2xl border-2 bg-muted/5 space-y-6 group hover:border-primary/20 transition-all cursor-default">
                          <div className="flex items-center justify-between">
                             <Badge className="bg-primary text-white text-[10px] font-black uppercase h-6 px-3 border-none">{pos.currency} Node</Badge>
                             <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -125,9 +125,9 @@ export default function TreasuryCommandPage() {
            </Card>
 
            {/* RECENT SETTLEMENT FEED */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
-                 <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Live Settlement Ledger</CardTitle>
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
+                 <CardTitle className="text-sm font-black uppercase tracking-wide">Live Settlement Ledger</CardTitle>
                  <History className="h-5 w-5 text-primary opacity-30" />
               </CardHeader>
               <CardContent className="p-0">
@@ -163,19 +163,19 @@ export default function TreasuryCommandPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* TREASURY RISK ADVISORY */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Zap className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <TrendingUp className="h-5 w-5 text-white" />
                     Treasury Intelligence
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-base font-bold italic leading-relaxed opacity-90 leading-snug">
                     "Platform Oracle: FX volatility in the APAC-US corridor is trending +14%. Treasury suggest rebalancing the USD/SGD swap line to optimize settlement finality."
                  </p>
@@ -189,13 +189,13 @@ export default function TreasuryCommandPage() {
                        <span className="text-sm font-black uppercase text-emerald-300">Optimal</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
                     AUTHORIZE CORRIDOR SWAP
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 text-center space-y-6 rounded-[32px] border-dashed group hover:border-primary/20 transition-all cursor-pointer">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all cursor-pointer">
               <ShieldCheck className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary transition-all duration-500" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-widest">Oracle Sync Protocol</p>

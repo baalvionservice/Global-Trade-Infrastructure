@@ -4,6 +4,7 @@
  * Evaluates binding logical guardrails for institutional and sovereign-grade actions.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { UserRole } from '@/core/roles';
 import { eventBus } from './event-bus';
@@ -28,6 +29,14 @@ export interface PolicyEvaluationResult {
 }
 
 export const governanceService = {
+  /**
+   * Live policy rulebase for the governance registry (store-backed, persisted).
+   */
+  async getPolicies(): Promise<any[]> {
+    const res = await apiClient.get<any[]>('/governance_policies', { sortBy: 'createdAt', order: 'desc' });
+    return toList<any>(res);
+  },
+
   /**
    * Authoritative evaluator for runtime execution permission.
    * Incorporates jurisdictional law heuristics and real-time sanctions screening.

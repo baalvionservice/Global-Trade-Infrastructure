@@ -92,9 +92,9 @@ export function ActiveSessionsCard() {
   };
 
   return (
-    <Card className="shadow-none border-2 bg-background p-10 space-y-6 rounded-[32px]">
+    <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
       <div className="flex items-center justify-between">
-        <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground">Active Sessions</h4>
+        <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Active Sessions</h4>
         <Button
           variant="ghost"
           size="icon"

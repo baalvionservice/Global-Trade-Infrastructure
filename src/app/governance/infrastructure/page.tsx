@@ -61,31 +61,31 @@ export default function GlobalInfraCommandPage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6 bg-slate-950">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Establishing Infrastructure Handshake...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Establishing Infrastructure Handshake...</p>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-12 bg-slate-950 text-slate-100 min-h-screen p-4 md:p-12 selection:bg-primary selection:text-white">
+    <main className="flex-1 space-y-8 bg-slate-950 text-slate-100 min-h-screen p-4 md:p-6 selection:bg-primary selection:text-white">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/10 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/10 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Service Node: INFRA_CORE_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Service Node: INFRA_CORE_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Infra Command.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Infra Command.</h2>
           <p className="text-slate-400 font-medium italic text-lg max-w-2xl leading-relaxed">
             "Authoritative planetary oversight of sovereign cloud clusters, multi-tenant workload isolation, and systemic compute finality."
           </p>
         </div>
         <div className="flex flex-wrap gap-4">
-           <div className="flex items-center gap-3 px-8 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-widest text-indigo-400 shadow-3xl">
+           <div className="flex items-center gap-3 px-8 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-widest text-indigo-400 shadow-md">
               <ShieldCheck className="h-5 w-5" />
               Fabric Sync: OPTIMAL
            </div>
-           <Button className="h-16 px-12 bg-primary text-white font-black shadow-4xl hover:scale-105 transition-all rounded-2xl uppercase tracking-[0.2em] text-xs">
+           <Button className="h-12 px-6 bg-primary text-white font-black shadow-lg hover:scale-105 transition-all rounded-2xl uppercase tracking-wide text-xs">
               <RefreshCw className="mr-3 h-5 w-5" /> Re-Sync Mesh
            </Button>
         </div>
@@ -100,10 +100,10 @@ export default function GlobalInfraCommandPage() {
           { label: 'Tenant Isolation', val: '100%', icon: Lock, color: 'text-primary' },
         ].map((kpi, i) => (
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-             <Card className="shadow-none border-none bg-slate-900/60 rounded-[32px] group overflow-hidden relative">
+             <Card className="shadow-none border-none bg-slate-900/60 rounded-2xl group overflow-hidden relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 relative z-10 p-8">
-                  <CardTitle className="text-[10px] font-black uppercase text-slate-500 tracking-[0.3em]">{kpi.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-slate-500 tracking-wide">{kpi.label}</CardTitle>
                   <kpi.icon className={cn("h-5 w-5", kpi.color)} />
                 </CardHeader>
                 <CardContent className="relative z-10 p-8 pt-0">
@@ -115,11 +115,11 @@ export default function GlobalInfraCommandPage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* TOPOLOGY GRAPH / CLUSTER LIST */}
-        <Card className="lg:col-span-8 shadow-none border-none bg-slate-900/40 rounded-[48px] overflow-hidden flex flex-col h-[700px] relative">
+        <Card className="lg:col-span-8 shadow-none border-none bg-slate-900/40 rounded-2xl overflow-hidden flex flex-col h-[700px] relative">
            <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-           <CardHeader className="bg-white/5 border-b border-white/5 p-10 flex flex-row items-center justify-between z-10">
+           <CardHeader className="bg-white/5 border-b border-white/5 p-6 flex flex-row items-center justify-between z-10">
               <div className="space-y-1">
                  <CardTitle className="text-2xl font-black uppercase tracking-tighter text-white">Planetary Infrastructure Mesh</CardTitle>
                  <CardDescription className="text-slate-400 font-medium italic">High-fidelity visualization of sovereign Kubernetes clusters and federated workloads.</CardDescription>
@@ -137,11 +137,11 @@ export default function GlobalInfraCommandPage() {
                       key={node.id} 
                       initial={{ opacity: 0, x: -20 }} 
                       animate={{ opacity: 1, x: 0 }} 
-                      className="p-10 flex items-center justify-between group hover:bg-white/[0.02] transition-all"
+                      className="p-6 flex items-center justify-between group hover:bg-white/[0.02] transition-all"
                     >
-                       <div className="flex items-center gap-10 flex-1 min-w-0">
+                       <div className="flex items-center gap-6 flex-1 min-w-0">
                           <div className={cn(
-                             "h-16 w-16 rounded-[24px] border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-500",
+                             "h-12 w-16 rounded-2xl border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-500",
                              node.status === 'HEALTHY' ? "bg-emerald-500/10 border-emerald-500/20" : "bg-red-500/10 border-red-500/20"
                           )}>
                              <Server className={cn("h-7 w-7", node.status === 'HEALTHY' ? 'text-emerald-400' : 'text-red-400')} />
@@ -154,7 +154,7 @@ export default function GlobalInfraCommandPage() {
                                    node.provider === 'SOVEREIGN_PRIVATE' ? "bg-indigo-600 text-white" : "bg-slate-950 text-slate-400"
                                 )}>{node.provider}</Badge>
                              </div>
-                             <div className="flex items-center gap-10 text-[10px] font-black uppercase text-slate-500 tracking-[0.2em]">
+                             <div className="flex items-center gap-6 text-[10px] font-black uppercase text-slate-500 tracking-wide">
                                 <span className="flex items-center gap-2"><Globe className="h-4 w-4" /> Region: {node.region}</span>
                                 <span className="flex items-center gap-2"><MonitorSmartphone className="h-4 w-4" /> Tenants: {node.tenantCount} Nodes</span>
                              </div>
@@ -178,34 +178,34 @@ export default function GlobalInfraCommandPage() {
         </Card>
 
         {/* SIDEBAR: INFRA ORACLE */}
-        <div className="lg:col-span-4 space-y-10">
+        <div className="lg:col-span-4 space-y-6">
            {/* SELF-HEALING ORACLE */}
-           <Card className="shadow-4xl border-none bg-primary text-white relative overflow-hidden group rounded-[48px] h-[380px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-lg border-none bg-primary text-white relative overflow-hidden group rounded-2xl h-[380px]">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Zap className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 p-12">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-6 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 p-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-6 text-white">
                     <Radio className="h-6 w-6 text-white animate-pulse" />
                     Infrastructure Oracle
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter text-white">
                     "Mesh Alert: Systemic latency drift detected in the ap-southeast-1 cluster. Predicted node exhaustion in 4.2h. Recommend autonomous failover to the Singapore standby node."
                  </p>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     EXECUTE TRAFFIC EVACUATION
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-none bg-slate-900/40 p-12 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-none bg-slate-900/40 p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.5em] text-slate-500 ml-1">Ecosystem finality</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-500 ml-1">Ecosystem finality</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'Uptime Index', val: '99.999%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Consensus Speed', val: '450ms', icon: Database, color: 'text-blue-500' },
@@ -224,15 +224,15 @@ export default function GlobalInfraCommandPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-none bg-slate-900/30 p-12 text-center space-y-8 rounded-[48px] border-dashed border-white/5 group hover:border-primary/20 transition-all">
-              <Dna className="h-16 w-16 mx-auto text-slate-700 opacity-20 group-hover:text-primary transition-all duration-700 group-hover:rotate-45" />
+           <Card className="shadow-none border-none bg-slate-900/30 p-6 text-center space-y-8 rounded-2xl border-dashed border-white/5 group hover:border-primary/20 transition-all">
+              <Dna className="h-12 w-16 mx-auto text-slate-700 opacity-20 group-hover:text-primary transition-all duration-700 group-hover:rotate-45" />
               <div className="space-y-3">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-slate-400">GitOps Lifecycle</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-slate-400">GitOps Lifecycle</p>
                  <p className="text-xs font-medium italic leading-relaxed px-8 opacity-40 text-slate-500">
                     "All infrastructure state mutations are version-locked in the sovereign GitOps repository. Zero structural drift detected in the current cycle."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-white/10 font-black uppercase text-[9px] tracking-[0.2em] bg-slate-900/50 hover:bg-slate-800 text-white">RECONSTRUCT FROM GIT</Button>
+              <Button variant="outline" className="w-full h-12 border-white/10 font-black uppercase text-[9px] tracking-wide bg-slate-900/50 hover:bg-slate-800 text-white">RECONSTRUCT FROM GIT</Button>
            </Card>
         </div>
       </div>

@@ -16,10 +16,10 @@ const highRiskSuppliers = [
 
 export function SupplierRiskList() {
   return (
-    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
+    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
       <CardHeader className="bg-muted/10 border-b py-6 px-8 flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground">High-Variance Node Monitor</CardTitle>
+          <CardTitle className="text-[11px] font-black uppercase tracking-wide text-muted-foreground">High-Variance Node Monitor</CardTitle>
         </div>
         <Users className="h-5 w-5 text-primary opacity-30" />
       </CardHeader>

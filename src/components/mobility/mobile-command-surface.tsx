@@ -54,7 +54,7 @@ export function MobileCommandSurface() {
                "h-1.5 w-1.5 rounded-full animate-pulse",
                syncStatus === 'SYNCHRONIZED' ? "bg-emerald-500" : "bg-orange-50"
              )} />
-             <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">{syncStatus}</span>
+             <span className="text-[9px] font-black uppercase tracking-wide text-slate-400">{syncStatus}</span>
           </motion.div>
 
           <motion.div 
@@ -77,35 +77,35 @@ export function MobileCommandSurface() {
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
-              className="bg-background border-2 border-primary/20 rounded-[40px] p-8 shadow-4xl mb-4 pointer-events-auto"
+              className="bg-background border-2 border-primary/20 rounded-2xl p-8 shadow-lg mb-4 pointer-events-auto"
             >
                <div className="flex justify-between items-start mb-8">
                   <div className="space-y-1">
-                     <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Authority Node</p>
+                     <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node</p>
                      <h3 className="text-2xl font-black uppercase tracking-tighter">{role} COMMAND</h3>
                   </div>
                   <Badge variant="outline" className="text-[8px] font-black uppercase h-5 border-2">Lvl 4 AUTH</Badge>
                </div>
 
                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <Button variant="outline" className="h-20 flex flex-col gap-2 rounded-[24px] border-2 bg-muted/30">
+                  <Button variant="outline" className="h-14 flex flex-col gap-2 rounded-2xl border-2 bg-muted/30">
                      <Activity className="h-5 w-5 text-indigo-500" />
                      <span className="text-[9px] font-black uppercase">Analyze Drift</span>
                   </Button>
-                  <Button variant="outline" className="h-20 flex flex-col gap-2 rounded-[24px] border-2 bg-muted/30">
+                  <Button variant="outline" className="h-14 flex flex-col gap-2 rounded-2xl border-2 bg-muted/30">
                      <Lock className="h-5 w-5 text-orange-500" />
                      <span className="text-[9px] font-black uppercase">Freeze Node</span>
                   </Button>
                </div>
 
-               <div className="p-6 rounded-[24px] bg-red-600 text-white space-y-6 shadow-2xl relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform"><AlertTriangle className="h-16 w-16" /></div>
+               <div className="p-6 rounded-2xl bg-red-600 text-white space-y-6 shadow-2xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform"><AlertTriangle className="h-12 w-16" /></div>
                   <div className="space-y-1">
                      <p className="text-[9px] font-black uppercase opacity-60">Pending Escalation</p>
                      <p className="text-lg font-bold leading-tight uppercase">Customs Block: SGN_NODE_04</p>
                   </div>
                   <Button 
-                    className="w-full h-16 bg-white text-red-600 font-black uppercase tracking-widest text-xs rounded-2xl shadow-xl active:scale-95 transition-all"
+                    className="w-full h-12 bg-white text-red-600 font-black uppercase tracking-widest text-xs rounded-2xl shadow-xl active:scale-95 transition-all"
                     onClick={handleAuthorize}
                   >
                     <Fingerprint className="mr-2 h-5 w-5" /> AUTHORIZE OVERRIDE
@@ -121,7 +121,7 @@ export function MobileCommandSurface() {
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsExpanded(!isExpanded)}
             className={cn(
-              "h-20 w-20 rounded-[28px] shadow-4xl flex items-center justify-center border-4 transition-all duration-500",
+              "h-14 w-20 rounded-2xl shadow-lg flex items-center justify-center border-4 transition-all duration-500",
               isExpanded ? "bg-background border-primary/40 rotate-180" : "bg-primary border-white/5"
             )}
           >

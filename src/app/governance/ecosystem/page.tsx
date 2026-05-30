@@ -34,37 +34,37 @@ export default function EcosystemVisualizationPage() {
   const router = useRouter();
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-slate-950 text-slate-100 min-h-screen selection:bg-primary selection:text-white">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-slate-950 text-slate-100 min-h-screen selection:bg-primary selection:text-white">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/5 pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/5 pb-6">
         <div className="space-y-4">
           <Button 
             variant="ghost" 
             size="sm" 
-            className="-ml-4 text-[10px] font-black uppercase tracking-[0.4em] text-slate-500 hover:bg-transparent hover:text-primary transition-all"
+            className="-ml-4 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-transparent hover:text-primary transition-all"
             onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)}
           >
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Command
           </Button>
           <div className="space-y-1">
-             <h2 className="text-5xl font-black tracking-tight uppercase tracking-tighter text-white leading-none">Ecosystem Matrix</h2>
+             <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-white leading-none">Ecosystem Matrix</h2>
              <p className="text-slate-400 font-medium italic max-w-2xl text-lg">Real-time planetary mapping of institutional nodes, commercial relationships, and sovereign trade flows.</p>
           </div>
         </div>
         <div className="flex items-center gap-6">
            <div className="flex flex-col items-end gap-1 px-8 border-r border-white/10">
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Network Consensus</span>
+              <span className="text-[10px] font-black uppercase tracking-wide text-slate-500">Network Consensus</span>
               <span className="text-2xl font-black text-emerald-400 tabular-nums">99.98% Aligned</span>
            </div>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary hover:scale-105 transition-all">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary hover:scale-105 transition-all">
               <Zap className="mr-2 h-4 w-4" /> RE-SCAN TOPOLOGY
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
+      <div className="grid gap-6 lg:grid-cols-7">
         {/* MAIN VISUALIZATION workspace */}
-        <div className="lg:col-span-5 space-y-10">
+        <div className="lg:col-span-5 space-y-6">
            <EcosystemGraph />
 
            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -73,7 +73,7 @@ export default function EcosystemVisualizationPage() {
                 { label: 'Node Availability', val: '100%', sub: 'All Clusters Live', icon: Server, color: 'text-emerald-500' },
                 { label: 'Signal Velocity', val: '450ms', sub: 'Cross-Domain Sync', icon: Zap, color: 'text-primary' }
               ].map(stat => (
-                <Card key={stat.label} className="shadow-none border-none bg-slate-900/40 rounded-[32px] p-6 hover:bg-white/5 transition-all group">
+                <Card key={stat.label} className="shadow-none border-none bg-slate-900/40 rounded-2xl p-6 hover:bg-white/5 transition-all group">
                    <div className="flex items-center justify-between mb-4">
                       <div className="p-3 rounded-2xl bg-slate-950 border border-white/5 group-hover:bg-primary/20 transition-all">
                          <stat.icon className={cn("h-5 w-5", stat.color)} />
@@ -91,18 +91,18 @@ export default function EcosystemVisualizationPage() {
         </div>
 
         {/* SIDEBAR: SYSTEMIC INSIGHTS */}
-        <div className="lg:col-span-2 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-white relative overflow-hidden group rounded-[40px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-150">
+        <div className="lg:col-span-2 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-white relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-150">
                  <Workflow className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Activity className="h-5 w-5 animate-pulse" />
                     Singularity Observer
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-lg font-bold italic leading-relaxed opacity-95">
                     "Ecosystem Mapping: Institutional clustering in the Mumbai-Newark corridor is approaching peak density. Recommending autonomous provisioning of secondary settlement nodes."
                  </p>
@@ -116,15 +116,15 @@ export default function EcosystemVisualizationPage() {
                        <span className="text-base font-black text-blue-300">99.98%</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.4em] shadow-2xl bg-white text-primary border-none rounded-3xl">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-widest shadow-2xl bg-white text-primary border-none rounded-3xl">
                     ADJUST TOPOLOGY WEIGHTS
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border border-white/5 bg-slate-900/30 p-10 space-y-8 rounded-[40px]">
+           <Card className="shadow-none border border-white/5 bg-slate-900/30 p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-500">Live Infrastructure Feed</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-500">Live Infrastructure Feed</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
               <div className="space-y-6">
@@ -144,7 +144,7 @@ export default function EcosystemVisualizationPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border border-white/5 bg-slate-900/30 p-12 text-center space-y-6 rounded-[40px] border-dashed group hover:border-primary/20 transition-all duration-500">
+           <Card className="shadow-none border border-white/5 bg-slate-900/30 p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-500">
               <Compass className="h-14 w-14 mx-auto text-slate-700 opacity-20 group-hover:text-primary transition-all duration-500" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-widest text-slate-300">Predictive Routing</p>

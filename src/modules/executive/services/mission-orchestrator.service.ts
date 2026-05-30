@@ -3,8 +3,6 @@
  * @file mission-orchestrator.service.ts
  * @description Authoritative service for Executive Mission Control and Strategic Intervention.
  */
-'use server';
-
 import { apiClient } from '@/lib/api-client';
 import { logger, metricsService } from '@/services/observability-service';
 import { ExecutiveMission, StrategicForecast, CrisisEvent } from '../types';

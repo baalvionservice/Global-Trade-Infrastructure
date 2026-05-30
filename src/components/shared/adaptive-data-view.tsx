@@ -54,7 +54,7 @@ export function AdaptiveDataView<T extends { id: string }>({
               {renderMobileCard ? (
                 renderMobileCard(row)
               ) : (
-                <Card className="border-2 border-white/5 bg-slate-900/60 shadow-2xl active:scale-[0.98] transition-all rounded-[32px] overflow-hidden group">
+                <Card className="border-2 border-white/5 bg-slate-900/60 shadow-2xl active:scale-[0.98] transition-all rounded-2xl overflow-hidden group">
                   <CardContent className="p-8 space-y-6">
                     <div className="flex justify-between items-start">
                        <span className="font-mono text-[10px] font-black text-primary opacity-60">ID::{row.id}</span>
@@ -63,7 +63,7 @@ export function AdaptiveDataView<T extends { id: string }>({
                     <div className="grid gap-6">
                       {columns.filter(c => c.accessorKey !== 'id').map((col, cIdx) => (
                         <div key={cIdx} className="space-y-1.5">
-                          <p className="text-[9px] font-black uppercase text-slate-500 tracking-[0.3em]">
+                          <p className="text-[9px] font-black uppercase text-slate-500 tracking-wide">
                             {col.header}
                           </p>
                           <div className="text-sm font-black text-white uppercase tracking-tight">
@@ -84,8 +84,8 @@ export function AdaptiveDataView<T extends { id: string }>({
 
   return (
     <div className={cn(
-      "border-2 border-white/5 bg-slate-900/40 shadow-4xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700",
-      isCompact ? "rounded-2xl" : "rounded-[40px]"
+      "border-2 border-white/5 bg-slate-900/40 shadow-lg overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700",
+      isCompact ? "rounded-2xl" : "rounded-2xl"
     )}>
       <Table>
         <TableHeader className="bg-white/5 border-b border-white/5">
@@ -94,8 +94,8 @@ export function AdaptiveDataView<T extends { id: string }>({
               <TableHead 
                 key={idx} 
                 className={cn(
-                  "text-[10px] font-black uppercase tracking-[0.4em] text-slate-500",
-                  isCompact ? "py-4 px-6" : "py-8 px-10",
+                  "text-[10px] font-black uppercase tracking-widest text-slate-500",
+                  isCompact ? "py-4 px-6" : "py-8 px-6",
                   col.className
                 )}
               >
@@ -117,7 +117,7 @@ export function AdaptiveDataView<T extends { id: string }>({
               {columns.map((col, cIdx) => (
                 <TableCell key={cIdx} className={cn(
                   "text-sm font-bold text-slate-300 uppercase tracking-tight",
-                  isCompact ? "py-3 px-6" : "py-6 px-10",
+                  isCompact ? "py-3 px-6" : "py-6 px-6",
                   col.className
                 )}>
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: rIdx * 0.02 }}>

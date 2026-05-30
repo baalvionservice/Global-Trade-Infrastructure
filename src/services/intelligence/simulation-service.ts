@@ -4,6 +4,7 @@
  * Acts as the authoritative replica of global trade state for pre-execution validation.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from '../observability-service';
 import { eventBus } from '@/orchestration/event-bus';
 
@@ -140,7 +141,7 @@ class SimulationService {
       sortBy: 'createdAt',
       order: 'desc'
     });
-    return res.data || [];
+    return toList(res);
   }
 }
 

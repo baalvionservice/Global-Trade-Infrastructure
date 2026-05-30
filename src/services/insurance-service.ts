@@ -4,6 +4,7 @@
  * Orchestrates cargo protection lifecycles and risk transfer finality.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from './event-bus';
 import { notificationDispatcher } from './notification-dispatcher';
@@ -51,7 +52,7 @@ export const insuranceService = {
   async getPolicies(companyId?: string): Promise<InsurancePolicy[]> {
     const params = companyId ? { companyId } : {};
     const res = await apiClient.get<InsurancePolicy[]>('/policies', { ...params, sortBy: 'createdAt', order: 'desc' });
-    return res.data || [];
+    return toList(res);
   },
 
   /**
@@ -129,7 +130,7 @@ export const insuranceService = {
    */
   async getClaims(params: any = {}): Promise<InsuranceClaim[]> {
     const res = await apiClient.get<InsuranceClaim[]>('/claims', { ...params, sortBy: 'createdAt', order: 'desc' });
-    return res.data || [];
+    return toList(res);
   },
 
   /**

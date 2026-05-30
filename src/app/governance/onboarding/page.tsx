@@ -73,14 +73,14 @@ export default function InstitutionalOnboardingPage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Adoption Node: ADOPTION_COORD_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Adoption Node: ADOPTION_COORD_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Onboarding <br />Command.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Onboarding <br />Command.</h2>
           <p className="text-xl text-muted-foreground font-medium italic max-w-2xl leading-relaxed">
             "Authoritative planetary oversight of institutional tenant onboarding and sovereign identity resolution."
           </p>
@@ -93,8 +93,8 @@ export default function InstitutionalOnboardingPage() {
         </div>
       </div>
 
-      <div className="grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-8 space-y-6">
            {/* ONBOARDING QUEUE */}
            <div className="grid gap-8">
               <AnimatePresence mode="popLayout">
@@ -105,11 +105,11 @@ export default function InstitutionalOnboardingPage() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                     >
-                       <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all rounded-[40px] overflow-hidden bg-background group">
-                          <CardHeader className="bg-muted/10 border-b p-10 flex flex-row items-center justify-between">
+                       <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
+                          <CardHeader className="bg-muted/10 border-b p-6 flex flex-row items-center justify-between">
                              <div className="flex items-center gap-6">
                                 <div className={cn(
-                                   "h-16 w-16 rounded-[24px] bg-background border-2 shadow-inner flex items-center justify-center group-hover:scale-105 transition-transform",
+                                   "h-12 w-16 rounded-2xl bg-background border-2 shadow-inner flex items-center justify-center group-hover:scale-105 transition-transform",
                                    tenant.tenantType === 'bank' ? "bg-emerald-50 border-emerald-100" : "bg-blue-50 border-blue-100"
                                 )}>
                                    {tenant.tenantType === 'bank' ? <Landmark className="h-8 w-8 text-emerald-600" /> : <Building className="h-8 w-8 text-blue-600" />}
@@ -121,7 +121,7 @@ export default function InstitutionalOnboardingPage() {
                              </div>
                              <Badge variant="outline" className="text-[9px] font-black uppercase px-3 h-6 border-2 rounded-full shadow-sm bg-background">{tenant.phase.replace(/_/g, ' ')}</Badge>
                           </CardHeader>
-                          <CardContent className="p-10 space-y-8">
+                          <CardContent className="p-6 space-y-8">
                              <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
                                 <div className="space-y-4">
                                    <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-muted-foreground">
@@ -147,7 +147,7 @@ export default function InstitutionalOnboardingPage() {
                                    </Button>
                                 </div>
                                 <Button 
-                                  className="h-14 px-10 bg-primary text-white font-black uppercase text-[10px] tracking-widest shadow-2xl rounded-2xl"
+                                  className="h-14 px-6 bg-primary text-white font-black uppercase text-[10px] tracking-widest shadow-2xl rounded-2xl"
                                   onClick={() => handleAdvance(tenant.companyId, tenant.phase)}
                                   disabled={processingId === tenant.companyId}
                                 >
@@ -163,34 +163,34 @@ export default function InstitutionalOnboardingPage() {
            </div>
         </div>
 
-        <div className="lg:col-span-4 space-y-12">
+        <div className="lg:col-span-4 space-y-8">
            {/* ADOPTION KPI PANEL */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <ShieldCheck className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-10 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Zap className="h-5 w-5 text-yellow-400 animate-pulse" />
                     Adoption Sentinel
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter">
                     "Ecosystem Mapping: Systemic adoption from the Singapore banking cluster is trending +24%. Recommend accelerating the KYC audit for the pending 'Apex' node to capitalize on high-velocity liquidity pulses."
                  </p>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     EXECUTE BATCH AUTHORIZATION
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Pipeline Health</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Pipeline Health</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'KYC Sync Rate', val: '92.4%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Decision Latency', val: '4.2 Days', icon: Activity, color: 'text-blue-500' },

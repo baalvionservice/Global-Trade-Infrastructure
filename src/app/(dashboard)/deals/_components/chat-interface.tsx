@@ -38,7 +38,7 @@ export function ChatInterface({ messages, currentRole, onOfferAction, isFinalize
          <motion.div 
            initial={{ opacity: 0, y: -20 }}
            animate={{ opacity: 1, y: 0 }}
-           className="px-6 py-2 bg-background/80 backdrop-blur-xl rounded-full border-2 shadow-2xl flex items-center gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em] ring-1 ring-primary/5"
+           className="px-6 py-2 bg-background/80 backdrop-blur-xl rounded-full border-2 shadow-2xl flex items-center gap-3 text-[10px] font-black text-muted-foreground uppercase tracking-wide ring-1 ring-primary/5"
          >
             <Lock className="h-3.5 w-3.5 text-primary" /> End-to-End Encrypted Tunnel
             <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse ml-1" />
@@ -46,7 +46,7 @@ export function ChatInterface({ messages, currentRole, onOfferAction, isFinalize
       </div>
 
       <ScrollArea ref={scrollRef} className="flex-1">
-        <div className="p-6 md:p-10 pt-20 max-w-5xl mx-auto">
+        <div className="p-6 md:p-6 pt-20 max-w-5xl mx-auto">
           <AnimatePresence initial={false}>
             {messages.length === 0 ? (
               <motion.div 
@@ -54,16 +54,16 @@ export function ChatInterface({ messages, currentRole, onOfferAction, isFinalize
                 animate={{ opacity: 1 }}
                 className="flex h-[60vh] flex-col items-center justify-center text-muted-foreground gap-8"
               >
-                <div className="p-10 rounded-[32px] bg-muted/30 border-4 border-dashed border-primary/10 shadow-inner group">
-                   <ShieldCheck className="h-16 w-16 text-primary opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-500" />
+                <div className="p-6 rounded-2xl bg-muted/30 border-4 border-dashed border-primary/10 shadow-inner group">
+                   <ShieldCheck className="h-12 w-16 text-primary opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-500" />
                 </div>
                 <div className="text-center space-y-3">
-                  <p className="text-sm font-black uppercase tracking-[0.3em] text-foreground">Secure Channel Established</p>
+                  <p className="text-sm font-black uppercase tracking-wide text-foreground">Secure Channel Established</p>
                   <p className="text-xs font-medium max-w-sm leading-relaxed opacity-60 italic">Initiate negotiation by proposing counter-offer terms or sending an authenticated message to your trade partner.</p>
                 </div>
               </motion.div>
             ) : (
-              <div className="pb-12">
+              <div className="pb-8">
                 {messages.map((msg, i) => (
                   <MessageItem 
                     key={msg.id} 

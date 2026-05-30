@@ -40,7 +40,7 @@ export function AlertFeed({ alerts }: { alerts: RiskAlert[] }) {
           );
         })}
         {alerts.length === 0 && (
-          <p className="text-center text-xs text-muted-foreground py-10 italic">No active alerts detected.</p>
+          <p className="text-center text-xs text-muted-foreground py-6 italic">No active alerts detected.</p>
         )}
       </CardContent>
     </Card>

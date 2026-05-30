@@ -40,7 +40,7 @@ export function RegulatoryRulesPanel({ origin, destination }: { origin: Regulato
 }
 
 function RulesContent({ rule }: { rule: RegulatoryRule | null }) {
-  if (!rule) return <div className="py-10 text-center text-muted-foreground text-xs italic">Intelligence data unavailable for this region.</div>;
+  if (!rule) return <div className="py-6 text-center text-muted-foreground text-xs italic">Intelligence data unavailable for this region.</div>;
 
   return (
     <div className="grid md:grid-cols-2 gap-8">

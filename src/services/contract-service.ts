@@ -4,6 +4,7 @@
  * Manages the Sovereign Contract Vault, clause libraries, and version finality.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from './event-bus';
 
@@ -41,7 +42,7 @@ export const contractService = {
    */
   async getVault(companyId: string): Promise<Contract[]> {
     const res = await apiClient.get<Contract[]>('/contracts', { companyId, sortBy: 'updatedAt', order: 'desc' });
-    return res.data || [];
+    return toList(res);
   },
 
   /**

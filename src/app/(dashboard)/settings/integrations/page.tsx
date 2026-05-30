@@ -75,10 +75,10 @@ export default function InteroperabilityHubPage() {
   }
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">System Integration</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">System Integration</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Interoperability Hub</h2>
           <p className="text-muted-foreground font-medium italic">Manage secure digital connectors between Baalvion and your institutional infrastructure (ERP, TMS, Banking).</p>
         </div>
@@ -87,7 +87,7 @@ export default function InteroperabilityHubPage() {
               <Lock className="h-4 w-4" />
               E2E Signature: VERIFIED
            </div>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Plus className="mr-2 h-4 w-4" /> PROVISION CONNECTOR
            </Button>
         </div>
@@ -103,7 +103,7 @@ export default function InteroperabilityHubPage() {
           <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
              <Card className="shadow-lg border-2 border-primary/5 bg-background rounded-3xl group hover:border-primary/20 transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{stat.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{stat.label}</CardTitle>
                   <stat.icon className={cn("h-4 w-4", stat.color)} />
                 </CardHeader>
                 <CardContent>
@@ -124,7 +124,7 @@ export default function InteroperabilityHubPage() {
         <TabsContent value="federation">
            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {integrations.map(int => (
-                <Card key={int.id} className="shadow-xl border-2 border-primary/5 bg-background rounded-[32px] overflow-hidden group hover:border-primary/40 transition-all">
+                <Card key={int.id} className="shadow-xl border-2 border-primary/5 bg-background rounded-2xl overflow-hidden group hover:border-primary/40 transition-all">
                    <CardHeader className="bg-muted/10 border-b p-8 flex flex-row items-start justify-between">
                       <div className="space-y-3">
                          <div className="flex items-center gap-3">
@@ -160,9 +160,9 @@ export default function InteroperabilityHubPage() {
         </TabsContent>
 
         <TabsContent value="webhooks">
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10">
-                 <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Outbound Webhook Registry</CardTitle>
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6">
+                 <CardTitle className="text-sm font-black uppercase tracking-wide">Outbound Webhook Registry</CardTitle>
                  <CardDescription className="text-xs font-medium">Baalvion will propagate JSON event packets to these verified endpoints.</CardDescription>
               </CardHeader>
               <CardContent className="p-0">
@@ -204,10 +204,10 @@ export default function InteroperabilityHubPage() {
         </TabsContent>
 
         <TabsContent value="audit">
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                  <div>
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Interoperability Audit Ledger</CardTitle>
+                    <CardTitle className="text-sm font-black uppercase tracking-wide">Interoperability Audit Ledger</CardTitle>
                     <CardDescription className="text-xs">Immutable record of cross-platform signal exchange and synchronization finality.</CardDescription>
                  </div>
                  <Badge variant="secondary" className="flex gap-2 font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-widest border-2">
@@ -268,13 +268,13 @@ export default function InteroperabilityHubPage() {
         </TabsContent>
       </Tabs>
 
-      <div className="p-12 rounded-[40px] bg-primary text-primary-foreground relative overflow-hidden group shadow-2xl">
+      <div className="p-6 rounded-2xl bg-primary text-primary-foreground relative overflow-hidden group shadow-2xl">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Share2 className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] opacity-60">Sovereign Interoperability Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Globally Federated. Institutionally Hardened.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Sovereign Interoperability Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Globally Federated. Institutionally Hardened.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion operates as a neutral federation engine. Our Interoperability Hub provides the authoritative digital layer for cross-border trade, enabling banks, ERPs, and customs gateways to synchronize state with millisecond finality on the institutional ledger."
             </p>

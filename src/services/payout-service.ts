@@ -3,6 +3,7 @@
  * @description Manages institutional fund withdrawals to external bank accounts.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { recordTransaction } from './ledger-service';
 import { validateInstitution } from './sanctions-service';
 import { getWalletByCurrency } from './payment-service';
@@ -66,5 +67,5 @@ export async function requestPayout(data: {
 export async function getPayouts(companyId?: string): Promise<Payout[]> {
   const params = companyId ? { companyId } : {};
   const res = await apiClient.get<Payout[]>('/payouts', params);
-  return res.data || [];
+  return toList(res);
 }

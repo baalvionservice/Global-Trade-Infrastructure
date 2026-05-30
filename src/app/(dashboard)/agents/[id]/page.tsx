@@ -79,7 +79,7 @@ export default function AgentProfilePage() {
         </Button>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
            <div className="flex items-center gap-6">
-              <div className="h-20 w-20 rounded-2xl bg-background border-2 border-primary/10 flex items-center justify-center text-3xl font-black text-primary shadow-sm">
+              <div className="h-14 w-20 rounded-2xl bg-background border-2 border-primary/10 flex items-center justify-center text-3xl font-black text-primary shadow-sm">
                  {agent.logo}
               </div>
               <div>

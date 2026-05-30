@@ -110,8 +110,8 @@ export default function AgentDashboardPage() {
               ) : (
                 requests.map((req) => (
                   <TableRow key={req.id}>
-                    <TableCell className="font-mono text-xs font-bold">{req.id}</TableCell>
-                    <TableCell className="text-sm font-bold">Energy Corp Intl.</TableCell>
+                    <TableCell className="font-mono text-xs font-bold">{String(req.id).slice(0, 8).toUpperCase()}</TableCell>
+                    <TableCell className="text-sm font-bold">{req.clientName || (req.orderId ? `Order #${req.orderId}` : req.shipmentId ? `Shipment #${req.shipmentId}` : 'Institutional Client')}</TableCell>
                     <TableCell>
                        <div className="flex flex-col">
                           <span className="text-xs font-medium">{req.type}</span>

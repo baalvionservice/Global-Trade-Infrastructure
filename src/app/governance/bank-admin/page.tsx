@@ -75,10 +75,10 @@ export default function BankersWorkbenchPage() {
   }
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Service Node: FIN_INST_001</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Service Node: FIN_INST_001</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Banker's Workbench</h2>
           <p className="text-muted-foreground font-medium italic">Institutional management of trade instruments, syndicated finance, and treasury liquidity.</p>
         </div>
@@ -102,7 +102,7 @@ export default function BankersWorkbenchPage() {
         ].map(kpi => (
           <Card key={kpi.label} className="shadow-lg border-2 border-primary/5 bg-background rounded-3xl group hover:border-primary/20 transition-all">
              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{kpi.label}</CardTitle>
+                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{kpi.label}</CardTitle>
                 <kpi.icon className={cn("h-4 w-4", kpi.color)} />
              </CardHeader>
              <CardContent>
@@ -112,13 +112,13 @@ export default function BankersWorkbenchPage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* TRADE INSTRUMENTS QUEUE */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Active Trade Instruments</CardTitle>
+                  <CardTitle className="text-sm font-black uppercase tracking-wide">Active Trade Instruments</CardTitle>
                   <CardDescription className="text-xs font-medium">Pending Letters of Credit and Documentary Collections requiring bank sign-off.</CardDescription>
                 </div>
                 <FileText className="h-5 w-5 text-primary opacity-30" />
@@ -168,33 +168,33 @@ export default function BankersWorkbenchPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* RISK EXPOSURE OBSERVATORY */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Zap className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <TrendingUp className="h-5 w-5 text-white" />
                     Market Risk Engine
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-base font-bold italic leading-relaxed opacity-90">
                     "AI Intelligence: Global exposure in the USD/CNY corridor is reaching peak thresholds. Suggest rebalancing liquidity nodes via the Singapore advisory node."
                  </p>
                  <div className="space-y-6">
-                    <div className="flex items-center justify-between p-5 rounded-[24px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-sm">
+                    <div className="flex items-center justify-between p-5 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-sm">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Systemic Delta</span>
                        <span className="text-xl font-black text-emerald-300">+0.04%</span>
                     </div>
-                    <div className="flex items-center justify-between p-5 rounded-[24px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-sm">
+                    <div className="flex items-center justify-between p-5 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-sm">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60">Risk Sentiment</span>
                        <Badge className="bg-white text-primary text-[9px] font-black px-3 py-1 uppercase tracking-tighter border-none h-6 rounded-full">STABLE</Badge>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
                     REBALANCE GLOBAL LIQUIDITY
                  </Button>
               </CardContent>

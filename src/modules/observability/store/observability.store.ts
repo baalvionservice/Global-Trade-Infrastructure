@@ -40,14 +40,19 @@ const useObservabilityStoreBase = create<ObservabilityState>((set) => ({
   toggleStreaming: (isStreaming) => set({ isStreaming }),
 }));
 
-export const useObservabilityStore = <T,>(selector: (state: ObservabilityState) => T): T | null => {
+export const useObservabilityStore = <T,>(selector?: (state: ObservabilityState) => T): T => {
   const [hasHydrated, setHasHydrated] = useState(false);
-  const result = useObservabilityStoreBase(selector);
+  const result = useObservabilityStoreBase(selector as (state: ObservabilityState) => T);
 
   useEffect(() => {
     setHasHydrated(true);
   }, []);
 
-  if (!hasHydrated) return null;
+  // Before hydration, return the deterministic initial state (SSR-safe: identical on
+  // server + client) rather than null — so consumers that destructure never crash.
+  if (!hasHydrated) {
+    const initial = useObservabilityStoreBase.getState();
+    return (selector ? selector(initial) : (initial as unknown as T));
+  }
   return result;
 };

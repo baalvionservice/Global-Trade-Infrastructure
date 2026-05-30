@@ -25,7 +25,7 @@ const MOCK_DATA: RegionLiquidity[] = [
 
 export function LiquidityHeatmap() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       {MOCK_DATA.map((item, i) => (
         <motion.div 
           key={item.region}

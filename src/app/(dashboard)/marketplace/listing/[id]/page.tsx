@@ -56,24 +56,24 @@ export default function ListingDetailPage() {
   const belowMarket = delta <= 0;
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <button onClick={() => router.back()} className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors">
         <ArrowLeft className="h-4 w-4" /> Back to discovery
       </button>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* MAIN */}
         <div className="lg:col-span-8 space-y-8">
           <div className="flex items-center gap-3">
             <Badge className="bg-emerald-600 text-[9px] uppercase font-black px-3 h-6 border-none">{listing.type}</Badge>
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground opacity-50">{listing.category} • HS {listing.hsCode}</span>
+            <span className="text-[10px] font-black uppercase tracking-wide text-muted-foreground opacity-50">{listing.category} • HS {listing.hsCode}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-[0.9]">{listing.title}</h1>
+          <h1 className="text-4xl md:text-4xl font-black tracking-tighter uppercase leading-[0.9]">{listing.title}</h1>
 
           {/* Gallery (placeholder tiles) */}
           <div className="grid grid-cols-4 gap-3">
-            <div className="col-span-4 aspect-[16/7] rounded-[28px] bg-gradient-to-br from-primary/10 to-muted border-2 flex items-center justify-center">
-              <Boxes className="h-20 w-20 text-primary opacity-20" />
+            <div className="col-span-4 aspect-[16/7] rounded-2xl bg-gradient-to-br from-primary/10 to-muted border-2 flex items-center justify-center">
+              <Boxes className="h-14 w-20 text-primary opacity-20" />
             </div>
             {[0, 1, 2, 3].map((i) => (
               <button key={i} onClick={() => setActiveImg(i)} className={cn('aspect-square rounded-2xl border-2 bg-muted flex items-center justify-center transition-all', activeImg === i ? 'border-primary' : 'opacity-50 hover:opacity-100')}>
@@ -82,16 +82,16 @@ export default function ListingDetailPage() {
             ))}
           </div>
 
-          <Card className="border-2 rounded-[28px] bg-background">
+          <Card className="border-2 rounded-2xl bg-background">
             <CardContent className="p-8 space-y-2">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Specification</h3>
+              <h3 className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Specification</h3>
               <p className="text-base font-medium italic leading-relaxed text-foreground/80">"{listing.description}"</p>
             </CardContent>
           </Card>
 
           {/* Pricing tiers */}
-          <Card className="border-2 rounded-[28px] bg-background">
-            <CardHeader className="pb-3"><CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Volume Pricing</CardTitle></CardHeader>
+          <Card className="border-2 rounded-2xl bg-background">
+            <CardHeader className="pb-3"><CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Volume Pricing</CardTitle></CardHeader>
             <CardContent className="p-8 pt-0">
               <div className="grid sm:grid-cols-3 gap-4">
                 {(listing.pricingTiers ?? []).map((t, i) => (
@@ -111,16 +111,16 @@ export default function ListingDetailPage() {
 
           {/* Terms + certs */}
           <div className="grid sm:grid-cols-2 gap-6">
-            <Card className="border-2 rounded-[28px] bg-background">
+            <Card className="border-2 rounded-2xl bg-background">
               <CardContent className="p-7 space-y-4">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Incoterms &amp; Payment</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Incoterms &amp; Payment</h3>
                 <div className="flex flex-wrap gap-2">{(listing.incoterms ?? []).map((t) => <Badge key={t} variant="outline" className="text-[9px] font-black border-2">{t}</Badge>)}</div>
                 <div className="space-y-1.5 pt-2">{(listing.paymentTerms ?? []).map((t) => <p key={t} className="text-xs font-bold text-foreground/70 flex items-center gap-2"><Landmark className="h-3.5 w-3.5 text-primary" /> {t}</p>)}</div>
               </CardContent>
             </Card>
-            <Card className="border-2 rounded-[28px] bg-background">
+            <Card className="border-2 rounded-2xl bg-background">
               <CardContent className="p-7 space-y-4">
-                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Certifications</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Certifications</h3>
                 <div className="space-y-2">{(listing.certifications ?? []).map((c) => <p key={c} className="text-sm font-bold flex items-center gap-2"><FileCheck className="h-4 w-4 text-emerald-600" /> {c}</p>)}</div>
               </CardContent>
             </Card>
@@ -130,10 +130,10 @@ export default function ListingDetailPage() {
         {/* SIDEBAR */}
         <div className="lg:col-span-4 space-y-8">
           {/* Price intelligence */}
-          <Card className={cn('border-none rounded-[32px] text-white overflow-hidden relative', belowMarket ? 'bg-emerald-600' : 'bg-amber-600')}>
+          <Card className={cn('border-none rounded-2xl text-white overflow-hidden relative', belowMarket ? 'bg-emerald-600' : 'bg-amber-600')}>
             <CardContent className="p-8 space-y-3 relative">
-              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] opacity-80"><Sparkles className="h-4 w-4" /> Price Intelligence</div>
-              <p className="text-5xl font-black tabular-nums tracking-tighter">{formatCurrency(price, listing.currency)}<span className="text-base opacity-60">/{listing.unit}</span></p>
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wide opacity-80"><Sparkles className="h-4 w-4" /> Price Intelligence</div>
+              <p className="text-4xl font-black tabular-nums tracking-tighter">{formatCurrency(price, listing.currency)}<span className="text-base opacity-60">/{listing.unit}</span></p>
               <div className="flex items-center gap-2 text-sm font-black uppercase">
                 {belowMarket ? <TrendingDown className="h-5 w-5" /> : <TrendingUp className="h-5 w-5" />}
                 {Math.abs(delta)}% {belowMarket ? 'below' : 'above'} market avg ({formatCurrency(market, listing.currency)})
@@ -142,7 +142,7 @@ export default function ListingDetailPage() {
           </Card>
 
           {/* Seller trust */}
-          <Card className="border-2 rounded-[32px] bg-background">
+          <Card className="border-2 rounded-2xl bg-background">
             <CardContent className="p-8 space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -165,7 +165,7 @@ export default function ListingDetailPage() {
           </Card>
 
           {/* Actions */}
-          <Card className="border-2 rounded-[32px] bg-background">
+          <Card className="border-2 rounded-2xl bg-background">
             <CardContent className="p-8 space-y-3">
               <Button className="w-full h-14 font-black uppercase text-[11px] tracking-widest rounded-2xl shadow-lg" onClick={() => router.push('/buyer/rfqs/new')}>
                 <MessageSquare className="mr-2 h-4 w-4" /> Send RFQ

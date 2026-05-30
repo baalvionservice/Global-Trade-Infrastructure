@@ -4,6 +4,7 @@
  * @description Forensic management system for legal evidence and chain-of-custody tracking.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger } from './observability-service';
 import { EvidenceRecord } from '@/types/institutional';
 
@@ -35,7 +36,7 @@ export const evidenceService = {
    */
   async getEvidenceForCase(caseId: string): Promise<EvidenceRecord[]> {
     const res = await apiClient.get<EvidenceRecord[]>('/evidence_records', { caseId });
-    return res.data || [];
+    return toList(res);
   },
 
   /**

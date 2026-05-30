@@ -59,10 +59,10 @@ export default function SeaRouteIntelligencePage() {
   }
 
   return (
-    <main className="flex-1 space-y-8 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Intelligence Hub</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Intelligence Hub</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground">Sea Route Intelligence</h2>
           <p className="text-muted-foreground font-medium italic">Autonomous tracking of maritime corridors, port congestion, and geopolitical risk zones.</p>
         </div>
@@ -84,7 +84,7 @@ export default function SeaRouteIntelligencePage() {
               <CardHeader className="bg-muted/10 border-b pb-8 px-8">
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Active Trade Corridors</CardTitle>
+                    <CardTitle className="text-sm font-black uppercase tracking-wide">Active Trade Corridors</CardTitle>
                     <CardDescription className="font-medium text-xs mt-1">Real-time health and transit efficiency of primary routes.</CardDescription>
                   </div>
                   <Compass className="h-6 w-6 text-primary" />
@@ -136,7 +136,7 @@ export default function SeaRouteIntelligencePage() {
                  <ShieldAlert className="h-32 w-32 brightness-0 invert" />
               </div>
               <CardHeader className="pb-4 relative border-b border-white/10">
-                 <CardTitle className="text-xs font-black uppercase tracking-[0.3em] opacity-80 flex items-center gap-2">
+                 <CardTitle className="text-xs font-black uppercase tracking-wide opacity-80 flex items-center gap-2">
                     <AlertTriangle className="h-4 w-4" />
                     Critical Risk Zones
                  </CardTitle>

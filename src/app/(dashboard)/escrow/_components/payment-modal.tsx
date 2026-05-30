@@ -86,8 +86,8 @@ export function PaymentModal({ isOpen, onClose, amount, currency, escrowId, orde
     return (
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-md">
-          <div className="flex flex-col items-center justify-center py-10 text-center space-y-4">
-            <div className="h-20 w-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-2">
+          <div className="flex flex-col items-center justify-center py-6 text-center space-y-4">
+            <div className="h-14 w-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-2">
               <CheckCircle2 className="h-12 w-12" />
             </div>
             <h3 className="text-2xl font-bold">Settlement Confirmed</h3>
@@ -124,7 +124,7 @@ export function PaymentModal({ isOpen, onClose, amount, currency, escrowId, orde
           <div className="space-y-3">
             <Label className="text-xs font-black uppercase text-muted-foreground px-1">Source Wallet</Label>
             {loadingWallets ? (
-               <div className="flex h-20 items-center justify-center"><Loader2 className="h-5 w-5 animate-spin" /></div>
+               <div className="flex h-14 items-center justify-center"><Loader2 className="h-5 w-5 animate-spin" /></div>
             ) : (
               <RadioGroup value={selectedWalletId} onValueChange={setSelectedWalletId} className="gap-3">
                 {wallets.map((w) => (

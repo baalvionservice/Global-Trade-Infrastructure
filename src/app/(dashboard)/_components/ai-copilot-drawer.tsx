@@ -83,7 +83,7 @@ export function AiCopilotDrawer() {
           </div>
           <Button 
             onClick={() => setIsOpen(true)}
-            className="h-16 w-16 rounded-full bg-primary shadow-2xl hover:scale-110 transition-transform group border-4 border-white/5"
+            className="h-12 w-16 rounded-full bg-primary shadow-2xl hover:scale-110 transition-transform group border-4 border-white/5"
           >
             <Bot className="h-7 w-7 text-white group-hover:animate-pulse" />
           </Button>
@@ -107,7 +107,7 @@ export function AiCopilotDrawer() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-full max-w-lg bg-background border-l-2 shadow-3xl flex flex-col pointer-events-auto"
+              className="absolute right-0 top-0 bottom-0 w-full max-w-lg bg-background border-l-2 shadow-md flex flex-col pointer-events-auto"
             >
               <header className="p-8 border-b bg-muted/10 flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -128,14 +128,14 @@ export function AiCopilotDrawer() {
               </header>
 
               <ScrollArea ref={scrollRef} className="flex-1 p-8">
-                <div className="space-y-10">
+                <div className="space-y-6">
                   {messages.map((msg, i) => (
                     <div key={i} className={cn(
                       "flex flex-col gap-3 max-w-[90%]",
                       msg.role === 'user' ? "ml-auto items-end" : "items-start"
                     )}>
                       <div className={cn(
-                        "p-6 rounded-[24px] text-sm font-medium leading-relaxed shadow-sm",
+                        "p-6 rounded-2xl text-sm font-medium leading-relaxed shadow-sm",
                         msg.role === 'user' 
                           ? "bg-primary text-white rounded-tr-none" 
                           : "bg-muted/50 border-2 rounded-tl-none italic"
@@ -168,9 +168,9 @@ export function AiCopilotDrawer() {
                   ))}
                   {isThinking && (
                     <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2">
-                       <div className="p-6 bg-muted/30 border-2 border-dashed rounded-[24px] flex items-center justify-center gap-4">
+                       <div className="p-6 bg-muted/30 border-2 border-dashed rounded-2xl flex items-center justify-center gap-4">
                           <Loader2 className="h-5 w-5 animate-spin text-primary opacity-20" />
-                          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground animate-pulse">Running Monte Carlo Simulations...</span>
+                          <span className="text-[10px] font-black uppercase tracking-wide text-muted-foreground animate-pulse">Running Monte Carlo Simulations...</span>
                        </div>
                     </div>
                   )}
@@ -185,7 +185,7 @@ export function AiCopilotDrawer() {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                     placeholder="Query strategic operating state..."
-                    className="relative w-full h-16 pl-8 pr-16 bg-background border-2 rounded-[24px] font-black text-sm uppercase tracking-tight focus:outline-none focus:border-primary/40 transition-all shadow-inner"
+                    className="relative w-full h-12 pl-8 pr-16 bg-background border-2 rounded-2xl font-black text-sm uppercase tracking-tight focus:outline-none focus:border-primary/40 transition-all shadow-inner"
                   />
                   <Button 
                     size="icon" 

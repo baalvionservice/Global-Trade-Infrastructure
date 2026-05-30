@@ -66,42 +66,42 @@ export default function AICenterPage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6 bg-slate-950">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Establishing Cognitive Handshake...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Establishing Cognitive Handshake...</p>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-slate-950 text-slate-100 min-h-screen selection:bg-primary">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-slate-950 text-slate-100 min-h-screen selection:bg-primary">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/10 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-white/10 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Service Node: ORACLE_ALPHA_STABLE</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Service Node: ORACLE_ALPHA_STABLE</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">AI Command.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">AI Command.</h2>
           <p className="text-slate-400 font-medium italic text-lg max-w-2xl leading-relaxed">
             "Authoritative oversight of autonomous reasoning, multi-agent orchestration, and sovereign trade foresight."
           </p>
         </div>
         <div className="flex gap-4">
-           <Button variant="outline" className="h-16 px-10 border-white/10 bg-white/5 font-black uppercase text-xs tracking-widest hover:bg-white/10">
+           <Button variant="outline" className="h-12 px-6 border-white/10 bg-white/5 font-black uppercase text-xs tracking-widest hover:bg-white/10">
               <Database className="mr-3 h-4 w-4" /> Re-Scan Knowledge Graph
            </Button>
-           <Button className="h-16 px-12 bg-primary text-white font-black shadow-4xl hover:scale-105 transition-all rounded-2xl uppercase tracking-[0.2em] text-xs">
+           <Button className="h-12 px-6 bg-primary text-white font-black shadow-lg hover:scale-105 transition-all rounded-2xl uppercase tracking-wide text-xs">
               <Sparkles className="mr-3 h-5 w-5 fill-current" /> Calibrate Reasoning Core
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-8 space-y-6">
            {/* AGENT MESH OBSERVATORY */}
            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {agents.map((agent, i) => (
                 <motion.div key={agent.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-                   <Card className="shadow-none border-none bg-slate-900/60 rounded-[32px] p-8 space-y-6 group hover:bg-white/5 transition-all relative overflow-hidden">
+                   <Card className="shadow-none border-none bg-slate-900/60 rounded-2xl p-8 space-y-6 group hover:bg-white/5 transition-all relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-10 transition-opacity"><Cpu className="h-24 w-24" /></div>
                       <div className="flex items-center justify-between relative z-10">
                          <div className="p-3 rounded-2xl bg-slate-950 border border-white/5 shadow-inner group-hover:bg-primary/20 transition-all">
@@ -113,7 +113,7 @@ export default function AICenterPage() {
                          )}>{agent.status}</Badge>
                       </div>
                       <div className="space-y-1 relative z-10">
-                         <p className="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em]">{agent.role.replace(/_/g, ' ')}</p>
+                         <p className="text-[10px] font-black uppercase text-slate-500 tracking-wide">{agent.role.replace(/_/g, ' ')}</p>
                          <p className="text-2xl font-black text-white tracking-tighter">{agent.name}</p>
                       </div>
                       <div className="space-y-4 pt-4 border-t border-white/5 relative z-10">
@@ -131,8 +131,8 @@ export default function AICenterPage() {
            </div>
 
            {/* AUTONOMOUS INTERVENTION QUEUE */}
-           <Card className="shadow-none border-none bg-slate-900/40 rounded-[48px] overflow-hidden flex flex-col">
-              <CardHeader className="bg-white/5 border-b border-white/5 p-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-none bg-slate-900/40 rounded-2xl overflow-hidden flex flex-col">
+              <CardHeader className="bg-white/5 border-b border-white/5 p-6 flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-black uppercase tracking-tighter text-white">Autonomous Interventions</CardTitle>
                   <CardDescription className="text-slate-500 font-medium mt-1">Staged operational logic requiring institutional council sign-off.</CardDescription>
@@ -143,14 +143,14 @@ export default function AICenterPage() {
                  <div className="divide-y divide-white/5">
                     {stagedActions.length === 0 ? (
                        <div className="py-24 text-center opacity-20 flex flex-col items-center gap-6">
-                          <ShieldCheck className="h-16 w-16" />
-                          <p className="text-sm font-black uppercase tracking-[0.4em]">Zero Staged Interventions</p>
+                          <ShieldCheck className="h-12 w-16" />
+                          <p className="text-sm font-black uppercase tracking-widest">Zero Staged Interventions</p>
                        </div>
                     ) : (
                        stagedActions.map((action, i) => (
-                          <div key={action.id} className="p-10 flex items-center justify-between group hover:bg-white/[0.01] transition-colors">
-                             <div className="flex items-center gap-10 flex-1 min-w-0">
-                                <div className="h-20 w-20 rounded-[32px] border-2 border-white/5 bg-slate-950 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                          <div key={action.id} className="p-6 flex items-center justify-between group hover:bg-white/[0.01] transition-colors">
+                             <div className="flex items-center gap-6 flex-1 min-w-0">
+                                <div className="h-14 w-20 rounded-2xl border-2 border-white/5 bg-slate-950 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
                                    <Zap className="h-8 w-8 text-primary opacity-60" />
                                 </div>
                                 <div className="space-y-2 flex-1 min-w-0">
@@ -169,7 +169,7 @@ export default function AICenterPage() {
                                   onClick={() => rejectAction(action.id)}
                                 >DISMISS</Button>
                                 <Button 
-                                  className="h-14 px-10 bg-primary text-white font-black uppercase tracking-widest text-[10px] shadow-3xl hover:scale-105 transition-all"
+                                  className="h-14 px-6 bg-primary text-white font-black uppercase tracking-widest text-[10px] shadow-md hover:scale-105 transition-all"
                                   onClick={() => handleAuthorize(action.id)}
                                 >AUTHORIZE</Button>
                              </div>
@@ -182,45 +182,45 @@ export default function AICenterPage() {
         </div>
 
         {/* SIDEBAR: REASONING OBSERVATORY */}
-        <div className="lg:col-span-4 space-y-10">
+        <div className="lg:col-span-4 space-y-6">
            {/* REASONING TRACE PANEL */}
-           <Card className="shadow-4xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-lg border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Dna className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-10 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Activity className="h-5 w-5 text-white animate-pulse" />
                     Cognitive Trace
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter text-white">
                     "Cognitive Lock: Distributed logic symmetry is maintained at Tier-1 threshold. 14 node replicas are perfectly synchronized with the global oracle."
                  </p>
                  <div className="grid grid-cols-2 gap-8">
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Logic Depth</span>
                        <span className="text-4xl font-black text-emerald-300 tracking-tighter block mt-2">L4</span>
                     </div>
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Consensus</span>
                        <span className="text-4xl font-black text-blue-300 tracking-tighter block mt-2">FINAL</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     RE-ALIGN REASONING WEIGHTS
                  </Button>
               </CardContent>
            </Card>
 
            {/* SYSTEMIC GOVERNANCE MONITOR */}
-           <Card className="shadow-none border-none bg-slate-900/40 p-10 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-none bg-slate-900/40 p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-slate-500 ml-1">AI Health Matrix</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-slate-500 ml-1">AI Health Matrix</h4>
                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'Reasoning Drift', val: '0.001%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Inference Latency', val: '140ms', icon: Zap, color: 'text-blue-500' },
@@ -239,15 +239,15 @@ export default function AICenterPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-none bg-slate-900/30 p-12 text-center space-y-6 rounded-[48px] border-dashed border-white/5 group hover:border-primary/20 transition-all duration-700">
-              <Terminal className="h-16 w-16 mx-auto text-slate-700 opacity-20 group-hover:text-primary transition-all duration-700 group-hover:rotate-45" />
+           <Card className="shadow-none border-none bg-slate-900/30 p-6 text-center space-y-6 rounded-2xl border-dashed border-white/5 group hover:border-primary/20 transition-all duration-700">
+              <Terminal className="h-12 w-16 mx-auto text-slate-700 opacity-20 group-hover:text-primary transition-all duration-700 group-hover:rotate-45" />
               <div className="space-y-3">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-slate-300">Explainability Engine</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-slate-300">Explainability Engine</p>
                  <p className="text-[10px] text-slate-500 font-medium italic leading-relaxed px-6 opacity-40 text-slate-500">
                     "Baalvion intelligence provides 100% auditable reasoning traces for every autonomous state mutation. Every cognitive jump is cryptographically justified."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-white/10 font-black uppercase text-[9px] tracking-[0.2em] bg-slate-900/50 hover:bg-slate-800 text-white">LAUNCH EXPLAINER VAULT</Button>
+              <Button variant="outline" className="w-full h-12 border-white/10 font-black uppercase text-[9px] tracking-wide bg-slate-900/50 hover:bg-slate-800 text-white">LAUNCH EXPLAINER VAULT</Button>
            </Card>
         </div>
       </div>

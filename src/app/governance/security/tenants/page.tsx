@@ -46,14 +46,14 @@ export default function TenantGovernancePage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Syncing Sovereign Fabric...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Syncing Sovereign Fabric...</p>
       </div>
     );
   }
 
   return (
-    <main className="space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-4">
           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.SECURITY_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to command
@@ -71,9 +71,9 @@ export default function TenantGovernancePage() {
         </div>
       </div>
 
-      <div className="grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-9 space-y-10">
-           <Card className="shadow-2xl border-2 bg-background rounded-[40px] overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-9 space-y-6">
+           <Card className="shadow-2xl border-2 bg-background rounded-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
               <CardContent className="p-0">
                  <Table>
                     <TableHeader className="bg-muted/40">
@@ -98,7 +98,7 @@ export default function TenantGovernancePage() {
                              >
                                 <TableCell className="pl-12 py-8">
                                    <div className="flex items-center gap-6">
-                                      <div className="h-14 w-14 rounded-[22px] bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                                      <div className="h-14 w-14 rounded-xl bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
                                          <Server className="h-7 w-7 text-primary opacity-60" />
                                       </div>
                                       <div className="space-y-1">
@@ -139,33 +139,33 @@ export default function TenantGovernancePage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[40px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-3 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Maximize className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-10 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Database className="h-5 w-5 text-white animate-pulse" />
                     Boundary Oracle
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-2xl font-bold italic leading-tight opacity-95 tracking-tighter">
                     "Isolation Pulse: Cluster nodes are 100% compliant with jurisdictional residency mandates. Zero cross-tenant signal overlap detected in the Zurich cluster."
                  </p>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-4xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-lg bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     INITIATE CLUSTER ROTATION
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Fabric Ratios</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Fabric Ratios</h4>
                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'Network Finality', val: '99.98%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Admin Finality', val: '450ms', icon: Zap, color: 'text-blue-500' },

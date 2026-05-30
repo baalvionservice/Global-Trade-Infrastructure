@@ -4,6 +4,7 @@
  * Standardizes the 'Two-Key' authority principle for sensitive trade actions.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { UserRole, USER_ROLES } from '@/app/(dashboard)/_components/app-state';
 import { logger } from './observability-service';
 
@@ -54,7 +55,7 @@ export const approvalService = {
       order: 'desc',
       ...params
     });
-    return res.data || [];
+    return toList(res);
   },
 
   /**

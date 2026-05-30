@@ -55,16 +55,16 @@ export function InstitutionalTimeline({ events }: { events: TimelineEvent[] }) {
     return (
       <div className="py-20 text-center space-y-4 opacity-20">
          <HistoryIcon className="h-12 w-12 mx-auto" />
-         <p className="text-[10px] font-black uppercase tracking-[0.3em]">Timeline Sync Pending</p>
+         <p className="text-[10px] font-black uppercase tracking-wide">Timeline Sync Pending</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8">
       <div className="flex items-center justify-between border-b-2 border-primary/5 pb-8 px-1">
          <div className="space-y-1">
-            <h3 className="text-sm font-black uppercase tracking-[0.3em] text-foreground flex items-center gap-3">
+            <h3 className="text-sm font-black uppercase tracking-wide text-foreground flex items-center gap-3">
                <Activity className="h-4 w-4 text-primary" />
                Audit Sequence
             </h3>
@@ -75,7 +75,7 @@ export function InstitutionalTimeline({ events }: { events: TimelineEvent[] }) {
          </Button>
       </div>
 
-      <div className="relative pl-12 space-y-16 before:absolute before:left-[23px] before:top-4 before:bottom-4 before:w-0.5 before:bg-muted before:shadow-inner">
+      <div className="relative pl-12 space-y-6 before:absolute before:left-[23px] before:top-4 before:bottom-4 before:w-0.5 before:bg-muted before:shadow-inner">
         {events.map((event, i) => {
           const Icon = iconMap[event.type] || Activity;
           return (
@@ -110,7 +110,7 @@ export function InstitutionalTimeline({ events }: { events: TimelineEvent[] }) {
                     </div>
                  </div>
 
-                 <div className="p-6 rounded-[24px] border-2 border-primary/5 bg-background hover:border-primary/20 transition-all shadow-sm group-hover:shadow-lg">
+                 <div className="p-6 rounded-2xl border-2 border-primary/5 bg-background hover:border-primary/20 transition-all shadow-sm group-hover:shadow-lg">
                     <p className="text-sm font-medium text-muted-foreground italic leading-relaxed">
                       "{event.message}"
                     </p>

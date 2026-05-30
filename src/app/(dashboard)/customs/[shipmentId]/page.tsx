@@ -112,10 +112,10 @@ export default function CustomsDetailPage() {
   }
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => router.back()} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary">
+          <Button variant="ghost" size="sm" onClick={() => router.back()} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Shipment
           </Button>
           <div className="flex items-center gap-5">
@@ -160,7 +160,7 @@ export default function CustomsDetailPage() {
                  </DialogContent>
                </Dialog>
 
-               <Button onClick={() => handleAction('release')} disabled={processing} className="bg-emerald-600 hover:bg-emerald-700 font-black h-12 px-10 text-[10px] uppercase tracking-widest shadow-2xl rounded-2xl">
+               <Button onClick={() => handleAction('release')} disabled={processing} className="bg-emerald-600 hover:bg-emerald-700 font-black h-12 px-6 text-[10px] uppercase tracking-widest shadow-2xl rounded-2xl">
                   <CheckCircle2 className="mr-2 h-4 w-4" /> AUTHORIZE RELEASE
                </Button>
              </>
@@ -171,26 +171,26 @@ export default function CustomsDetailPage() {
         </div>
       </div>
 
-      <div className="bg-card border-2 rounded-[32px] p-12 shadow-xl relative overflow-hidden ring-1 ring-black/5">
-        <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground mb-12 text-center">Jurisdictional Clearance Workflow</h3>
+      <div className="bg-card border-2 rounded-2xl p-6 shadow-xl relative overflow-hidden ring-1 ring-black/5">
+        <h3 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-12 text-center">Jurisdictional Clearance Workflow</h3>
         <CustomsStatusTimeline status={customs.status || ''} />
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
-           <div className="grid sm:grid-cols-2 gap-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
+           <div className="grid sm:grid-cols-2 gap-6">
               <CustomsDocumentList shipmentId={customs.shipmentId || ''} />
               <CostBreakdown data={customs} />
            </div>
            
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10">
-                 <CardTitle className="text-sm font-black uppercase tracking-[0.2em] flex items-center gap-3">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6">
+                 <CardTitle className="text-sm font-black uppercase tracking-wide flex items-center gap-3">
                     <History className="h-5 w-5 text-primary opacity-30" />
                     Regulatory Audit Ledger
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 space-y-8">
+              <CardContent className="p-6 space-y-8">
                  <div className="divide-y-2">
                     {[
                       { action: 'DECLARATION_SUBMITTED', actor: 'Automated Gateway', time: '14m ago', status: 'success' },
@@ -215,18 +215,18 @@ export default function CustomsDetailPage() {
            <RegulatoryRulesPanel origin={originRules} destination={destRules} />
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-3 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Scale className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4">
                     <Gavel className="h-5 w-5 text-white" />
                     Authority Node
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-base font-bold italic leading-relaxed opacity-90">
                     "This entry is being audited by the <span className="font-bold underline text-white">{customs.destinationCountry} Customs Authority</span>. All operational logic is recorded in the platform's immutable vault."
                  </p>
@@ -240,13 +240,13 @@ export default function CustomsDetailPage() {
                        <span className="text-[9px] font-mono opacity-60">0x88f...AUDIT_READY</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
                     GENERATE AUDIT PACKAGE
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 text-center space-y-6 rounded-[32px] border-dashed group hover:border-primary/20 transition-all">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all">
               <ShieldCheck className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary group-hover:opacity-40 transition-all" />
               <div className="space-y-3">
                  <p className="text-sm font-black uppercase tracking-widest">Protocol Governance</p>
@@ -254,7 +254,7 @@ export default function CustomsDetailPage() {
                     "Jurisdictional overrides require two-key authority sign-off and are escalated to the National Trade Command for review."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">CONTACT COMPLIANCE DESK</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">CONTACT COMPLIANCE DESK</Button>
            </Card>
         </div>
       </div>

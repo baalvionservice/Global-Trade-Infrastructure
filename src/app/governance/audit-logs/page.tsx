@@ -62,8 +62,8 @@ export default function GlobalAuditLedgerPage() {
   });
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-4">
           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to command
@@ -96,7 +96,7 @@ export default function GlobalAuditLedgerPage() {
           </div>
         </div>
 
-        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-[40px] animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
            <CardContent className="p-0">
               <Table>
                  <TableHeader className="bg-muted/40">
@@ -120,7 +120,7 @@ export default function GlobalAuditLedgerPage() {
                           >
                              <TableCell className="pl-12 py-8">
                                 <div className="flex items-center gap-6">
-                                   <div className="h-12 w-12 rounded-[18px] bg-muted border-2 flex items-center justify-center shadow-inner">
+                                   <div className="h-12 w-12 rounded-xl bg-muted border-2 flex items-center justify-center shadow-inner">
                                       <Fingerprint className="h-6 w-6 text-primary opacity-60" />
                                    </div>
                                    <div className="space-y-1">
@@ -165,13 +165,13 @@ export default function GlobalAuditLedgerPage() {
         </Card>
       </div>
 
-      <div className="p-12 rounded-[48px] bg-slate-950 text-white relative overflow-hidden group shadow-3xl border-2 border-white/5">
+      <div className="p-6 rounded-2xl bg-slate-950 text-white relative overflow-hidden group shadow-md border-2 border-white/5">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Terminal className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Distributed State Protocol v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Truth is Derived, Not Stored.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Distributed State Protocol v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Truth is Derived, Not Stored.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion operates on a strictly event-sourced architecture. System state is never mutated directly; it is projected from an immutable, append-only event stream. Every transaction hash is cryptographically linked to the previous state, ensuring 100% auditable history across all jurisdictional clusters."
             </p>

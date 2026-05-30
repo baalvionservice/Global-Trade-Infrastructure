@@ -45,10 +45,10 @@ export default function GeopoliticalMonitoringPage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.INTELLIGENCE_HUB)} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary">
+          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.INTELLIGENCE_HUB)} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Command Hub
           </Button>
           <div className="space-y-1">
@@ -64,7 +64,7 @@ export default function GeopoliticalMonitoringPage() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* ACTIVE ALERT STREAM */}
         <div className="lg:col-span-8 space-y-8">
            <AnimatePresence>
@@ -75,20 +75,20 @@ export default function GeopoliticalMonitoringPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <Card className="shadow-2xl border-2 hover:border-red-500/20 transition-all rounded-[40px] overflow-hidden bg-background group">
+                  <Card className="shadow-2xl border-2 hover:border-red-500/20 transition-all rounded-2xl overflow-hidden bg-background group">
                     <CardContent className="p-0 flex flex-col md:flex-row">
                        <div className={cn(
                           "md:w-3 transition-all duration-700",
                           alert.severity === 'critical' ? "bg-red-600 shadow-[0_0_20px_rgba(220,38,38,0.4)]" : "bg-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.3)]"
                        )} />
-                       <div className="flex-1 p-10 flex flex-col md:flex-row items-start justify-between gap-10">
+                       <div className="flex-1 p-6 flex flex-col md:flex-row items-start justify-between gap-6">
                           <div className="space-y-6 flex-1 min-w-0">
                              <div className="flex items-center gap-6">
                                 <Badge className={cn(
                                    "text-[9px] uppercase font-black tracking-widest px-3 h-6 border-none shadow-sm",
                                    alert.severity === 'critical' ? "bg-red-600 text-white" : "bg-orange-500 text-white"
                                 )}>{alert.severity} RISK</Badge>
-                                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-40">
+                                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wide text-muted-foreground opacity-40">
                                    <Globe className="h-3.5 w-3.5" /> Region: {alert.region}
                                 </div>
                              </div>
@@ -102,7 +102,7 @@ export default function GeopoliticalMonitoringPage() {
                           <div className="flex flex-col items-end shrink-0 border-l-2 pl-12 border-muted/50 space-y-8">
                              <div className="text-right space-y-1">
                                 <p className="text-[9px] font-black text-muted-foreground uppercase opacity-40 leading-none">Impact Index</p>
-                                <p className="text-5xl font-black text-red-600 tracking-tighter tabular-nums">{alert.impactScore}%</p>
+                                <p className="text-4xl font-black text-red-600 tracking-tighter tabular-nums">{alert.impactScore}%</p>
                              </div>
                              <Button variant="ghost" className="font-black text-[10px] uppercase tracking-widest text-primary border-2 border-transparent group-hover:border-primary/20 h-12 px-6 rounded-2xl transition-all">
                                 ANALYZE NODES <ArrowRight className="ml-2 h-3 w-3" />
@@ -117,30 +117,30 @@ export default function GeopoliticalMonitoringPage() {
         </div>
 
         {/* GEOPOLITICAL SIDEBAR */}
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <ShieldAlert className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Zap className="h-5 w-5 text-white animate-pulse" />
                     Adversarial Oracle
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-base font-bold italic leading-relaxed opacity-90 leading-snug">
                     "Platform Oracle: Detected coordinated course deviations matching 'Blockade Bypass' behavioral patterns in the APAC-West corridor. System is ARMING for autonomous rebalancing."
                  </p>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[11px] tracking-[0.4em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-3xl">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[11px] tracking-widest shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-3xl">
                     REBALANCE GLOBAL WEIGHTS
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[40px]">
-              <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Jurisdictional Pulse</h4>
-              <div className="space-y-10">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
+              <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Jurisdictional Pulse</h4>
+              <div className="space-y-6">
                  {[
                    { label: 'Sanctions Finality', val: '100%', icon: Lock, color: 'text-indigo-600' },
                    { label: 'Conflict Density', val: 'Low', icon: Globe, color: 'text-blue-500' },
@@ -159,7 +159,7 @@ export default function GeopoliticalMonitoringPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-6 rounded-[40px] border-dashed group hover:border-primary/40 transition-all duration-700">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/40 transition-all duration-700">
               <Compass className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary group-hover:opacity-40 transition-all duration-700" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-tighter text-foreground">Sovereign Graph Mapping</p>

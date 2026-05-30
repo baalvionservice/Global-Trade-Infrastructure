@@ -53,7 +53,7 @@ export default function KYCPage() {
       <div className="flex flex-1 items-center justify-center p-8 bg-muted/20">
         <Card className="max-w-lg w-full text-center p-8 shadow-sm">
           <CardContent className="space-y-6 pt-6">
-            <div className="h-20 w-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto">
+            <div className="h-14 w-20 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto">
               <Clock className="h-10 w-10" />
             </div>
             <div className="space-y-2">
@@ -74,7 +74,7 @@ export default function KYCPage() {
       <div className="flex flex-1 items-center justify-center p-8 bg-muted/20">
         <Card className="max-w-lg w-full text-center p-8 shadow-sm border-green-200 bg-green-50/10">
           <CardContent className="space-y-6 pt-6">
-            <div className="h-20 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
+            <div className="h-14 w-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto">
               <CheckCircle2 className="h-10 w-10" />
             </div>
             <div className="space-y-2">

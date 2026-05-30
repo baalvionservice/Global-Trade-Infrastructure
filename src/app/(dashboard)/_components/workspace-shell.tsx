@@ -63,12 +63,12 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex overflow-hidden">
         {/* PRIMARY EXECUTION PLANE */}
         <div className="flex-1 min-w-0 flex flex-col relative h-full">
-           <div className="flex-1 overflow-y-auto terminal-scroll p-6 md:p-10">
+           <div className="flex-1 overflow-y-auto terminal-scroll p-6 md:p-6">
               {children}
            </div>
            
            {/* TACTICAL FEED OVERLAY (Bottom) */}
-           <div className="h-10 border-t bg-slate-950/80 backdrop-blur-md flex items-center px-6 justify-between text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 z-30">
+           <div className="h-10 border-t bg-slate-950/80 backdrop-blur-md flex items-center px-6 justify-between text-[9px] font-black uppercase tracking-wide text-slate-500 z-30">
               <div className="flex items-center gap-6">
                  <span className="flex items-center gap-2">
                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> 
@@ -81,7 +81,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
                     <ShieldCheck className="h-3 w-3 text-emerald-500" /> IDENTITY_LOCKED
                  </span>
               </div>
-              <div className="flex items-center gap-10">
+              <div className="flex items-center gap-6">
                  <span className="flex items-center gap-2"><Lock className="h-3 w-3 text-indigo-500" /> E2E_AUTH_V4_SECURE</span>
                  <span className="opacity-40">OS_KERNEL_v4.2.0_STABLE</span>
               </div>
@@ -112,15 +112,15 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
               exit={{ x: 420, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               style={{ width: rightPanelWidth }}
-              className="hidden xl:flex flex-col bg-slate-900/60 border-l border-white/5 backdrop-blur-3xl shrink-0 overflow-hidden relative shadow-4xl"
+              className="hidden xl:flex flex-col bg-slate-900/60 border-l border-white/5 backdrop-blur-3xl shrink-0 overflow-hidden relative shadow-lg"
             >
-               <header className="h-16 border-b border-white/5 bg-white/5 flex items-center justify-between px-8 shrink-0">
+               <header className="h-12 border-b border-white/5 bg-white/5 flex items-center justify-between px-8 shrink-0">
                   <div className="flex items-center gap-4">
                      <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
                         <BrainCircuit className="h-5 w-5 text-primary" />
                      </div>
                      <div className="space-y-0.5">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Sovereign Oracle</span>
+                        <span className="text-[10px] font-black uppercase tracking-wide text-white">Sovereign Oracle</span>
                         <p className="text-[8px] font-bold text-slate-500 uppercase">REASONING_CORE: ACTIVE</p>
                      </div>
                   </div>
@@ -146,7 +146,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
            <motion.button 
              initial={{ scale: 0 }}
              animate={{ scale: 1 }}
-             className="absolute right-10 bottom-20 h-16 w-16 rounded-[24px] shadow-4xl z-40 bg-primary flex items-center justify-center border-4 border-background transition-transform hover:scale-110 active:scale-95 shadow-primary/20"
+             className="absolute right-10 bottom-20 h-12 w-16 rounded-2xl shadow-lg z-40 bg-primary flex items-center justify-center border-4 border-background transition-transform hover:scale-110 active:scale-95 shadow-primary/20"
              onClick={() => toggleRightPanel(true)}
            >
               <BrainCircuit className="h-8 w-8 text-white fill-white/10" />

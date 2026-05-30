@@ -47,21 +47,21 @@ export default function ExecutiveReportingPage() {
   ];
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Strategic Reporting</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Strategic Reporting</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Boardroom Reports</h2>
           <p className="text-muted-foreground font-medium italic max-w-2xl">High-authority strategic summaries, financial audit trails, and ecosystem performance analytics.</p>
         </div>
         <div className="flex gap-4">
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Plus className="mr-2 h-4 w-4" /> CREATE CUSTOM VIEW
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-3">
         {reportTiers.map((report, i) => (
           <motion.div 
             key={report.id}
@@ -69,15 +69,15 @@ export default function ExecutiveReportingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
           >
-             <Card className="shadow-xl border-2 hover:border-primary/40 transition-all rounded-[32px] overflow-hidden group bg-background">
-                <CardHeader className="bg-muted/10 border-b p-10">
-                   <div className="p-4 rounded-[24px] bg-background border-2 shadow-inner w-fit mb-6 group-hover:scale-105 transition-transform">
+             <Card className="shadow-xl border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden group bg-background">
+                <CardHeader className="bg-muted/10 border-b p-6">
+                   <div className="p-4 rounded-2xl bg-background border-2 shadow-inner w-fit mb-6 group-hover:scale-105 transition-transform">
                       <report.icon className="h-7 w-7 text-primary opacity-60" />
                    </div>
                    <CardTitle className="text-2xl font-black uppercase tracking-tighter">{report.title}</CardTitle>
                    <CardDescription className="font-medium text-sm italic mt-2">"{report.desc}"</CardDescription>
                 </CardHeader>
-                <CardContent className="p-10 space-y-8">
+                <CardContent className="p-6 space-y-8">
                    <div className="space-y-4">
                       <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">
                          <span>Last Generated</span>
@@ -89,7 +89,7 @@ export default function ExecutiveReportingPage() {
                       </div>
                    </div>
                    <Button 
-                      className="w-full h-16 font-black uppercase tracking-widest text-[11px] shadow-lg" 
+                      className="w-full h-12 font-black uppercase tracking-widest text-[11px] shadow-lg" 
                       onClick={() => handleExport(report.id)}
                       disabled={generating === report.id}
                    >
@@ -102,12 +102,12 @@ export default function ExecutiveReportingPage() {
         ))}
       </div>
 
-      <Card className="shadow-2xl border-none bg-slate-950 text-white relative overflow-hidden rounded-[40px] group">
+      <Card className="shadow-2xl border-none bg-slate-950 text-white relative overflow-hidden rounded-2xl group">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <BarChart3 className="h-64 w-64 brightness-0 invert" />
          </div>
          <CardContent className="p-16 relative z-10 space-y-8 max-w-3xl">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Global Audit Standard v4.2</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Global Audit Standard v4.2</h4>
             <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Unified Data Perspective.</h3>
             <p className="text-lg font-medium leading-relaxed italic opacity-80">
               "Baalvion Reporting Engine synthesizes cross-domain signals into boardroom-ready intelligence. Our forensic audit methodology ensures that every report is cryptographically bound to the global operating state, providing absolute finality for institutional stakeholders."

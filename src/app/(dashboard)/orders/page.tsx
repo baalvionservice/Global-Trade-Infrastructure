@@ -60,10 +60,10 @@ export default function OrderExecutionPipeline() {
   ];
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Commercial Execution</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Commercial Execution</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Order Pipeline.</h2>
           <p className="text-muted-foreground font-medium italic">High-authority management of trade mandates, fulfillment nodes, and multi-party finality.</p>
         </div>
@@ -71,7 +71,7 @@ export default function OrderExecutionPipeline() {
            <Button variant="outline" className="font-black border-2 bg-background h-14 px-8 text-[10px] uppercase tracking-widest shadow-md">
               <History className="mr-2 h-4 w-4" /> Audit Ledger
            </Button>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Plus className="mr-2 h-4 w-4" /> Initiate Production
            </Button>
         </div>
@@ -82,7 +82,7 @@ export default function OrderExecutionPipeline() {
           <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
              <Card className="shadow-lg border-2 border-primary/5 bg-background hover:border-primary/20 transition-all rounded-3xl group">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 px-8 pt-8">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{s.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{s.label}</CardTitle>
                   <s.icon className={cn("h-4 w-4", s.color)} />
                 </CardHeader>
                 <CardContent className="px-8 pb-8">
@@ -93,8 +93,8 @@ export default function OrderExecutionPipeline() {
         ))}
       </div>
 
-      <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-         <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+      <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+         <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
             <div>
                <CardTitle className="text-xl font-black uppercase tracking-tighter">Execution Registry</CardTitle>
                <CardDescription className="text-xs mt-1">Real-time trace of commercial mandates across the global node mesh.</CardDescription>
@@ -114,17 +114,17 @@ export default function OrderExecutionPipeline() {
                <table className="w-full text-left border-collapse">
                   <thead className="bg-muted/30 border-b-2">
                      <tr>
-                        <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Order Identity</th>
-                        <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Commercial Value</th>
-                        <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Execution State</th>
-                        <th className="p-10 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Fulfillment</th>
-                        <th className="p-10 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">Audit</th>
+                        <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Order Identity</th>
+                        <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Commercial Value</th>
+                        <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Execution State</th>
+                        <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Fulfillment</th>
+                        <th className="p-6 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground">Audit</th>
                      </tr>
                   </thead>
                   <tbody className="divide-y-2">
                      {orders.map((order) => (
                         <tr key={order.id} className="group hover:bg-primary/[0.01] transition-colors border-b last:border-0 cursor-pointer" onClick={() => router.push(`${PATHS.ORDERS}/${order.id}`)}>
-                           <td className="p-10">
+                           <td className="p-6">
                               <div className="flex items-center gap-6">
                                  <div className="h-14 w-14 rounded-3xl bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform"><Package className="h-7 w-7 text-primary opacity-60" /></div>
                                  <div className="space-y-1.5">
@@ -133,20 +133,20 @@ export default function OrderExecutionPipeline() {
                                  </div>
                               </div>
                            </td>
-                           <td className="p-10">
+                           <td className="p-6">
                               <div className="space-y-1">
                                  <p className="text-lg font-black tracking-tighter">{formatCurrency(order.totalValue, order.currency)}</p>
                                  <p className="text-[9px] font-bold text-muted-foreground uppercase opacity-40">Unit: {formatCurrency(order.price, order.currency)}</p>
                               </div>
                            </td>
-                           <td className="p-10">
+                           <td className="p-6">
                               <Badge variant="outline" className={cn(
                                  "text-[9px] font-black uppercase h-7 px-3 border-2 rounded-full",
                                  order.status === 'COMPLETED' ? "bg-green-50 text-green-700 border-green-200" : 
                                  order.status === 'CANCELLED' ? "bg-red-50 text-red-700 border-red-200" : "bg-muted"
                               )}>{order.status}</Badge>
                            </td>
-                           <td className="p-10">
+                           <td className="p-6">
                               <div className="flex items-center gap-3">
                                  <div className="flex -space-x-3">
                                     <div className="h-8 w-8 rounded-full border-2 border-background bg-primary/10 flex items-center justify-center text-[10px] font-black"><Truck className="h-4 w-4 text-primary" /></div>
@@ -155,7 +155,7 @@ export default function OrderExecutionPipeline() {
                                  <span className="text-[10px] font-black uppercase text-muted-foreground tracking-tighter">In Transit</span>
                               </div>
                            </td>
-                           <td className="p-10 text-right">
+                           <td className="p-6 text-right">
                               <Button variant="ghost" size="icon" className="h-11 w-11 rounded-2xl border-2 opacity-20 group-hover:opacity-100 transition-all">
                                  <ArrowRight className="h-5 w-5" />
                               </Button>

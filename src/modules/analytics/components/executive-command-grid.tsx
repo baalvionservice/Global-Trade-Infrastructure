@@ -47,9 +47,9 @@ export function ExecutiveCommandGrid({ kpis }: ExecutiveCommandGridProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
           >
-            <Card className="shadow-2xl border-2 border-primary/5 hover:border-primary/40 transition-all rounded-[32px] overflow-hidden bg-background group">
+            <Card className="shadow-2xl border-2 border-primary/5 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
               <CardHeader className="flex flex-row items-center justify-between pb-2 p-8 space-y-0">
-                <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
+                <CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">
                   {kpi.label}
                 </CardTitle>
                 <div className={cn(
@@ -59,7 +59,7 @@ export function ExecutiveCommandGrid({ kpis }: ExecutiveCommandGridProps) {
                   <Icon className="h-4 w-4" />
                 </div>
               </CardHeader>
-              <CardContent className="px-8 pb-10">
+              <CardContent className="px-8 pb-6">
                 <div className="flex items-baseline gap-1.5">
                    <div className="text-4xl font-black tracking-tighter tabular-nums text-foreground">
                      {typeof kpi.value === 'number' ? formatNumber(kpi.value) : kpi.value}{kpi.unit}

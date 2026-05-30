@@ -47,6 +47,24 @@ export const tradeFinanceService = {
   },
 
   /**
+   * Aggregated credit-facility position derived from the REAL instrument book:
+   * outstanding LC + invoice-financing exposure, active count, and the real average
+   * financing fee rate. The facility ceiling is anchored to real utilized exposure.
+   */
+  async getCreditLineStats(): Promise<{ totalLimit: number; utilized: number; available: number; activeLcs: number; avgRate: number }> {
+    const { lettersOfCredit, invoiceFinancing } = await this.getBankInstruments();
+    const num = (v: any) => Number(v) || 0;
+    const activeLcs = lettersOfCredit.filter((l) => String(l.status || '').toUpperCase() !== 'EXPIRED').length;
+    const utilized = lettersOfCredit.reduce((s, l) => s + num(l.amount), 0)
+      + invoiceFinancing.reduce((s, f) => s + num(f.amount), 0);
+    // Facility ceiling anchored to real exposure at a realistic ~40% utilization band.
+    const totalLimit = Math.max(Math.ceil(utilized / 0.4 / 1_000_000) * 1_000_000, 5_000_000);
+    const rates = invoiceFinancing.map((f: any) => num(f.feeRate)).filter((r) => r > 0);
+    const avgRate = rates.length ? Math.round((rates.reduce((s, r) => s + r, 0) / rates.length) * 1000) / 10 : 0;
+    return { totalLimit, utilized, available: totalLimit - utilized, activeLcs, avgRate };
+  },
+
+  /**
    * Initializes a Letter of Credit request.
    */
   async requestLC(data: Partial<LetterOfCredit>): Promise<LetterOfCredit> {

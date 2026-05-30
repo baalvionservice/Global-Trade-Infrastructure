@@ -57,10 +57,10 @@ export default function EscalationCenterPage() {
   if (loading) return <div className="h-[80vh] flex items-center justify-center"><Loader2 className="animate-spin text-primary opacity-20" /></div>;
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500">Governance Escalation Hub</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-red-500">Governance Escalation Hub</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Escalation Center</h2>
           <p className="text-muted-foreground font-medium italic max-w-2xl">Authoritative coordination of operational failures, SLA breaches, and high-priority cross-domain incidents.</p>
         </div>
@@ -88,10 +88,10 @@ export default function EscalationCenterPage() {
            </Button>
         </div>
 
-        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-[40px] animate-in fade-in slide-in-from-bottom-4 duration-700">
-           <CardHeader className="bg-muted/10 border-b py-10 px-12 flex flex-row items-center justify-between">
+        <Card className="shadow-2xl border-2 bg-background overflow-hidden rounded-2xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+           <CardHeader className="bg-muted/10 border-b py-6 px-6 flex flex-row items-center justify-between">
               <div>
-                 <CardTitle className="text-xl font-black uppercase tracking-[0.2em]">Critical Incident Queue</CardTitle>
+                 <CardTitle className="text-xl font-black uppercase tracking-wide">Critical Incident Queue</CardTitle>
                  <CardDescription className="text-xs font-medium mt-2">Active escalations requiring human-in-the-loop adjudication.</CardDescription>
               </div>
               <Badge variant="outline" className="text-[10px] font-black border-2 h-6 uppercase px-4 rounded-full bg-background shadow-sm">{cases.length} ACTIVE CASES</Badge>
@@ -117,7 +117,7 @@ export default function EscalationCenterPage() {
                             transition={{ delay: i * 0.05 }}
                             className="group hover:bg-red-500/[0.01] transition-colors border-b last:border-0 cursor-pointer"
                           >
-                             <TableCell className="pl-12 py-10">
+                             <TableCell className="pl-12 py-6">
                                 <div className="space-y-1">
                                    <p className="font-mono text-[11px] font-black text-primary uppercase">{c.id}</p>
                                    <p className="text-[9px] font-black text-muted-foreground uppercase opacity-40 tracking-tighter">NODE: WAR_ROOM_A</p>
@@ -161,10 +161,10 @@ export default function EscalationCenterPage() {
                       <TableRow>
                         <TableCell colSpan={5} className="h-96 text-center">
                           <div className="flex flex-col items-center gap-6 opacity-20">
-                             <div className="p-12 rounded-full border-4 border-dashed border-primary/20">
-                                <ShieldCheck className="h-16 w-16" />
+                             <div className="p-6 rounded-full border-4 border-dashed border-primary/20">
+                                <ShieldCheck className="h-12 w-16" />
                              </div>
-                             <p className="text-[11px] font-black uppercase tracking-[0.4em]">Zero Systemic Escalations Detected</p>
+                             <p className="text-[11px] font-black uppercase tracking-widest">Zero Systemic Escalations Detected</p>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -175,13 +175,13 @@ export default function EscalationCenterPage() {
         </Card>
       </div>
 
-      <div className="p-12 rounded-[48px] bg-slate-950 text-white relative overflow-hidden group shadow-3xl border-2 border-white/5">
+      <div className="p-6 rounded-2xl bg-slate-950 text-white relative overflow-hidden group shadow-md border-2 border-white/5">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Gavel className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-red-500">Operational Resolution Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Autonomous Adjudication. <br />Finality Enforced.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-red-500">Operational Resolution Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Autonomous Adjudication. <br />Finality Enforced.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion Escalation Core ensures that operational friction is never stagnant. Incident war-rooms are deterministically provisioned, bringing required institutional sign-offs into a single, high-fidelity coordination node to resolve breaches with millisecond ledger finality."
             </p>

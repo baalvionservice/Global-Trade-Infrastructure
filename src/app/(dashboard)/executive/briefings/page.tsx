@@ -42,7 +42,7 @@ export default function BriefingsPage() {
   }
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="space-y-4">
           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
@@ -63,7 +63,7 @@ export default function BriefingsPage() {
 
       <div className="grid gap-6">
         {briefs.map((brief) => (
-          <Card key={brief.id} className="shadow-lg border-2 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-[24px]">
+          <Card key={brief.id} className="shadow-lg border-2 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-2xl">
              <CardContent className="p-0">
                 <div className="flex items-stretch h-full">
                    <div className={cn(
@@ -74,11 +74,11 @@ export default function BriefingsPage() {
                       <div className="space-y-4 flex-1">
                          <div className="flex items-center gap-4">
                             <Badge className="text-[9px] uppercase font-black tracking-widest px-2.5 h-5 bg-indigo-600 border-none shadow-sm">{brief.category}</Badge>
-                            <span className="text-[10px] text-muted-foreground font-black uppercase tracking-[0.2em] opacity-40">Priority: {brief.priority}</span>
+                            <span className="text-[10px] text-muted-foreground font-black uppercase tracking-wide opacity-40">Priority: {brief.priority}</span>
                          </div>
                          <h3 className="text-2xl font-black uppercase tracking-tighter text-foreground leading-tight group-hover:text-primary transition-colors">{brief.title}</h3>
                          <p className="text-sm font-medium leading-relaxed italic opacity-80 max-w-2xl">"{brief.summary}"</p>
-                         <div className="flex items-center gap-6 pt-2 text-[9px] font-black uppercase text-muted-foreground/60 tracking-[0.2em]">
+                         <div className="flex items-center gap-6 pt-2 text-[9px] font-black uppercase text-muted-foreground/60 tracking-wide">
                             <span className="flex items-center gap-1.5"><History className="h-3 w-3" /> Issued {format(new Date(brief.createdAt), "MMM dd, yyyy")}</span>
                             <span className="flex items-center gap-1.5">Signatory: {brief.author}</span>
                          </div>

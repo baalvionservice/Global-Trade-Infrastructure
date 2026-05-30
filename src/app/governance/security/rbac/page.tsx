@@ -47,14 +47,14 @@ export default function AuthorityMatrixPage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Syncing Authority Matrix...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Syncing Authority Matrix...</p>
       </div>
     );
   }
 
   return (
-    <main className="space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-4">
           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.SECURITY_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to command
@@ -68,18 +68,18 @@ export default function AuthorityMatrixPage() {
            <Button variant="outline" className="h-14 px-8 border-2 font-black uppercase text-[10px] tracking-widest bg-background shadow-md">
               <Database className="mr-2 h-4 w-4" /> Export Matrix
            </Button>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Plus className="mr-2 h-4 w-4" /> Define Sovereign Role
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-5 space-y-10">
-           <Card className="shadow-2xl border-2 bg-background rounded-[40px] overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
-              <CardHeader className="bg-muted/10 border-b py-10 px-12 flex flex-row items-center justify-between">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-5 space-y-6">
+           <Card className="shadow-2xl border-2 bg-background rounded-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <CardHeader className="bg-muted/10 border-b py-6 px-6 flex flex-row items-center justify-between">
                  <div>
-                    <CardTitle className="text-xl font-black uppercase tracking-[0.2em]">Institutional Role Registry</CardTitle>
+                    <CardTitle className="text-xl font-black uppercase tracking-wide">Institutional Role Registry</CardTitle>
                     <CardDescription className="text-xs font-medium mt-2">Canonical record of operational authority nodes and their functional scopes.</CardDescription>
                  </div>
                  <Badge variant="outline" className="text-[10px] font-black border-2 h-6 uppercase px-4 rounded-full bg-background shadow-sm">
@@ -109,7 +109,7 @@ export default function AuthorityMatrixPage() {
                              >
                                 <TableCell className="pl-12 py-8">
                                    <div className="flex items-center gap-6">
-                                      <div className="h-12 w-12 rounded-[18px] bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                                      <div className="h-12 w-12 rounded-xl bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
                                          <ShieldCheck className="h-6 w-6 text-primary opacity-60" />
                                       </div>
                                       <div className="space-y-1">
@@ -149,10 +149,10 @@ export default function AuthorityMatrixPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-2 space-y-10">
-           <Card className="shadow-none border-2 bg-background p-10 space-y-10 rounded-[40px]">
-              <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Ecosystem Pulse</h4>
-              <div className="space-y-10">
+        <div className="lg:col-span-2 space-y-6">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
+              <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Ecosystem Pulse</h4>
+              <div className="space-y-6">
                  {[
                    { label: 'Role Coherence', val: '99.98%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Admin Finality', val: '450ms', icon: Zap, color: 'text-blue-500' },
@@ -171,7 +171,7 @@ export default function AuthorityMatrixPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-6 rounded-[40px] border-dashed group hover:border-primary/20 transition-all duration-700">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
               <Lock className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary group-hover:opacity-40 transition-all duration-700" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-tighter text-foreground">Zero-Point Gating</p>

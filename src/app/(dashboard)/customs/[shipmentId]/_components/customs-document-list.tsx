@@ -60,7 +60,7 @@ export function CustomsDocumentList({ shipmentId }: { shipmentId: string }) {
   return (
     <Card className="shadow-none border-2 bg-background h-full rounded-3xl overflow-hidden">
       <CardHeader className="pb-4 bg-muted/10 border-b">
-        <CardTitle className="text-sm font-black uppercase tracking-[0.2em] flex items-center gap-2">
+        <CardTitle className="text-sm font-black uppercase tracking-wide flex items-center gap-2">
            <FileText className="h-4 w-4 text-primary" />
            Digital Trade Dossier
         </CardTitle>

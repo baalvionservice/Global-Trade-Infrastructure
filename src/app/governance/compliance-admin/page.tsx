@@ -62,10 +62,10 @@ export default function ComplianceAdminSummaryPage() {
   ];
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Regulatory Oversight</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Regulatory Oversight</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Compliance Control Tower</h2>
           <p className="text-muted-foreground font-medium italic">High-authority management of institutional identity, sovereign trade laws, and regulatory finality.</p>
         </div>
@@ -74,7 +74,7 @@ export default function ComplianceAdminSummaryPage() {
               <Scale className="h-4 w-4" />
               Jurisdictional Rules: Active (124)
            </div>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary" asChild>
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary" asChild>
               <Link href={PATHS.ADMIN_RISK}>Access Risk Intel</Link>
            </Button>
         </div>
@@ -84,7 +84,7 @@ export default function ComplianceAdminSummaryPage() {
         {stats.map((s, i) => (
           <Card key={s.title} className="shadow-lg border-2 border-primary/5 bg-background hover:border-primary/20 transition-all rounded-3xl group">
              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{s.title}</CardTitle>
+                <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{s.title}</CardTitle>
                 <div className="p-2 rounded-xl bg-muted/50 group-hover:bg-primary/5 transition-colors">
                   <s.icon className={cn("h-4 w-4", s.color)} />
                 </div>
@@ -97,13 +97,13 @@ export default function ComplianceAdminSummaryPage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* REAL-TIME LEGAL AUDIT STREAM */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Operational Compliance Ledger</CardTitle>
+                  <CardTitle className="text-sm font-black uppercase tracking-wide">Operational Compliance Ledger</CardTitle>
                   <CardDescription className="text-xs font-medium">Immutable stream of real-time legal decisions and runtime enforcement signals.</CardDescription>
                 </div>
                 <Activity className="h-6 w-6 text-primary opacity-30 animate-pulse" />
@@ -124,7 +124,7 @@ export default function ComplianceAdminSummaryPage() {
                                <p className="text-[10px] font-bold text-muted-foreground uppercase opacity-60">Handshake ID: {log.id} • node: {log.integrationId}</p>
                             </div>
                          </div>
-                         <div className="flex items-center gap-10">
+                         <div className="flex items-center gap-6">
                             <Badge variant="outline" className={cn(
                                "text-[9px] font-black uppercase h-7 px-3 border-2 rounded-full",
                                log.status === 'success' ? "bg-green-50 text-green-700 border-green-200" : "bg-red-50 text-red-700 border-red-200"
@@ -138,19 +138,19 @@ export default function ComplianceAdminSummaryPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* REGULATORY POSTURE PANEL */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <ShieldCheck className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <ShieldAlert className="h-5 w-5 text-white animate-pulse" />
                     Enforcement Runtime
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <p className="text-base font-bold italic leading-relaxed opacity-90">
                     "AI Intelligence: Regulatory rulebases are synchronized with the 2024 Trade Framework. Autonomous enforcement is gating 100% of global state transitions."
                  </p>
@@ -164,13 +164,13 @@ export default function ComplianceAdminSummaryPage() {
                        <span className="text-xl font-black text-blue-300">+120ms</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-2xl">
                     MANAGE GLOBAL RULEBASE
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 text-center space-y-6 rounded-[32px] border-dashed group hover:border-primary/20 transition-all">
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-6 rounded-2xl border-dashed group hover:border-primary/20 transition-all">
               <Gavel className="h-14 w-14 mx-auto text-muted-foreground opacity-20 group-hover:text-primary group-hover:opacity-40 transition-all" />
               <div className="space-y-2">
                  <p className="text-sm font-black uppercase tracking-widest">Arbiter Adjudication</p>
@@ -178,7 +178,7 @@ export default function ComplianceAdminSummaryPage() {
                     "Critical regulatory flags are automatically escalated to the Adjudication Hub for manual forensic review. No capital release is permitted while a flag is active."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background" asChild>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background" asChild>
                  <Link href={PATHS.OVERSIGHT_DISPUTES}>VIEW PENDING CASES</Link>
               </Button>
            </Card>

@@ -109,15 +109,15 @@ export default function InstitutionalVaultPage() {
   });
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       {/* COMMAND HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
            <div className="flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Service Node: VAULT_CORE_ALPHA</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-primary">Service Node: VAULT_CORE_ALPHA</p>
            </div>
-           <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Records <br />Governance.</h2>
+           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Records <br />Governance.</h2>
            <p className="text-muted-foreground font-medium italic text-lg max-w-2xl">"Authoritative planetary oversight of institutional trade dossiers and digital knowledge artifacts."</p>
         </div>
         <div className="flex gap-4">
@@ -127,17 +127,17 @@ export default function InstitutionalVaultPage() {
            </div>
            <Dialog open={isUploadOpen} onOpenChange={setIsUploadOpen}>
              <DialogTrigger asChild>
-                <Button className="h-16 px-12 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-3xl hover:scale-[1.02] transition-all">
+                <Button className="h-12 px-6 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md hover:scale-[1.02] transition-all">
                   <Plus className="mr-3 h-5 w-5 fill-current" /> Vault Mandate
                 </Button>
              </DialogTrigger>
-             <DialogContent className="sm:max-w-2xl rounded-[40px] p-0 overflow-hidden border-none shadow-3xl">
-                <div className="bg-primary p-10 text-white relative overflow-hidden">
+             <DialogContent className="sm:max-w-2xl rounded-2xl p-0 overflow-hidden border-none shadow-md">
+                <div className="bg-primary p-6 text-white relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-8 opacity-10 rotate-12"><Zap className="h-40 w-40 brightness-0 invert" /></div>
                    <h2 className="text-3xl font-black uppercase tracking-tighter">Vaulting Protocol</h2>
                    <p className="text-[10px] font-black uppercase tracking-widest opacity-60 mt-2">Registry Synchronization Node</p>
                 </div>
-                <form onSubmit={handleUpload} className="p-10 space-y-8 bg-background">
+                <form onSubmit={handleUpload} className="p-6 space-y-8 bg-background">
                     <div className="grid gap-6">
                        <div className="space-y-2">
                           <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Document Identity</Label>
@@ -163,12 +163,12 @@ export default function InstitutionalVaultPage() {
                              <Input name="refId" placeholder="e.g. ORD-9921" className="h-14 border-2 font-bold rounded-2xl" />
                           </div>
                        </div>
-                       <div className="p-12 border-2 border-dashed rounded-[32px] text-center hover:bg-muted/50 transition-all cursor-pointer group border-primary/20 bg-muted/10">
+                       <div className="p-6 border-2 border-dashed rounded-2xl text-center hover:bg-muted/50 transition-all cursor-pointer group border-primary/20 bg-muted/10">
                           <Upload className="h-10 w-10 mx-auto text-muted-foreground group-hover:text-primary transition-colors" />
-                          <p className="text-[11px] text-muted-foreground mt-4 font-black uppercase tracking-[0.2em]">Deposit Institutional PDF (Max 25MB)</p>
+                          <p className="text-[11px] text-muted-foreground mt-4 font-black uppercase tracking-wide">Deposit Institutional PDF (Max 25MB)</p>
                        </div>
                     </div>
-                    <Button type="submit" className="w-full h-18 font-black uppercase tracking-[0.2em] shadow-2xl text-base rounded-2xl" disabled={uploading}>
+                    <Button type="submit" className="w-full h-12 font-black uppercase tracking-wide shadow-2xl text-base rounded-2xl" disabled={uploading}>
                        {uploading ? <Loader2 className="mr-3 h-6 w-6 animate-spin" /> : <ShieldCheck className="mr-3 h-6 w-6" />}
                        Authorize Vaulting
                     </Button>
@@ -185,12 +185,12 @@ export default function InstitutionalVaultPage() {
              <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground opacity-30" />
              <Input 
                placeholder="Resolve document by identity, hash reference, or operational node..." 
-               className="pl-16 h-16 bg-background border-2 rounded-[24px] text-lg font-black tracking-tight shadow-inner focus-visible:ring-primary/20"
+               className="pl-16 h-12 bg-background border-2 rounded-2xl text-lg font-black tracking-tight shadow-inner focus-visible:ring-primary/20"
                value={search}
                onChange={(e) => setSearch(e.target.value)}
              />
           </div>
-          <div className="flex gap-2 p-1.5 bg-background border-2 rounded-[24px] shadow-sm">
+          <div className="flex gap-2 p-1.5 bg-background border-2 rounded-2xl shadow-sm">
              {['all', 'COMMERCIAL', 'LOGISTICS', 'COMPLIANCE', 'GOVERNANCE'].map(cat => (
                 <Button 
                   key={cat}
@@ -209,14 +209,14 @@ export default function InstitutionalVaultPage() {
         </div>
 
         {loading ? (
-          <div className="flex h-[500px] flex-col items-center justify-center gap-6 rounded-[48px] border-2 border-dashed bg-card/50">
+          <div className="flex h-[500px] flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed bg-card/50">
              <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-             <p className="text-[11px] font-black uppercase text-muted-foreground tracking-[0.3em] animate-pulse">Establishing Secure Knowledge Link...</p>
+             <p className="text-[11px] font-black uppercase text-muted-foreground tracking-wide animate-pulse">Establishing Secure Knowledge Link...</p>
           </div>
         ) : filtered.length === 0 ? (
-          <Card className="border-2 border-dashed shadow-none py-48 text-center bg-card/30 rounded-[48px]">
+          <Card className="border-2 border-dashed shadow-none py-48 text-center bg-card/30 rounded-2xl">
              <CardContent className="space-y-8">
-                <div className="mx-auto h-24 w-24 rounded-[32px] bg-muted/40 border-4 flex items-center justify-center opacity-30">
+                <div className="mx-auto h-24 w-24 rounded-2xl bg-muted/40 border-4 flex items-center justify-center opacity-30">
                   <FolderLock className="h-12 w-12" />
                 </div>
                 <div className="space-y-2">
@@ -237,7 +237,7 @@ export default function InstitutionalVaultPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
                   >
-                    <Card className="shadow-2xl border-2 border-primary/5 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-[40px]">
+                    <Card className="shadow-2xl border-2 border-primary/5 hover:border-primary/40 transition-all group overflow-hidden bg-background rounded-2xl">
                        <CardHeader className="bg-muted/10 border-b p-8 flex flex-row items-center justify-between">
                           <div className="flex items-center gap-6">
                              <div className="p-4 rounded-2xl bg-background border-2 shadow-inner group-hover:scale-110 transition-transform">
@@ -245,7 +245,7 @@ export default function InstitutionalVaultPage() {
                              </div>
                              <div className="space-y-1">
                                 <Badge variant="secondary" className="text-[9px] font-black uppercase h-5 px-2 border-none">V{doc.version}</Badge>
-                                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">{doc.type.replace(/_/g, ' ')}</p>
+                                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wide">{doc.type.replace(/_/g, ' ')}</p>
                              </div>
                           </div>
                           <Badge className="bg-slate-900 text-white text-[8px] font-black uppercase h-6 px-3 rounded-full border-none shadow-sm">{doc.classification}</Badge>
@@ -280,7 +280,7 @@ export default function InstitutionalVaultPage() {
 
                           {doc.metadata?.extractionConfidence && (
                              <div className="p-6 bg-muted/20 rounded-3xl border-2 border-dashed space-y-4">
-                                <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em] opacity-60">
+                                <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wide opacity-60">
                                    <span>Intelligence Score</span>
                                    <span className="text-primary">{Math.round(doc.metadata.extractionConfidence * 100)}% Match</span>
                                 </div>
@@ -306,14 +306,14 @@ export default function InstitutionalVaultPage() {
       </div>
 
       {/* RECORDS GOVERNANCE FOOTER */}
-      <div className="grid gap-10 lg:grid-cols-12">
-        <Card className="lg:col-span-8 shadow-4xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <Card className="lg:col-span-8 shadow-lg border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
            <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
               <FileStack className="h-64 w-64 brightness-0 invert" />
            </div>
-           <CardContent className="p-16 relative z-10 space-y-10 max-w-4xl">
-              <h4 className="text-[11px] font-black uppercase tracking-[0.5em] opacity-60">Identity Integrity Standard v4.2</h4>
-              <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign <br />Digital Dossiers.</h3>
+           <CardContent className="p-16 relative z-10 space-y-6 max-w-4xl">
+              <h4 className="text-[11px] font-black uppercase tracking-widest opacity-60">Identity Integrity Standard v4.2</h4>
+              <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign <br />Digital Dossiers.</h3>
               <p className="text-2xl font-medium leading-relaxed italic opacity-80">
                 "Baalvion transforms static documents into operational intelligence. Every artifact is cryptographically resolved, version-locked, and indexed across the Global Knowledge Graph for absolute audit finality."
               </p>
@@ -334,13 +334,13 @@ export default function InstitutionalVaultPage() {
            </CardContent>
         </Card>
 
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[48px]">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Records Health</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Records Health</h4>
                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'Audit Readiness', val: '99.98%', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Signature Success', val: '100%', icon: Landmark, color: 'text-blue-500' },
@@ -359,15 +359,15 @@ export default function InstitutionalVaultPage() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-8 rounded-[48px] border-dashed group hover:border-primary/20 transition-all duration-700">
-              <Archive className="h-16 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000" />
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-8 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
+              <Archive className="h-12 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000" />
               <div className="space-y-3">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-muted-foreground">Archival Governance</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-muted-foreground">Archival Governance</p>
                  <p className="text-xs font-medium italic leading-relaxed px-4 opacity-60">
                     "Historical dossiers are programmatically archived to the cold-storage layer following the 10-year jurisdictional retention window. Zero data-loss verified."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">CONFIGURE RETENTION</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">CONFIGURE RETENTION</Button>
            </Card>
         </div>
       </div>

@@ -4,6 +4,7 @@
  * Maintains an immutable record of every auditable action affecting an entity's trust score.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger } from './observability-service';
 import { eventBus } from './event-bus';
 
@@ -52,6 +53,6 @@ export const reputationLedger = {
       sortBy: 'createdAt',
       order: 'desc'
     });
-    return res.data || [];
+    return toList(res);
   }
 };

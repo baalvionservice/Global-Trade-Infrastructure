@@ -34,14 +34,14 @@ const TOOLS = [
 export default function ComplianceHubPage() {
   const router = useRouter();
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Immune System: ACTIVE</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-primary">Immune System: ACTIVE</p>
           </div>
-          <h1 className="text-6xl font-black tracking-tighter uppercase leading-[0.8]">Compliance <br />Hub.</h1>
+          <h1 className="text-4xl font-black tracking-tighter uppercase leading-[0.8]">Compliance <br />Hub.</h1>
           <p className="text-sm text-muted-foreground font-medium max-w-2xl">Every entity is screened continuously — not once. Every trade triggers fresh sanctions screening; every dispute recalculates trust.</p>
         </div>
         <div className="flex items-center gap-3 px-6 py-3 bg-background rounded-2xl border-2 border-primary/5 shadow-xl text-xs font-black uppercase tracking-widest text-emerald-700">
@@ -51,7 +51,7 @@ export default function ComplianceHubPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {METRICS.map((m) => (
-          <Card key={m.label} className="border-2 rounded-[28px] bg-background">
+          <Card key={m.label} className="border-2 rounded-2xl bg-background">
             <CardContent className="p-7 space-y-3">
               <div className={cn('flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-muted-foreground')}><m.icon className={cn('h-4 w-4', m.tone)} /> {m.label}</div>
               <p className="text-4xl font-black tabular-nums tracking-tighter">{m.val}</p>
@@ -62,7 +62,7 @@ export default function ComplianceHubPage() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {TOOLS.map((t) => (
-          <Card key={t.title} className="group border-2 rounded-[28px] bg-background hover:border-primary/50 transition-all cursor-pointer" onClick={() => router.push(t.href)}>
+          <Card key={t.title} className="group border-2 rounded-2xl bg-background hover:border-primary/50 transition-all cursor-pointer" onClick={() => router.push(t.href)}>
             <CardContent className="p-8 space-y-5">
               <div className="h-14 w-14 rounded-2xl bg-primary/5 border-2 flex items-center justify-center group-hover:bg-primary group-hover:scale-105 transition-all">
                 <t.icon className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
@@ -77,9 +77,9 @@ export default function ComplianceHubPage() {
         ))}
       </div>
 
-      <Card className="border-2 rounded-[32px] bg-background">
+      <Card className="border-2 rounded-2xl bg-background">
         <CardContent className="p-8 space-y-6">
-          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground"><Activity className="h-4 w-4 text-primary" /> Anti-Fraud Systems</div>
+          <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wide text-muted-foreground"><Activity className="h-4 w-4 text-primary" /> Anti-Fraud Systems</div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               'Listing fraud detection (copied images, fake specs)',

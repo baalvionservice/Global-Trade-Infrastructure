@@ -175,7 +175,7 @@ export default function OrderDetailPage() {
            <Card className="bg-primary text-primary-foreground border-none shadow-lg overflow-hidden">
               <CardContent className="p-6 space-y-4">
                  <div className="flex items-center justify-between">
-                    <h4 className="font-black uppercase text-[10px] tracking-[0.2em] opacity-80">Next Execution Step</h4>
+                    <h4 className="font-black uppercase text-[10px] tracking-wide opacity-80">Next Execution Step</h4>
                     <div className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
                  </div>
                  {order.status === 'pending' ? (

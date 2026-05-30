@@ -53,7 +53,7 @@ export default function PublicCompanyPage() {
     <main className="flex-1 bg-muted/20 min-h-screen">
       {/* Hero Header */}
       <div className="bg-background border-b shadow-sm">
-        <div className="container mx-auto px-4 py-12 md:px-8">
+        <div className="container mx-auto px-4 py-8 md:px-8">
            <div className="flex flex-col md:flex-row items-start gap-8">
               <div className="h-24 w-24 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 border-2 border-primary/5">
                  <Building2 className="h-12 w-12 text-primary" />

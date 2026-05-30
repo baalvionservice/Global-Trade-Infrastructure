@@ -28,7 +28,7 @@ export function OfferCard({ offer, isMe, onAction }: OfferCardProps) {
       offer.status === 'rejected' && "opacity-60 grayscale-[0.5]"
     )}>
       <CardHeader className="p-4 flex flex-row items-center justify-between pb-3 space-y-0 border-b bg-muted/10">
-        <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground flex items-center gap-2">
+        <CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground flex items-center gap-2">
           <Zap className="h-3.5 w-3.5 text-primary fill-primary" />
           Proposed Terms
         </CardTitle>

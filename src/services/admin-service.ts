@@ -151,12 +151,31 @@ export const adminService = {
   },
 
   async getTradeHeatmapData(): Promise<HeatmapData[]> {
-    return [
-      { country: 'China', volume: 450000000, activeRfqs: 42, activeDeals: 18, intensity: 95 },
-      { country: 'United States', volume: 380000000, activeRfqs: 31, activeDeals: 22, intensity: 88 },
-      { country: 'India', volume: 210000000, activeRfqs: 28, activeDeals: 12, intensity: 75 },
-      { country: 'Vietnam', volume: 150000000, activeRfqs: 15, activeDeals: 8, intensity: 62 },
-      { country: 'Germany', volume: 120000000, activeRfqs: 12, activeDeals: 6, intensity: 54 }
-    ];
+    // Live per-country aggregation from real orgs + orders + deals + RFQs.
+    const [orgsRes, ordersRes, dealsRes, rfqsRes] = await Promise.all([
+      apiClient.get<any[]>('/organizations'),
+      apiClient.get<any[]>('/orders'),
+      apiClient.get<any[]>('/deals'),
+      apiClient.get<any[]>('/rfqs'),
+    ]);
+    const codeToCountry = new Map<string, string>();
+    for (const o of toList<any>(orgsRes)) codeToCountry.set(o.code, o.country || 'Global');
+    const countryOf = (...codes: any[]) => codes.map((c) => codeToCountry.get(c)).find(Boolean) || 'Global';
+
+    const agg = new Map<string, { volume: number; activeRfqs: number; activeDeals: number }>();
+    const bump = (country: string, vol = 0, rfq = 0, deal = 0) => {
+      const e = agg.get(country) || { volume: 0, activeRfqs: 0, activeDeals: 0 };
+      e.volume += vol; e.activeRfqs += rfq; e.activeDeals += deal;
+      agg.set(country, e);
+    };
+    for (const o of toList<any>(ordersRes)) bump(countryOf(o.buyer_org_id, o.seller_org_id), Number(o.total_value ?? o.total) || 0);
+    for (const d of toList<any>(dealsRes)) bump(countryOf(d.buyer_org_id, d.seller_org_id), Number(d.total_value) || 0, 0, 1);
+    for (const r of toList<any>(rfqsRes)) bump(countryOf(r.buyer_org_id), 0, 1, 0);
+
+    const rows = [...agg.entries()].map(([country, e]) => ({ country, ...e, intensity: 0 }));
+    const max = Math.max(1, ...rows.map((r) => r.volume));
+    rows.forEach((r) => { r.intensity = Math.min(100, Math.round((r.volume / max) * 100) || 5); });
+    rows.sort((a, b) => b.volume - a.volume);
+    return rows.length ? rows : [{ country: 'Global', volume: 0, activeRfqs: 0, activeDeals: 0, intensity: 0 }];
   }
 };

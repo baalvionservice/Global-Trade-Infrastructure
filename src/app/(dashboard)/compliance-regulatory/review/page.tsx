@@ -90,16 +90,16 @@ export default function DocumentReviewPage() {
   );
 
   return (
-    <main className="flex-1 space-y-10 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-6 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-2">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Authority Node: COMPLIANCE_CONTROL</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node: COMPLIANCE_CONTROL</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Document Review Queue</h2>
           <p className="text-muted-foreground font-medium italic">Authorize institutional trade documentation for customs and financial finality.</p>
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
+      <div className="grid gap-6 lg:grid-cols-7">
         <div className="lg:col-span-4 space-y-8">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
@@ -116,17 +116,17 @@ export default function DocumentReviewPage() {
           {loading ? (
             <div className="flex h-64 flex-col items-center justify-center gap-6 rounded-3xl border-2 border-dashed bg-card/50">
                <Loader2 className="h-10 w-10 animate-spin text-primary opacity-20" />
-               <p className="text-[11px] font-black uppercase text-muted-foreground tracking-[0.3em] animate-pulse">Syncing Operational Ledger...</p>
+               <p className="text-[11px] font-black uppercase text-muted-foreground tracking-wide animate-pulse">Syncing Operational Ledger...</p>
             </div>
           ) : (
             <div className="rounded-3xl border-2 bg-card shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
               <Table>
                 <TableHeader className="bg-muted/40">
                   <TableRow className="border-b-2">
-                    <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] pl-10 py-6">Dossier / Entity</TableHead>
-                    <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">Participant</TableHead>
-                    <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">State</TableHead>
-                    <TableHead className="text-right text-[10px] font-black uppercase tracking-[0.2em] pr-10">Verification</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-wide pl-10 py-6">Dossier / Entity</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-wide">Participant</TableHead>
+                    <TableHead className="text-[10px] font-black uppercase tracking-wide">State</TableHead>
+                    <TableHead className="text-right text-[10px] font-black uppercase tracking-wide pr-10">Verification</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -188,19 +188,19 @@ export default function DocumentReviewPage() {
           )}
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* FORENSIC AUDIT PANEL */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[40px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <BrainCircuit className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4">
                     <Zap className="h-5 w-5 text-yellow-300" />
                     Forensic Auditor
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <AnimatePresence mode="wait">
                     {selectedDocAnomalies.length > 0 ? (
                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
@@ -225,13 +225,13 @@ export default function DocumentReviewPage() {
                                 </div>
                              ))}
                           </div>
-                          <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl bg-white text-primary border-none rounded-2xl">
+                          <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl bg-white text-primary border-none rounded-2xl">
                              OPEN INVESTIGATION WAR ROOM
                           </Button>
                        </motion.div>
                     ) : (
-                       <div className="py-10 text-center space-y-6">
-                          <CheckCircle2 className="h-16 w-16 mx-auto opacity-30" />
+                       <div className="py-6 text-center space-y-6">
+                          <CheckCircle2 className="h-12 w-16 mx-auto opacity-30" />
                           <p className="text-sm font-bold leading-relaxed italic opacity-80">
                              "Run automated forensic audit to detect discrepancies between document extraction and platform ground-truth."
                           </p>
@@ -241,9 +241,9 @@ export default function DocumentReviewPage() {
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-10 rounded-[40px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground">Verification Telemetry</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">Verification Telemetry</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
               <div className="space-y-8">

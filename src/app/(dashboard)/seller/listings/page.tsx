@@ -44,7 +44,7 @@ export default function SellerListingsPage() {
     <main className="space-y-8 p-4 md:p-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b pb-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Seller Node · {SELLER_ORG}</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Seller Node · {SELLER_ORG}</p>
           <h1 className="text-4xl font-black uppercase tracking-tighter">My Listings</h1>
           <p className="text-muted-foreground font-medium italic">Manage your live offers in the global marketplace.</p>
         </div>

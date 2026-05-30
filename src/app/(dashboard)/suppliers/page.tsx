@@ -126,12 +126,12 @@ export default function SupplierRegistryPage() {
   }
 
   return (
-    <main className="space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       {/* STRATEGIC HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-2">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Discovery Grid: VERIFIED_NODES</p>
-          <h2 className="text-5xl font-black tracking-tight uppercase tracking-tighter leading-none">Supplier Registry.</h2>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Discovery Grid: VERIFIED_NODES</p>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-none">Supplier Registry.</h2>
           <p className="text-muted-foreground font-medium italic text-lg max-w-2xl">High-authority catalog of verified institutional sellers, Tier 1 manufacturing nodes, and strategic partners.</p>
         </div>
         <div className="flex items-center gap-4">
@@ -151,9 +151,9 @@ export default function SupplierRegistryPage() {
           { label: 'ESG Compliance', val: 'AAA Tier', icon: Leaf, color: 'text-emerald-500' }
         ].map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-             <Card className="shadow-lg border-2 border-primary/5 bg-background hover:border-primary/20 transition-all rounded-[32px] group">
+             <Card className="shadow-lg border-2 border-primary/5 bg-background hover:border-primary/20 transition-all rounded-2xl group">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0 px-8 pt-8">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{stat.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{stat.label}</CardTitle>
                   <stat.icon className={cn("h-4 w-4", stat.color)} />
                 </CardHeader>
                 <CardContent className="px-8 pb-8">
@@ -192,7 +192,7 @@ export default function SupplierRegistryPage() {
           isLoading={loading}
           onRowClick={(row) => router.push(`/company/${row.id}`)}
           renderMobileCard={(row: SupplierProfile) => (
-            <Card className="border-2 shadow-2xl mb-6 rounded-[32px] overflow-hidden active:scale-[0.98] transition-transform bg-background group">
+            <Card className="border-2 shadow-2xl mb-6 rounded-2xl overflow-hidden active:scale-[0.98] transition-transform bg-background group">
               <div className="h-1 w-full bg-primary/10 group-active:bg-primary transition-colors" />
               <CardContent className="p-8 space-y-8">
                 <div className="flex justify-between items-start">
@@ -207,11 +207,11 @@ export default function SupplierRegistryPage() {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-6">
-                   <div className="p-6 rounded-[24px] bg-muted/30 border-2 border-dashed space-y-2 text-center group-hover:bg-primary/5 transition-colors">
+                   <div className="p-6 rounded-2xl bg-muted/30 border-2 border-dashed space-y-2 text-center group-hover:bg-primary/5 transition-colors">
                       <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest opacity-60">Trust Score</p>
                       <p className="text-4xl font-black text-primary tracking-tighter">{row.trustScore}</p>
                    </div>
-                   <div className="p-6 rounded-[24px] bg-muted/30 border-2 border-dashed space-y-2 text-center group-hover:bg-primary/5 transition-colors">
+                   <div className="p-6 rounded-2xl bg-muted/30 border-2 border-dashed space-y-2 text-center group-hover:bg-primary/5 transition-colors">
                       <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest opacity-60">Handshakes</p>
                       <p className="text-4xl font-black text-foreground tracking-tighter">{row.activeContracts || 12}</p>
                    </div>
@@ -233,13 +233,13 @@ export default function SupplierRegistryPage() {
       </div>
 
       {/* ECOSYSTEM OVERLAY */}
-      <div className="p-12 rounded-[48px] bg-primary text-primary-foreground relative overflow-hidden group shadow-3xl">
+      <div className="p-6 rounded-2xl bg-primary text-primary-foreground relative overflow-hidden group shadow-md">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <BarChart3 className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] opacity-60">Identity Integrity Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Trust Fabric.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Identity Integrity Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Sovereign Trust Fabric.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion Supplier Registry uses a cryptographically resolved identity model. Every institutional node is part of the Global Knowledge Graph, ensuring 100% visibility into corporate lineage, production finality, and settlement history."
             </p>

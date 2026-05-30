@@ -4,6 +4,7 @@
  * Refactored to act as the primary bridge between the UI and the Gateway Service.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 
 export type IntegrationType = 'erp' | 'logistics' | 'banking' | 'government';
 export type IntegrationStatus = 'active' | 'inactive' | 'error';
@@ -45,7 +46,7 @@ export interface IntegrationLog {
 export async function getIntegrations(companyId?: string): Promise<Integration[]> {
   const params = companyId ? { companyId } : {};
   const res = await apiClient.get<Integration[]>('/integrations', params);
-  return res.data || [];
+  return toList(res);
 }
 
 /**
@@ -65,7 +66,7 @@ export async function registerIntegration(data: Partial<Integration>): Promise<I
 export async function getWebhooks(companyId?: string): Promise<Webhook[]> {
   const params = companyId ? { companyId } : {};
   const res = await apiClient.get<Webhook[]>('/webhooks', params);
-  return res.data || [];
+  return toList(res);
 }
 
 /**
@@ -85,5 +86,5 @@ export async function registerWebhook(data: Partial<Webhook>): Promise<Webhook> 
 export async function getIntegrationLogs(integrationId?: string): Promise<IntegrationLog[]> {
   const params = integrationId ? { integrationId } : {};
   const res = await apiClient.get<IntegrationLog[]>('/webhook_logs', params);
-  return res.data || [];
+  return toList(res);
 }

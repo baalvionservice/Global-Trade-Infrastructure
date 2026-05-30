@@ -70,15 +70,15 @@ export default function GlobalGoLivePage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Syncing Deployment Matrix...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Syncing Deployment Matrix...</p>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-4">
           <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)} className="-ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to command
@@ -96,13 +96,13 @@ export default function GlobalGoLivePage() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
            {/* REGIONAL ROLLOUT MATRIX */}
-           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Institutional Rollout Matrix</CardTitle>
+                  <CardTitle className="text-sm font-black uppercase tracking-wide">Institutional Rollout Matrix</CardTitle>
                   <CardDescription className="text-xs font-medium">Regional activation progress and cluster synchronization health.</CardDescription>
                 </div>
                 <Globe className="h-6 w-6 text-primary opacity-30" />
@@ -110,7 +110,7 @@ export default function GlobalGoLivePage() {
               <CardContent className="p-0">
                  <div className="divide-y-2">
                     {deployments.map(dep => (
-                       <div key={dep.id} className="p-10 flex flex-col gap-8 group hover:bg-primary/[0.01] transition-colors">
+                       <div key={dep.id} className="p-6 flex flex-col gap-8 group hover:bg-primary/[0.01] transition-colors">
                           <div className="flex items-center justify-between">
                              <div className="flex items-center gap-6">
                                 <div className={cn(
@@ -131,7 +131,7 @@ export default function GlobalGoLivePage() {
                              )}>{dep.status}</Badge>
                           </div>
 
-                          <div className="grid grid-cols-2 gap-10">
+                          <div className="grid grid-cols-2 gap-6">
                              <div className="space-y-3">
                                 <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-muted-foreground">
                                    <span>Cluster Health Index</span>
@@ -160,19 +160,19 @@ export default function GlobalGoLivePage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* HYPERCARE OBSERVATORY */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Zap className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Activity className="h-5 w-5 text-white animate-pulse" />
                     Mission Assurance
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-xl font-bold italic leading-relaxed opacity-95">
                     "24/7 Hypercare Protocol Active. All jurisdictional nodes are monitored for millisecond-latency drift. Zero operational exceptions permitted during the stabilization window."
                  </p>
@@ -186,21 +186,21 @@ export default function GlobalGoLivePage() {
                        <span className="text-sm font-black uppercase">4.2s (GLOBAL)</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[11px] tracking-[0.4em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-3xl">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[11px] tracking-widest shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none rounded-3xl">
                     LAUNCH HYPERCARE RADAR
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-8 rounded-[48px] border-dashed group hover:border-primary/20 transition-all duration-700">
-              <History className="h-16 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-[-45deg]" />
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-8 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
+              <History className="h-12 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-[-45deg]" />
               <div className="space-y-3">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-muted-foreground">Cutover Runbook Replay</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-muted-foreground">Cutover Runbook Replay</p>
                  <p className="text-xs font-medium italic leading-relaxed px-4 opacity-60">
                     "Every production activation step is recorded in the immutable execution log. Final cutover artifacts are archived in the Sovereign Vault for audit."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">DOWNLOAD RUNBOOK LOG</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">DOWNLOAD RUNBOOK LOG</Button>
            </Card>
         </div>
       </div>

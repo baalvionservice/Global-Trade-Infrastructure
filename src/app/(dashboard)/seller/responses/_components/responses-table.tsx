@@ -37,11 +37,11 @@ export function ResponsesTable({ data }: ResponsesTableProps) {
       <Table>
         <TableHeader className="bg-muted/40">
           <TableRow className="border-b-2">
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] pl-10 py-6">Identity / RFQ</TableHead>
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">Commercial Bid</TableHead>
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">Lead Time</TableHead>
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">State</TableHead>
-            <TableHead className="text-right text-[10px] font-black uppercase tracking-[0.2em] pr-10">Submission Date</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide pl-10 py-6">Identity / RFQ</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide">Commercial Bid</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide">Lead Time</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide">State</TableHead>
+            <TableHead className="text-right text-[10px] font-black uppercase tracking-wide pr-10">Submission Date</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

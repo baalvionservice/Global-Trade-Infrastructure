@@ -68,7 +68,7 @@ export function RFQForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10 max-w-4xl mx-auto pb-20">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-4xl mx-auto pb-20">
         {/* Step Indicator */}
         <div className="space-y-6">
            <div className="flex justify-between items-center px-2">
@@ -97,7 +97,7 @@ export function RFQForm() {
         </div>
 
         {currentStep === 1 && (
-          <Card className="shadow-xl border-2 animate-in fade-in slide-in-from-right-4 duration-500 rounded-[32px] overflow-hidden">
+          <Card className="shadow-xl border-2 animate-in fade-in slide-in-from-right-4 duration-500 rounded-2xl overflow-hidden">
             <CardHeader className="bg-muted/10 border-b p-8">
               <CardTitle className="text-xl font-black uppercase tracking-tighter">1. Strategic Requirement</CardTitle>
               <CardDescription className="font-medium italic">Define the product specifications for the global ledger.</CardDescription>
@@ -165,13 +165,13 @@ export function RFQForm() {
         )}
 
         {currentStep === 2 && (
-          <Card className="shadow-xl border-2 animate-in fade-in slide-in-from-right-4 duration-500 rounded-[32px] overflow-hidden">
+          <Card className="shadow-xl border-2 animate-in fade-in slide-in-from-right-4 duration-500 rounded-2xl overflow-hidden">
             <CardHeader className="bg-muted/10 border-b p-8">
               <CardTitle className="text-xl font-black uppercase tracking-tighter">2. Commercial Mandate</CardTitle>
               <CardDescription className="font-medium italic">Finalize volume and target settlement thresholds.</CardDescription>
             </CardHeader>
-            <CardContent className="p-8 space-y-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <CardContent className="p-8 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                    <div className="flex gap-2">
                      <FormField
@@ -282,13 +282,13 @@ export function RFQForm() {
         )}
 
         {currentStep === 3 && (
-          <Card className="shadow-xl border-2 animate-in fade-in slide-in-from-right-4 duration-500 rounded-[32px] overflow-hidden">
+          <Card className="shadow-xl border-2 animate-in fade-in slide-in-from-right-4 duration-500 rounded-2xl overflow-hidden">
             <CardHeader className="bg-muted/10 border-b p-8">
               <CardTitle className="text-xl font-black uppercase tracking-tighter">3. Logistics Node</CardTitle>
               <CardDescription className="font-medium italic">Define jurisdictional targets and transit finality.</CardDescription>
             </CardHeader>
-            <CardContent className="p-8 space-y-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <CardContent className="p-8 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
                   name="deliveryCountry"
@@ -316,7 +316,7 @@ export function RFQForm() {
                   )}
                 />
               </div>
-              <div className="p-6 bg-primary/5 rounded-[24px] border-2 border-dashed border-primary/20 flex gap-4 text-primary">
+              <div className="p-6 bg-primary/5 rounded-2xl border-2 border-dashed border-primary/20 flex gap-4 text-primary">
                  <CheckCircle2 className="h-6 w-6 shrink-0 mt-0.5" />
                  <p className="text-xs font-bold leading-relaxed">
                    By publishing this RFQ, you authorize the platform to broadcast your requirements to verified institutional sellers in the target corridor. All responses will be recorded on the global discovery ledger.
@@ -326,7 +326,7 @@ export function RFQForm() {
           </Card>
         )}
 
-        <div className="flex justify-between items-center gap-4 bg-background/80 backdrop-blur-xl border-2 p-6 rounded-[24px] shadow-2xl sticky bottom-10 z-30">
+        <div className="flex justify-between items-center gap-4 bg-background/80 backdrop-blur-xl border-2 p-6 rounded-2xl shadow-2xl sticky bottom-10 z-30">
           <Button 
             variant="ghost" 
             type="button" 
@@ -341,7 +341,7 @@ export function RFQForm() {
             <Button 
               type="button" 
               onClick={nextStep} 
-              className="h-12 px-10 font-black uppercase text-[10px] tracking-widest shadow-xl"
+              className="h-12 px-6 font-black uppercase text-[10px] tracking-widest shadow-xl"
             >
               Next Step <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
@@ -349,7 +349,7 @@ export function RFQForm() {
             <Button 
               type="submit" 
               disabled={isSubmitting}
-              className="h-12 px-10 font-black uppercase text-[10px] tracking-widest shadow-xl bg-primary"
+              className="h-12 px-6 font-black uppercase text-[10px] tracking-widest shadow-xl bg-primary"
             >
               {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}
               Publish RFQ

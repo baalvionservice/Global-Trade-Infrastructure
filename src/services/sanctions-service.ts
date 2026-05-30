@@ -3,6 +3,7 @@
  * @description Master SIGINT service for Global Sanctions Screening and Geopolitical Analysis.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from '@/orchestration/event-bus';
 import { SanctionSignal } from '@/types/regulatory';
@@ -55,7 +56,7 @@ class SanctionsService {
 
   async getRecentSignals(limit = 10): Promise<SanctionSignal[]> {
     const res = await apiClient.get<SanctionSignal[]>('/sanctions_signals', { limit, sortBy: 'timestamp', order: 'desc' });
-    return res.data || [];
+    return toList(res);
   }
 }
 

@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { getRiskBadgeConfig, RiskProfile } from '@/services/risk-service';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -39,8 +40,8 @@ export default function RiskIntelligenceCenter() {
       apiClient.get<any[]>('/risk_signals', { isResolved: false, limit: 10 }),
       apiClient.get<any[]>('/organizations', { riskLevel: 'high' })
     ]);
-    setSignals(signalsRes.data || []);
-    setHighRiskNodes(nodesRes.data || []);
+    setSignals(toList(signalsRes));
+    setHighRiskNodes(toList(nodesRes));
     setLoading(false);
   };
 
@@ -60,10 +61,10 @@ export default function RiskIntelligenceCenter() {
   }
 
   return (
-    <main className="flex-1 space-y-8 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Intelligence Hub</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Intelligence Hub</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground">Risk Intelligence Center</h2>
           <p className="text-muted-foreground font-medium italic">Autonomous behavioral monitoring, sanctions screening, and jurisdictional anomaly detection.</p>
         </div>
@@ -125,7 +126,7 @@ export default function RiskIntelligenceCenter() {
                     {signals.length === 0 && (
                        <div className="py-20 text-center opacity-20">
                           <ShieldCheck className="h-12 w-12 mx-auto mb-4" />
-                          <p className="text-xs font-black uppercase tracking-[0.2em]">All Jurisdictions Healthy</p>
+                          <p className="text-xs font-black uppercase tracking-wide">All Jurisdictions Healthy</p>
                        </div>
                     )}
                  </div>
@@ -135,12 +136,12 @@ export default function RiskIntelligenceCenter() {
 
         {/* HIGH RISK NODE MONITOR */}
         <div className="lg:col-span-3 space-y-8">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-10 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <ShieldAlert className="h-48 w-48 brightness-0 invert" />
               </div>
               <CardHeader className="pb-4 relative border-b border-white/10 px-8 py-8">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] opacity-80 flex items-center gap-3">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-3">
                     <ShieldAlert className="h-5 w-5" />
                     Critical Entity Monitor
                  </CardTitle>
@@ -164,7 +165,7 @@ export default function RiskIntelligenceCenter() {
                        </div>
                     );
                  })}
-                 <Button variant="secondary" className="w-full h-16 font-black uppercase text-[10px] tracking-[0.2em] shadow-2xl transition-all hover:scale-[1.02]">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02]">
                     VIEW ALL THREAT NODES
                  </Button>
               </CardContent>

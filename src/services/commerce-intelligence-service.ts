@@ -4,6 +4,7 @@
  * Authoritative service for monitoring industrial demand and trade corridor expansion.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 
 export interface IndustrialDemandSignal {
   id: string;
@@ -57,6 +58,6 @@ export const commerceIntelligenceService = {
 
   async getActiveCampaigns(companyId: string): Promise<SourcingCampaign[]> {
     const res = await apiClient.get<SourcingCampaign[]>('/sourcing_campaigns', { companyId });
-    return res.data || [];
+    return toList(res);
   }
 };

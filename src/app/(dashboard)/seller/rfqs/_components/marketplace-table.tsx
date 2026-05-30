@@ -41,11 +41,11 @@ export function MarketplaceTable({ data }: MarketplaceTableProps) {
       <Table>
         <TableHeader className="bg-muted/40">
           <TableRow className="border-b-2">
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] pl-10 py-6">Trade Opportunity</TableHead>
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">Target Terms</TableHead>
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">Buyer Node</TableHead>
-            <TableHead className="text-[10px] font-black uppercase tracking-[0.2em]">Market Depth</TableHead>
-            <TableHead className="text-right text-[10px] font-black uppercase tracking-[0.2em] pr-10">Status</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide pl-10 py-6">Trade Opportunity</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide">Target Terms</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide">Buyer Node</TableHead>
+            <TableHead className="text-[10px] font-black uppercase tracking-wide">Market Depth</TableHead>
+            <TableHead className="text-right text-[10px] font-black uppercase tracking-wide pr-10">Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -105,14 +105,14 @@ export function MarketplaceTable({ data }: MarketplaceTableProps) {
                           <span className="text-[11px] font-black tabular-nums">{rfq.engagement?.views || 0}</span>
                           <Eye className="h-3 w-3 text-muted-foreground opacity-30" />
                        </div>
-                       <span className="text-[7px] font-black text-muted-foreground uppercase tracking-[0.2em] opacity-40">Visibility</span>
+                       <span className="text-[7px] font-black text-muted-foreground uppercase tracking-wide opacity-40">Visibility</span>
                     </div>
                     <div className="flex flex-col gap-1 border-l pl-8 border-muted">
                        <div className="flex items-center gap-2">
                           <span className="text-[11px] font-black tabular-nums text-primary">{rfq.engagement?.quotes_received || 0}</span>
                           <MessageSquare className="h-3 w-3 text-primary opacity-30" />
                        </div>
-                       <span className="text-[7px] font-black text-primary uppercase tracking-[0.2em] opacity-40">Bids Received</span>
+                       <span className="text-[7px] font-black text-primary uppercase tracking-wide opacity-40">Bids Received</span>
                     </div>
                  </div>
               </TableCell>

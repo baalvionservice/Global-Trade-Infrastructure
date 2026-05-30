@@ -84,10 +84,10 @@ export default function EscrowDetailPage() {
   }
 
   return (
-    <main className="flex-1 space-y-8 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.ESCROW)} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary transition-all">
+          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.ESCROW)} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary transition-all">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Dashboard
           </Button>
           <div className="flex items-center gap-4">
@@ -121,32 +121,32 @@ export default function EscrowDetailPage() {
         </div>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-none border-2 bg-background p-10 relative overflow-hidden">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-none border-2 bg-background p-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
                  <ShieldCheck className="h-48 w-48" />
               </div>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground mb-12 text-center">Institutional Settlement Timeline</h3>
+              <h3 className="text-[10px] font-black uppercase tracking-wide text-muted-foreground mb-12 text-center">Institutional Settlement Timeline</h3>
               <EscrowStatusTimeline status={escrow.status} />
            </Card>
 
            <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col">
-              <CardHeader className="bg-muted/10 border-b pb-8 px-10">
-                 <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Mandate Details</CardTitle>
+              <CardHeader className="bg-muted/10 border-b pb-8 px-6">
+                 <CardTitle className="text-sm font-black uppercase tracking-wide">Mandate Details</CardTitle>
               </CardHeader>
-              <CardContent className="p-10 space-y-10">
-                 <div className="p-10 bg-primary/5 rounded-[32px] border-2 border-primary/10 text-center space-y-4 shadow-inner relative group">
+              <CardContent className="p-6 space-y-6">
+                 <div className="p-6 bg-primary/5 rounded-2xl border-2 border-primary/10 text-center space-y-4 shadow-inner relative group">
                     <div className="absolute top-4 right-6 flex items-center gap-2 text-[9px] font-black uppercase text-primary/40">
                        <ShieldCheck className="h-3 w-3" /> Ledger Signed
                     </div>
-                    <p className="text-[10px] text-muted-foreground uppercase font-black tracking-[0.3em] opacity-60">Locked Transaction Value</p>
-                    <p className="text-6xl font-black text-primary tracking-tighter group-hover:scale-105 transition-transform duration-500">{formatCurrency(escrow.amount, escrow.currency)}</p>
+                    <p className="text-[10px] text-muted-foreground uppercase font-black tracking-wide opacity-60">Locked Transaction Value</p>
+                    <p className="text-4xl font-black text-primary tracking-tighter group-hover:scale-105 transition-transform duration-500">{formatCurrency(escrow.amount, escrow.currency)}</p>
                     <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest italic pt-2">Includes Multi-Node Gas & Protection Fees</p>
                  </div>
 
                  <div className="grid sm:grid-cols-2 gap-16 px-6">
-                    <div className="space-y-10">
+                    <div className="space-y-6">
                        <div className="flex gap-5">
                           <div className="h-12 w-12 rounded-2xl bg-muted flex items-center justify-center shrink-0 border-2 shadow-inner"><Calendar className="h-6 w-6 text-muted-foreground" /></div>
                           <div>
@@ -165,7 +165,7 @@ export default function EscrowDetailPage() {
                        </div>
                     </div>
 
-                    <div className="space-y-10 border-l pl-12 border-muted/30">
+                    <div className="space-y-6 border-l pl-12 border-muted/30">
                        <div className="space-y-1">
                           <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest opacity-60">Institutional Beneficiary</p>
                           <p className="font-black text-base uppercase tracking-tighter">{escrow.sellerName}</p>
@@ -182,19 +182,19 @@ export default function EscrowDetailPage() {
            </Card>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-3 space-y-6">
            {/* ARBITER NODE */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <History className="h-48 w-48 brightness-0 invert" />
               </div>
               <CardHeader className="pb-4 relative border-b border-white/10 px-8 py-8">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.4em] opacity-80 flex items-center gap-3">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-3">
                     <History className="h-5 w-5" />
                     Ledger Verification
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-8">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-base font-bold leading-relaxed opacity-90 italic">
                     "This escrow mandate is cryptographically signed and verified by the Baalvion Institutional Oracle Network. Zero variance detected."
                  </p>
@@ -208,17 +208,17 @@ export default function EscrowDetailPage() {
                        <Badge className="bg-emerald-400 text-emerald-950 text-[9px] font-black px-2 uppercase tracking-tighter h-5 rounded-full border-none">CONFIRMED</Badge>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-16 font-black uppercase text-[10px] tracking-[0.2em] shadow-2xl transition-all hover:scale-[1.02]">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02]">
                     DOWNLOAD LEDGER PROOF
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10">
+           <Card className="shadow-none border-2 bg-background p-6">
               <InstitutionalTimeline events={[]} />
            </Card>
 
-           <Card className="shadow-none border-2 border-dashed bg-muted/20 p-10 text-center space-y-6">
+           <Card className="shadow-none border-2 border-dashed bg-muted/20 p-6 text-center space-y-6">
               <Gavel className="h-10 w-10 mx-auto text-muted-foreground opacity-30" />
               <div className="space-y-2">
                  <p className="text-xs font-black uppercase tracking-widest">Governance Desk</p>

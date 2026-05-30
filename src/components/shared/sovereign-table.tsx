@@ -66,7 +66,7 @@ export function SovereignTable<T extends { id: string, riskLevel?: string }>({
         <div className="flex items-center justify-between px-2">
            <div className="flex items-center gap-4">
               <div className="h-8 w-1 bg-primary rounded-full" />
-              <h3 className="text-sm font-black uppercase tracking-[0.3em] text-foreground">{title}</h3>
+              <h3 className="text-sm font-black uppercase tracking-wide text-foreground">{title}</h3>
            </div>
            <div className="flex items-center gap-3">
               <div className="relative">
@@ -86,7 +86,7 @@ export function SovereignTable<T extends { id: string, riskLevel?: string }>({
 
       <div className={cn(
         "border-2 bg-card shadow-lvl-2 overflow-hidden transition-all duration-300",
-        isCompact ? "rounded-xl" : "rounded-[32px]"
+        isCompact ? "rounded-xl" : "rounded-2xl"
       )}>
         <Table>
           <TableHeader className="bg-muted/40">
@@ -95,8 +95,8 @@ export function SovereignTable<T extends { id: string, riskLevel?: string }>({
                 <TableHead 
                   key={String(col.accessorKey)} 
                   className={cn(
-                    "text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80",
-                    isCompact ? "py-4 px-6" : "py-6 px-10",
+                    "text-[10px] font-black uppercase tracking-wide text-muted-foreground/80",
+                    isCompact ? "py-4 px-6" : "py-6 px-6",
                     col.className
                   )}
                 >
@@ -115,7 +115,7 @@ export function SovereignTable<T extends { id: string, riskLevel?: string }>({
                   <TableCell colSpan={columns.length} className="h-96 text-center">
                     <div className="flex flex-col items-center justify-center gap-6">
                       <Loader2 className="h-10 w-10 animate-spin text-primary opacity-20" />
-                      <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em] animate-pulse">Establishing Ledger Consensus...</p>
+                      <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest animate-pulse">Establishing Ledger Consensus...</p>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -124,7 +124,7 @@ export function SovereignTable<T extends { id: string, riskLevel?: string }>({
                   <TableCell colSpan={columns.length} className="h-64 text-center">
                     <div className="flex flex-col items-center justify-center gap-4 opacity-20">
                        <Database className="h-12 w-12" />
-                       <p className="text-xs font-black uppercase tracking-[0.3em]">No Records Found</p>
+                       <p className="text-xs font-black uppercase tracking-wide">No Records Found</p>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -144,7 +144,7 @@ export function SovereignTable<T extends { id: string, riskLevel?: string }>({
                         key={cIdx} 
                         className={cn(
                           "text-sm font-medium",
-                          isCompact ? "py-3 px-6" : "py-5 px-10",
+                          isCompact ? "py-3 px-6" : "py-5 px-6",
                           col.className
                         )}
                       >

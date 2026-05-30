@@ -27,7 +27,7 @@ export function RFQStatusTimeline({ status }: RFQStatusTimelineProps) {
   const currentStepIndex = steps.findIndex(s => s.id === normalizedStatus);
 
   return (
-    <div className="relative flex justify-between w-full max-w-4xl mx-auto py-12 px-4">
+    <div className="relative flex justify-between w-full max-w-4xl mx-auto py-8 px-4">
       {/* Background Rail */}
       <div className="absolute top-[48px] left-0 w-full h-1 bg-muted rounded-full z-0" />
       

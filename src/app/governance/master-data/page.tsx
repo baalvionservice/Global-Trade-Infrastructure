@@ -52,10 +52,10 @@ export default function MasterDataGovernancePage() {
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.OVERSIGHT_PLATFORM_ADMIN)} className="-ml-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-transparent hover:text-primary transition-all">
+          <Button variant="ghost" size="sm" onClick={() => router.push(PATHS.OVERSIGHT_PLATFORM_ADMIN)} className="-ml-4 text-[10px] font-black uppercase tracking-wide text-muted-foreground hover:bg-transparent hover:text-primary transition-all">
             <ChevronLeft className="mr-1.5 h-4 w-4" /> Back to Master Control
           </Button>
           <div className="space-y-1">
@@ -68,7 +68,7 @@ export default function MasterDataGovernancePage() {
               <Database className="h-4 w-4" />
               Integrity Status: OPTIMAL
            </div>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Zap className="mr-2 h-4 w-4" /> Audit All Registries
            </Button>
         </div>
@@ -84,7 +84,7 @@ export default function MasterDataGovernancePage() {
           <motion.div key={stat.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
              <Card className="shadow-lg border-2 border-primary/5 bg-background rounded-3xl group hover:border-primary/20 transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.2em]">{stat.title}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{stat.title}</CardTitle>
                   <stat.icon className={cn("h-4 w-4", stat.color)} />
                 </CardHeader>
                 <CardContent>
@@ -96,12 +96,12 @@ export default function MasterDataGovernancePage() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-7">
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+      <div className="grid gap-6 lg:grid-cols-7">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-none border-2 bg-background overflow-hidden flex flex-col rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Jurisdictional Knowledge Matrix</CardTitle>
+                  <CardTitle className="text-sm font-black uppercase tracking-wide">Jurisdictional Knowledge Matrix</CardTitle>
                   <CardDescription className="text-xs font-medium">Sovereign trade profiles and regulatory complexity benchmarks.</CardDescription>
                 </div>
                 <Globe className="h-6 w-6 text-primary opacity-30" />
@@ -127,7 +127,7 @@ export default function MasterDataGovernancePage() {
                                </div>
                             </div>
                          </div>
-                         <div className="flex items-center gap-10">
+                         <div className="flex items-center gap-6">
                             <div className="hidden sm:block text-right space-y-1">
                                <p className="text-[9px] font-black uppercase text-muted-foreground opacity-40 tracking-widest">Active Constraints</p>
                                <p className="text-xs font-black">{country.restrictions.length} Items</p>
@@ -143,9 +143,9 @@ export default function MasterDataGovernancePage() {
            </Card>
 
            <div className="grid sm:grid-cols-2 gap-8">
-              <Card className="shadow-none border-2 bg-background p-8 space-y-6 rounded-[32px]">
+              <Card className="shadow-none border-2 bg-background p-8 space-y-6 rounded-2xl">
                  <div className="flex items-center justify-between">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Port Master Coverage</h4>
+                    <h4 className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Port Master Coverage</h4>
                     <MapPin className="h-4 w-4 text-primary opacity-40" />
                  </div>
                  <div className="space-y-4">
@@ -160,9 +160,9 @@ export default function MasterDataGovernancePage() {
                  </div>
               </Card>
 
-              <Card className="shadow-none border-2 bg-background p-8 space-y-6 rounded-[32px]">
+              <Card className="shadow-none border-2 bg-background p-8 space-y-6 rounded-2xl">
                  <div className="flex items-center justify-between">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">HS Code Mapping</h4>
+                    <h4 className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">HS Code Mapping</h4>
                     <FileCheck className="h-4 w-4 text-primary opacity-40" />
                  </div>
                  <div className="space-y-4">
@@ -179,18 +179,18 @@ export default function MasterDataGovernancePage() {
            </div>
         </div>
 
-        <div className="lg:col-span-3 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[32px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-3 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Settings2 className="h-56 w-56 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-4 relative border-b border-white/10 px-10 py-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-4 relative border-b border-white/10 px-6 py-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Activity className="h-5 w-5 text-white animate-pulse" />
                     Stewardship Pulse
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-10">
+              <CardContent className="p-6 relative space-y-6">
                  <div className="space-y-6">
                     <div className="flex items-center justify-between p-5 rounded-2xl bg-white/10 border border-white/10 shadow-inner">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Pending Validations</span>
@@ -204,15 +204,15 @@ export default function MasterDataGovernancePage() {
                  <p className="text-base font-bold italic leading-relaxed opacity-90 text-center text-white">
                     "Data integrity algorithms are currently validating 12,400+ operational nodes. Master record consistency is at Tier-1 Institutional standard."
                  </p>
-                 <Button variant="secondary" className="w-full h-18 font-black uppercase text-[10px] tracking-[0.3em] shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
+                 <Button variant="secondary" className="w-full h-12 font-black uppercase text-[10px] tracking-wide shadow-2xl transition-all hover:scale-[1.02] bg-white text-primary border-none">
                     CONFIGURE TAXONOMY RULES
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-              <CardHeader className="bg-muted/10 border-b py-6 px-10 flex flex-row items-center justify-between">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Registry Audit Log</CardTitle>
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+              <CardHeader className="bg-muted/10 border-b py-6 px-6 flex flex-row items-center justify-between">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Registry Audit Log</CardTitle>
                  <History className="h-4 w-4 text-primary opacity-30" />
               </CardHeader>
               <CardContent className="p-8 space-y-6">

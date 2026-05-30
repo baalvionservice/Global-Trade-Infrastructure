@@ -45,3 +45,7 @@ firebase-debug.log
 firestore-debug.log
 # transient logs
 *.log
+
+# local verification/screenshot helpers (CDP screenshot + route sweep)
+/_*.cjs
+/_*.png

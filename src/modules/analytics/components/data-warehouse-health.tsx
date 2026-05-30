@@ -22,15 +22,15 @@ import { motion } from 'framer-motion';
 
 export function DataWarehouseHealth({ health }: { health: WarehouseHealth }) {
   return (
-    <Card className="shadow-none border-2 bg-slate-950 text-slate-300 rounded-[40px] overflow-hidden group">
-      <CardHeader className="bg-white/5 border-b border-white/5 p-10 flex flex-row items-center justify-between">
+    <Card className="shadow-none border-2 bg-slate-950 text-slate-300 rounded-2xl overflow-hidden group">
+      <CardHeader className="bg-white/5 border-b border-white/5 p-6 flex flex-row items-center justify-between">
         <div className="space-y-1">
           <CardTitle className="text-xl font-black uppercase tracking-tighter text-white">Fabric Integrity Pulse</CardTitle>
           <CardDescription className="text-slate-500 font-medium italic">High-fidelity telemetry of the planetary data mesh and Iceberg ingestion nodes.</CardDescription>
         </div>
         <Database className="h-10 w-10 text-primary opacity-20 group-hover:scale-110 transition-transform duration-1000" />
       </CardHeader>
-      <CardContent className="p-10 space-y-10">
+      <CardContent className="p-6 space-y-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
            {[
              { label: 'Sync Rate', val: `${health.syncRate}%`, icon: RefreshCw, color: 'text-emerald-400' },
@@ -38,7 +38,7 @@ export function DataWarehouseHealth({ health }: { health: WarehouseHealth }) {
              { label: 'Node Consensus', val: `${health.nodeConsensus}%`, icon: ShieldCheck, color: 'text-indigo-400' },
              { label: 'Fabric Load', val: `${health.storageUtilization}%`, icon: Workflow, color: 'text-orange-400' }
            ].map(stat => (
-              <div key={stat.label} className="p-6 rounded-[24px] bg-white/5 border border-white/5 space-y-4 shadow-inner">
+              <div key={stat.label} className="p-6 rounded-2xl bg-white/5 border border-white/5 space-y-4 shadow-inner">
                  <div className="flex items-center justify-between">
                     <stat.icon className={cn("h-5 w-5", stat.color)} />
                     <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -51,7 +51,7 @@ export function DataWarehouseHealth({ health }: { health: WarehouseHealth }) {
            ))}
         </div>
 
-        <div className="p-8 rounded-[32px] bg-slate-900 border-2 border-dashed border-white/5 relative overflow-hidden">
+        <div className="p-8 rounded-2xl bg-slate-900 border-2 border-dashed border-white/5 relative overflow-hidden">
            <div className="absolute top-0 right-0 p-6 opacity-[0.03]"><Dna className="h-32 w-32" /></div>
            <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
               <div className="space-y-3 max-w-xl text-center md:text-left">
@@ -61,7 +61,7 @@ export function DataWarehouseHealth({ health }: { health: WarehouseHealth }) {
                  </p>
               </div>
               <div className="space-y-4 w-full md:w-64">
-                 <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+                 <div className="flex justify-between text-[10px] font-black uppercase tracking-wide text-slate-500">
                     <span>Ledger Symmetry</span>
                     <span className="text-emerald-400">OPTIMAL</span>
                  </div>
@@ -72,9 +72,9 @@ export function DataWarehouseHealth({ health }: { health: WarehouseHealth }) {
            </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
            <div className="space-y-4">
-              <p className="text-[11px] font-black uppercase tracking-[0.4em] text-primary">Active Analytical Nodes</p>
+              <p className="text-[11px] font-black uppercase tracking-widest text-primary">Active Analytical Nodes</p>
               <div className="space-y-3">
                  {['Iceberg_Cluster_A', 'Trino_Federation_SG', 'ClickHouse_Hot_Node'].map(node => (
                     <div key={node} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 group hover:bg-white/10 transition-all">
@@ -87,7 +87,7 @@ export function DataWarehouseHealth({ health }: { health: WarehouseHealth }) {
                  ))}
               </div>
            </div>
-           <div className="bg-primary/5 rounded-[32px] border-2 border-dashed border-primary/20 p-8 flex flex-col items-center justify-center text-center space-y-4">
+           <div className="bg-primary/5 rounded-2xl border-2 border-dashed border-primary/20 p-8 flex flex-col items-center justify-center text-center space-y-4">
               <Activity className="h-10 w-10 text-primary opacity-40" />
               <div className="space-y-1">
                  <p className="text-sm font-black uppercase text-white tracking-tighter">Lineage Trace Engine</p>

@@ -38,25 +38,25 @@ export default function CommodityPricesPage() {
   const verdictColor = verdict === 'Excellent' ? 'text-emerald-600' : verdict === 'Fair' ? 'text-blue-600' : verdict === 'Above market' ? 'text-amber-600' : 'text-red-600';
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="space-y-4 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="space-y-4 border-b border-primary/5 pb-6">
         <div className="flex items-center gap-3">
           <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Price Intelligence Node</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Price Intelligence Node</p>
         </div>
-        <h1 className="text-5xl font-black tracking-tighter uppercase leading-[0.85]">Commodity<br />Benchmarks.</h1>
+        <h1 className="text-4xl font-black tracking-tighter uppercase leading-[0.85]">Commodity<br />Benchmarks.</h1>
         <p className="text-sm text-muted-foreground font-medium max-w-2xl">90-day price benchmarks computed from real settled trades across the Baalvion network. Verify any quote against the market in seconds.</p>
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* Table */}
         <div className="lg:col-span-8 space-y-4">
-          <h2 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground">Live Market</h2>
+          <h2 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">Live Market</h2>
           <div className="space-y-3">
             {COMMODITIES.map((c) => {
               const vsBench = Math.round(((c.price - c.benchmark90d) / c.benchmark90d) * 100);
               return (
-                <Card key={c.name} className="border-2 rounded-[24px] bg-background hover:border-primary/40 transition-all">
+                <Card key={c.name} className="border-2 rounded-2xl bg-background hover:border-primary/40 transition-all">
                   <CardContent className="p-5 flex items-center justify-between gap-4">
                     <div className="min-w-0">
                       <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-50">{c.category}</span>
@@ -84,9 +84,9 @@ export default function CommodityPricesPage() {
 
         {/* Fair-price tool */}
         <div className="lg:col-span-4 space-y-6">
-          <Card className="border-none rounded-[32px] bg-primary text-primary-foreground overflow-hidden">
+          <Card className="border-none rounded-2xl bg-primary text-primary-foreground overflow-hidden">
             <CardContent className="p-8 space-y-6">
-              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] opacity-80"><Sparkles className="h-4 w-4 text-yellow-400" /> Is This Price Fair?</div>
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wide opacity-80"><Sparkles className="h-4 w-4 text-yellow-400" /> Is This Price Fair?</div>
               <div className="space-y-3">
                 <Label className="text-[10px] font-black uppercase tracking-widest opacity-70">Commodity</Label>
                 <Select value={sel} onValueChange={setSel}>
@@ -109,8 +109,8 @@ export default function CommodityPricesPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-2 rounded-[32px] bg-background p-7 space-y-6">
-            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground"><Activity className="h-4 w-4 text-primary" /> Market Pulse</div>
+          <Card className="border-2 rounded-2xl bg-background p-7 space-y-6">
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-wide text-muted-foreground"><Activity className="h-4 w-4 text-primary" /> Market Pulse</div>
             {[
               { label: 'Indices Tracked', val: '1,240' },
               { label: 'Settled Trades (90d)', val: '38,902' },

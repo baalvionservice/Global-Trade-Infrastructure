@@ -23,7 +23,7 @@ export function HealthScorecard({ score, status, label }: HealthScorecardProps) 
   const isCritical = status === 'CRITICAL';
 
   return (
-    <Card className="shadow-lg border-2 border-primary/5 bg-background rounded-[32px] overflow-hidden group hover:border-primary/20 transition-all">
+    <Card className="shadow-lg border-2 border-primary/5 bg-background rounded-2xl overflow-hidden group hover:border-primary/20 transition-all">
        <CardContent className="p-8 space-y-6">
           <div className="flex items-center justify-between">
              <div className="p-3 rounded-2xl bg-muted border group-hover:bg-primary/5 transition-colors">
@@ -36,7 +36,7 @@ export function HealthScorecard({ score, status, label }: HealthScorecardProps) 
           </div>
           
           <div className="space-y-1">
-             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
+             <p className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">{label}</p>
              <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-black tracking-tighter tabular-nums">{score}%</span>
                 <span className="text-[9px] font-bold text-emerald-600 uppercase">Stable</span>

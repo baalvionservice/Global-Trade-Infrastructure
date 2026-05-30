@@ -4,6 +4,7 @@
  * Orchestrates dialogue nodes, operational threads, and multi-priority notifications.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from '@/orchestration/event-bus';
 
@@ -135,7 +136,7 @@ class CommunicationService {
       sortBy: 'createdAt',
       order: 'asc'
     });
-    return res.data || [];
+    return toList(res);
   }
 
   /**

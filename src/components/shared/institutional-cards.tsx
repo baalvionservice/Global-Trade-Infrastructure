@@ -48,7 +48,7 @@ export function InstitutionalCard({
 
   return (
     <Card className={cn(
-      "shadow-institutional border-2 transition-all hover:border-primary/40 rounded-[32px] overflow-hidden bg-background flex flex-col",
+      "shadow-institutional border-2 transition-all hover:border-primary/40 rounded-2xl overflow-hidden bg-background flex flex-col",
       className
     )}>
       <CardHeader className={cn(
@@ -61,7 +61,7 @@ export function InstitutionalCard({
               {icon || icons[variant]}
             </div>
             <div className="min-w-0">
-              <CardTitle className="text-sm font-black uppercase tracking-[0.2em] truncate">{title}</CardTitle>
+              <CardTitle className="text-sm font-black uppercase tracking-wide truncate">{title}</CardTitle>
               {subtitle && <CardDescription className="text-[10px] font-bold mt-1 italic opacity-60 uppercase truncate">{subtitle}</CardDescription>}
             </div>
           </div>
@@ -74,8 +74,8 @@ export function InstitutionalCard({
         density === 'compact' ? "p-6" : "p-8"
       )}>
         {value !== undefined && (
-          <div className="p-6 rounded-[24px] bg-muted/20 border-2 border-dashed">
-            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-[0.3em] opacity-60 mb-1">Contract Valuation</p>
+          <div className="p-6 rounded-2xl bg-muted/20 border-2 border-dashed">
+            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-wide opacity-60 mb-1">Contract Valuation</p>
             <p className="text-3xl font-black tracking-tighter text-primary leading-none tabular-nums">{formatCurrency(value, currency)}</p>
           </div>
         )}

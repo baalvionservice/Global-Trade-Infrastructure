@@ -44,7 +44,7 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       tabs: [],
       sidebarCollapsed: false,
       mode: 'tactical',
-      rightPanelOpen: true,
+      rightPanelOpen: false,
       rightPanelWidth: 420,
       activeContextId: null,
 

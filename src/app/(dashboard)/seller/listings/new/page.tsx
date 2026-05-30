@@ -6,7 +6,7 @@
  * Product -> Pricing & MOQ -> Terms -> Compliance & media -> Review & publish.
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { marketplaceService } from '@/services/marketplace-service';
 import { Card, CardContent } from '@/components/ui/card';
@@ -41,6 +41,10 @@ export default function NewListingWizard() {
     certifications: [] as string[],
   });
   const [certInput, setCertInput] = useState('');
+  // Client-only wizard (Radix Select + framer-motion) — render after mount to avoid any
+  // SSR/CSR hydration mismatch (React #418) in the production build.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const set = (k: string, v: any) => setForm((f) => ({ ...f, [k]: v }));
   const toggle = (k: string, v: string) => setForm((f) => ({ ...f, [k]: f[k].includes(v) ? f[k].filter((x: string) => x !== v) : [...f[k], v] }));
@@ -67,23 +71,27 @@ export default function NewListingWizard() {
   const next = () => setStep((s) => Math.min(s + 1, STEPS.length - 1));
   const back = () => setStep((s) => Math.max(s - 1, 0));
 
+  if (!mounted) {
+    return <main className="flex-1 p-4 md:p-6 bg-muted/20 min-h-screen"><div className="max-w-3xl mx-auto h-[480px] rounded-2xl border bg-background animate-pulse" /></main>;
+  }
+
   return (
-    <main className="flex-1 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 p-4 md:p-6 bg-muted/20 min-h-screen">
       <div className="max-w-3xl mx-auto space-y-8">
         <div className="space-y-1">
-          <p className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Seller Console</p>
+          <p className="text-[9px] font-black uppercase tracking-widest text-primary">Seller Console</p>
           <h1 className="text-3xl font-black uppercase tracking-tighter">Create a Listing</h1>
         </div>
 
-        <Card className="border-2 rounded-[32px] shadow-xl bg-background overflow-hidden">
-          <CardContent className="p-8 md:p-10 space-y-10">
+        <Card className="border-2 rounded-2xl shadow-xl bg-background overflow-hidden">
+          <CardContent className="p-8 md:p-6 space-y-6">
             {/* Stepper */}
             <div className="flex items-center gap-1.5">
               {STEPS.map((label, i) => (
                 <div key={label} className={cn('h-1.5 flex-1 rounded-full transition-all duration-500', i <= step ? 'bg-primary' : 'bg-muted')} />
               ))}
             </div>
-            <p className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground">Step {step + 1} / {STEPS.length} — {STEPS[step]}</p>
+            <p className="text-[9px] font-black uppercase tracking-wide text-muted-foreground">Step {step + 1} / {STEPS.length} — {STEPS[step]}</p>
 
             <AnimatePresence mode="wait">
               <motion.div key={step} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: 0.25 }} className="min-h-[300px]">
@@ -185,8 +193,8 @@ export default function NewListingWizard() {
             <div className="flex items-center justify-between pt-2 border-t">
               {step > 0 ? <Button variant="ghost" onClick={back} className="font-black uppercase text-[11px] tracking-widest h-12"><ArrowLeft className="mr-2 h-4 w-4" /> Back</Button> : <span />}
               {step < STEPS.length - 1
-                ? <Button onClick={next} className="h-12 px-10 font-black uppercase text-[11px] tracking-widest rounded-2xl">Continue <ArrowRight className="ml-2 h-4 w-4" /></Button>
-                : <Button onClick={publish} disabled={publishing} className="h-14 px-12 font-black uppercase text-[12px] tracking-widest rounded-2xl bg-emerald-600 hover:bg-emerald-700 shadow-xl">{publishing ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CheckCircle2 className="mr-2 h-5 w-5" />} Publish Listing</Button>}
+                ? <Button onClick={next} className="h-12 px-6 font-black uppercase text-[11px] tracking-widest rounded-2xl">Continue <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                : <Button onClick={publish} disabled={publishing} className="h-14 px-6 font-black uppercase text-[12px] tracking-widest rounded-2xl bg-emerald-600 hover:bg-emerald-700 shadow-xl">{publishing ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <CheckCircle2 className="mr-2 h-5 w-5" />} Publish Listing</Button>}
             </div>
           </CardContent>
         </Card>

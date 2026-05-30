@@ -4,6 +4,7 @@
  * Hardened: Manages the lifecycle of Global Freight Mandates and real-time Telemetry Ingestion.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from './event-bus';
 import { ShipmentNode, Milestone, LifecycleStatus } from '@/types/institutional';
@@ -165,7 +166,7 @@ class LogisticsService {
    */
   async getOperationalExceptions() {
     const res = await apiClient.get<any[]>('/alerts', { status: 'active', category: 'LOGISTICS' });
-    return res.data || [];
+    return toList(res);
   }
 }
 

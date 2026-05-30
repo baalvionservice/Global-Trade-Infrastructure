@@ -68,21 +68,21 @@ export default function StrategicIntelligenceObservatory() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6 bg-slate-950">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Syncing Strategic Oracle...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Syncing Strategic Oracle...</p>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-             <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Authority Node: INTEL_COMMAND_A1</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node: INTEL_COMMAND_A1</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Strategic <br />Observatory.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Strategic <br />Observatory.</h2>
           <p className="text-muted-foreground font-medium italic text-lg max-w-2xl">
             "Authoritative planetary oversight of geopolitical risk vectors, corridor throughput equilibrium, and institutional exposure finality."
           </p>
@@ -104,9 +104,9 @@ export default function StrategicIntelligenceObservatory() {
           { label: 'Oracle Sync', val: 'LOCKED', sub: 'Tier 1 Standard', icon: Lock, color: 'text-primary' },
         ].map((kpi, i) => (
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-             <Card className="shadow-lg border-2 border-primary/5 bg-background rounded-[32px] group hover:border-primary/20 transition-all">
+             <Card className="shadow-lg border-2 border-primary/5 bg-background rounded-2xl group hover:border-primary/20 transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 p-8 space-y-0">
-                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-[0.3em]">{kpi.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase text-muted-foreground tracking-wide">{kpi.label}</CardTitle>
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </CardHeader>
                 <CardContent className="px-8 pb-8 pt-0">
@@ -118,13 +118,13 @@ export default function StrategicIntelligenceObservatory() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* GLOBAL RISK TOPOLOGY */}
-        <div className="lg:col-span-8 space-y-10">
+        <div className="lg:col-span-8 space-y-6">
            <RiskHeatmap />
            
-           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[40px] flex flex-col h-[500px]">
-              <CardHeader className="bg-muted/10 border-b p-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl flex flex-col h-[500px]">
+              <CardHeader className="bg-muted/10 border-b p-6 flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-black uppercase tracking-tighter">Planetary Intelligence Stream</CardTitle>
                   <CardDescription className="text-sm font-medium italic mt-1">Autonomous correlation of geopolitical friction and corridor load velocity.</CardDescription>
@@ -139,10 +139,10 @@ export default function StrategicIntelligenceObservatory() {
                             key={sig.id}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="p-10 flex items-start gap-10 group hover:bg-primary/[0.01] transition-colors"
+                            className="p-6 flex items-start gap-6 group hover:bg-primary/[0.01] transition-colors"
                           >
                              <div className={cn(
-                                "h-16 w-16 rounded-[28px] border-2 flex items-center justify-center shadow-inner shrink-0 group-hover:scale-110 transition-transform duration-500",
+                                "h-12 w-16 rounded-2xl border-2 flex items-center justify-center shadow-inner shrink-0 group-hover:scale-110 transition-transform duration-500",
                                 sig.impactScore > 75 ? 'bg-red-50 border-red-100' : 'bg-muted border-primary/10'
                              )}>
                                 <Activity className={cn("h-6 w-6", sig.impactScore > 75 ? 'text-red-600' : 'text-primary opacity-60')} />
@@ -161,7 +161,7 @@ export default function StrategicIntelligenceObservatory() {
                              <div className="flex flex-col items-end gap-6 shrink-0 border-l-2 pl-12 border-muted/50">
                                 <div className="text-right space-y-1">
                                    <p className="text-[9px] font-black uppercase opacity-40 leading-none">Impact Index</p>
-                                   <p className="text-5xl font-black tracking-tighter text-primary tabular-nums">{sig.impactScore}%</p>
+                                   <p className="text-4xl font-black tracking-tighter text-primary tabular-nums">{sig.impactScore}%</p>
                                 </div>
                                 <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl border-2 opacity-20 group-hover:opacity-100 group-hover:bg-primary group-hover:text-white transition-all">
                                    <ArrowRight className="h-6 w-6" />
@@ -176,35 +176,35 @@ export default function StrategicIntelligenceObservatory() {
         </div>
 
         {/* STRATEGIC FORESIGHT SIDEBAR */}
-        <div className="lg:col-span-4 space-y-10">
+        <div className="lg:col-span-4 space-y-6">
            {/* FORESIGHT ORACLE */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <BrainCircuit className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-10 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Zap className="h-5 w-5 text-yellow-400 animate-pulse" />
                     Strategy Sentinel
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <div className="space-y-6">
                     <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter text-white">
                        "Foresight Alert: Global liquidity depth in the APAC cluster is trending +14% relative to baseline. Predicted arbitrage yield for Q4: {formatCurrency(forecast?.projectedValue || 0)}."
                     </p>
                     <div className="grid grid-cols-2 gap-6">
-                       <div className="p-6 rounded-[24px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                       <div className="p-6 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                           <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Model Conf.</span>
                           <span className="text-4xl font-black text-emerald-300 block mt-2">99.8%</span>
                        </div>
-                       <div className="p-6 rounded-[24px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                       <div className="p-6 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                           <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Volatility</span>
                           <span className="text-4xl font-black text-blue-300 block mt-2">{forecast?.volatilityIndex}%</span>
                        </div>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-4xl bg-white text-primary border-none rounded-[24px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-lg bg-white text-primary border-none rounded-2xl hover:scale-[1.02] transition-transform">
                     EXECUTE BATCH REBALANCING
                  </Button>
               </CardContent>
@@ -212,15 +212,15 @@ export default function StrategicIntelligenceObservatory() {
 
            <ExposureTracker />
 
-           <Card className="shadow-none border-2 bg-background p-10 text-center space-y-8 rounded-[48px] border-dashed group hover:border-primary/20 transition-all duration-700">
-              <Compass className="h-16 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-40 transition-all duration-1000 group-hover:rotate-45" />
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-8 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
+              <Compass className="h-12 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-40 transition-all duration-1000 group-hover:rotate-45" />
               <div className="space-y-3">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-muted-foreground">Spatial Strategy Lab</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-muted-foreground">Spatial Strategy Lab</p>
                  <p className="text-xs font-medium italic leading-relaxed px-6 opacity-60">
                     "Launch high-fidelity strategic simulations for global trade-war propagation or corridor re-routing impact. All models are synchronized with the 2024 Geopolitical Master Ledger."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">LAUNCH SIMULATION DESK</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">LAUNCH SIMULATION DESK</Button>
            </Card>
         </div>
       </div>

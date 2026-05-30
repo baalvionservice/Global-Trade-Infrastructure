@@ -34,10 +34,10 @@ export default function ProtocolDesignerPage() {
   }, {});
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-10">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-6">
         <div className="space-y-1">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">System Governance</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">System Governance</p>
           <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter text-foreground leading-none">Protocol Designer</h2>
           <p className="text-muted-foreground font-medium italic max-w-2xl">Authoritative management of the Global System Truth (GST) transition matrix and commercial logic rules.</p>
         </div>
@@ -45,13 +45,13 @@ export default function ProtocolDesignerPage() {
            <Button variant="outline" className="font-black border-2 bg-background h-14 px-8 text-[10px] uppercase tracking-widest shadow-md">
               <History className="mr-2 h-4 w-4" /> REVISION HISTORY
            </Button>
-           <Button className="font-black shadow-2xl h-14 px-10 text-[10px] uppercase tracking-widest bg-primary">
+           <Button className="font-black shadow-2xl h-14 px-6 text-[10px] uppercase tracking-widest bg-primary">
               <Plus className="mr-2 h-4 w-4" /> DEFINE NEW RULE
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-12">
+      <div className="grid gap-6">
         {Object.entries(domains).map(([domain, states]: any, dIdx) => (
           <div key={domain} className="space-y-8">
              <div className="flex items-center gap-4 px-4">
@@ -62,7 +62,7 @@ export default function ProtocolDesignerPage() {
 
              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {states.map((state: any, sIdx: number) => (
-                  <Card key={state.from} className="shadow-lg border-2 hover:border-primary/40 transition-all rounded-[32px] overflow-hidden bg-background group">
+                  <Card key={state.from} className="shadow-lg border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
                     <CardHeader className="bg-muted/10 border-b p-8">
                        <div className="flex justify-between items-start">
                           <div className="space-y-1">
@@ -104,13 +104,13 @@ export default function ProtocolDesignerPage() {
         ))}
       </div>
 
-      <div className="p-12 rounded-[48px] bg-slate-950 text-white relative overflow-hidden group shadow-3xl border-2 border-white/5">
+      <div className="p-6 rounded-2xl bg-slate-950 text-white relative overflow-hidden group shadow-md border-2 border-white/5">
          <div className="absolute top-0 right-0 p-16 opacity-10 rotate-12 scale-150 group-hover:scale-[1.7] transition-transform duration-1000">
             <Lock className="h-64 w-64 brightness-0 invert" />
          </div>
          <div className="relative z-10 max-w-4xl space-y-8">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">GST Integrity Standard v4.2</h4>
-            <h3 className="text-5xl font-black uppercase tracking-tighter leading-[0.9]">Deterministic State Logic. <br />Immutable Execution.</h3>
+            <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">GST Integrity Standard v4.2</h4>
+            <h3 className="text-4xl font-black uppercase tracking-tighter leading-[0.9]">Deterministic State Logic. <br />Immutable Execution.</h3>
             <p className="text-xl font-medium leading-relaxed italic opacity-80">
               "Baalvion OS enforces jurisdictional trade policies at the kernel layer. Every transition defined in the GST Matrix is cryptographically versioned and requires consensus authorization before being propagated to the active execution runtime, ensuring absolute regulatory finality."
             </p>

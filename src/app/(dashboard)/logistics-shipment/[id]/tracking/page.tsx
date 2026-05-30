@@ -94,7 +94,7 @@ export default function ShipmentTrackingPage() {
           </CardHeader>
           <CardContent className="relative">
             <div className="absolute left-9 top-0 bottom-0 w-0.5 bg-muted" />
-            <div className="space-y-12 relative">
+            <div className="space-y-8 relative">
               {logs.length === 0 ? (
                 <div className="py-20 text-center text-muted-foreground italic">
                   No tracking logs generated yet.

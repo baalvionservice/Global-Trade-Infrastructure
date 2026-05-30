@@ -4,6 +4,7 @@
  * Implements strict state-gated capital management for global trade.
  */
 import { apiClient } from '@/lib/api-client';
+import { toList } from '@/lib/api-list';
 import { EscrowMandate, SettlementStatus } from '../types/financial.types';
 import { logger, metricsService } from '@/services/observability-service';
 import { eventBus } from '@/orchestration/event-bus';
@@ -22,7 +23,7 @@ class EscrowService {
 
   async getEscrows(): Promise<EscrowMandate[]> {
     const res = await apiClient.get<EscrowMandate[]>('/escrows', { sortBy: 'updatedAt', order: 'desc' });
-    return res.data || [];
+    return toList<EscrowMandate>(res);
   }
 
   async getEscrowById(id: string): Promise<EscrowMandate | null> {

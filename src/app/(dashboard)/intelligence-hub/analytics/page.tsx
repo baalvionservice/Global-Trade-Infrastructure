@@ -59,22 +59,22 @@ export default function StrategicAnalyticsObservatory() {
   }
 
   return (
-    <main className="space-y-12 pb-24">
+    <main className="space-y-8 pb-24">
       {/* COMMAND HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Authority Node: BI_COMMAND_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node: BI_COMMAND_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Strategic <br />Intelligence.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Strategic <br />Intelligence.</h2>
           <p className="text-muted-foreground font-medium italic text-lg max-w-2xl">"Authoritative planetary oversight of institutional procurement, cash positioning, and execution finality."</p>
         </div>
         <div className="flex gap-4">
-          <Button variant="outline" className="h-16 px-10 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md group" onClick={fetchData}>
+          <Button variant="outline" className="h-12 px-6 border-2 font-black uppercase tracking-widest text-xs bg-background shadow-md group" onClick={fetchData}>
             <RefreshCw className={cn("mr-3 h-4 w-4 transition-transform duration-700", isSyncing && "animate-spin")} /> Global Re-Sync
           </Button>
-          <Button className="h-16 px-12 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-3xl hover:scale-[1.02] transition-all">
+          <Button className="h-12 px-6 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md hover:scale-[1.02] transition-all">
             <Download className="mr-3 h-4 w-4" /> Export Executive Pack
           </Button>
         </div>
@@ -82,18 +82,18 @@ export default function StrategicAnalyticsObservatory() {
 
       <ExecutiveCommandGrid kpis={kpis} />
 
-      <div className="grid gap-10 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-10">
+      <div className="grid gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-8 space-y-6">
            {/* SPEND VELOCITY MONITOR */}
-           <Card className="shadow-none border-2 bg-background rounded-[48px] overflow-hidden flex flex-col h-[500px]">
-              <CardHeader className="bg-muted/10 border-b p-10 flex flex-row items-center justify-between">
+           <Card className="shadow-none border-2 bg-background rounded-2xl overflow-hidden flex flex-col h-[500px]">
+              <CardHeader className="bg-muted/10 border-b p-6 flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-black uppercase tracking-tighter">Planetary Spend Velocity</CardTitle>
                   <CardDescription className="text-sm font-medium italic">High-fidelity intensity mapping of global procurement liquidity across jurisdictional nodes.</CardDescription>
                 </div>
                 <Globe className="h-8 w-8 text-primary opacity-20" />
               </CardHeader>
-              <CardContent className="p-10 flex-1 grid md:grid-cols-2 gap-12">
+              <CardContent className="p-6 flex-1 grid md:grid-cols-2 gap-6">
                  <div className="space-y-8">
                     {spend?.breakdown.map((item) => (
                        <div key={item.category} className="space-y-3 group cursor-default">
@@ -117,10 +117,10 @@ export default function StrategicAnalyticsObservatory() {
                        </div>
                     ))}
                  </div>
-                 <div className="bg-muted/30 rounded-[32px] border-2 border-dashed flex flex-col items-center justify-center p-12 text-center space-y-6 group">
-                    <PieChart className="h-16 w-16 text-primary opacity-20 group-hover:scale-110 transition-transform duration-700" />
+                 <div className="bg-muted/30 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center p-6 text-center space-y-6 group">
+                    <PieChart className="h-12 w-16 text-primary opacity-20 group-hover:scale-110 transition-transform duration-700" />
                     <div className="space-y-1">
-                       <p className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground">Allocation Matrix</p>
+                       <p className="text-xs font-black uppercase tracking-wide text-muted-foreground">Allocation Matrix</p>
                        <p className="text-sm font-medium italic opacity-60 max-w-xs mx-auto">"Corridor-level liquidity rebalancing is recommended for the APAC-US renewables cluster."</p>
                     </div>
                     <Button variant="outline" className="rounded-2xl border-2 font-black text-[10px] uppercase h-11 px-8 bg-background shadow-md">Review Routing Matrix</Button>
@@ -131,7 +131,7 @@ export default function StrategicAnalyticsObservatory() {
            <DataWarehouseHealth health={warehouse} />
         </div>
 
-        <div className="lg:col-span-4 space-y-10">
+        <div className="lg:col-span-4 space-y-6">
            <OperationalForecastingPanel signals={[
              {
                id: 'F1',
@@ -155,9 +155,9 @@ export default function StrategicAnalyticsObservatory() {
              }
            ]} />
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-10 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-6 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Ecosystem Ratios</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Ecosystem Ratios</h4>
                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
               <div className="space-y-8">

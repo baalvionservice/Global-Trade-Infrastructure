@@ -16,15 +16,15 @@ const exposureData = [
 
 export function ExposureTracker() {
   return (
-    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-[32px]">
-      <CardHeader className="bg-muted/10 border-b py-8 px-10 flex flex-row items-center justify-between">
+    <Card className="shadow-none border-2 bg-background overflow-hidden rounded-2xl">
+      <CardHeader className="bg-muted/10 border-b py-8 px-6 flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="text-sm font-black uppercase tracking-[0.2em]">Institutional Exposure Ledger</CardTitle>
+          <CardTitle className="text-sm font-black uppercase tracking-wide">Institutional Exposure Ledger</CardTitle>
         </div>
         <Landmark className="h-6 w-6 text-primary opacity-30" />
       </CardHeader>
-      <CardContent className="p-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <CardContent className="p-6">
+        <div className="grid lg:grid-cols-2 gap-6 items-center">
           <div className="h-[250px] w-full">
             <ChartContainer config={{ exp: { label: "Exposure", color: "hsl(var(--primary))" } }}>
               <BarChart data={exposureData}>
@@ -41,7 +41,7 @@ export function ExposureTracker() {
             </ChartContainer>
           </div>
           <div className="space-y-6">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Aggregated Corridor Stress</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">Aggregated Corridor Stress</h4>
             <div className="grid gap-4">
               {exposureData.map((item) => (
                 <div key={item.corridor} className="flex items-center justify-between p-4 rounded-2xl border-2 bg-muted/5 group hover:border-primary/20 transition-all cursor-default">

@@ -167,7 +167,7 @@ export default function RiskDashboardPage() {
 
            <Card className="shadow-lg border-none bg-primary text-primary-foreground relative overflow-hidden">
               <CardContent className="p-8 space-y-6">
-                 <h4 className="text-xs font-black uppercase tracking-[0.2em] opacity-80">Autonomous Policy Control</h4>
+                 <h4 className="text-xs font-black uppercase tracking-wide opacity-80">Autonomous Policy Control</h4>
                  <p className="text-sm font-bold italic leading-relaxed opacity-90">
                     "The platform fraud engine is currently checking 48 active nodes. Zero critical failures detected."
                  </p>

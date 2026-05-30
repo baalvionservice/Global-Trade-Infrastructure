@@ -66,8 +66,8 @@ export function InstitutionalHeader() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button variant="ghost" asChild className="font-black text-slate-500 hover:text-primary hover:bg-transparent px-4 transition-all">
-                <Link key={link.label} href={link.href || '#'}>
+              <Button key={link.label} variant="ghost" asChild className="font-black text-slate-500 hover:text-primary hover:bg-transparent px-4 transition-all">
+                <Link href={link.href || '#'}>
                   {link.label}
                 </Link>
               </Button>

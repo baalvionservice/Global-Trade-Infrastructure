@@ -87,7 +87,7 @@ export function EcosystemGraph() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
   return (
-    <div className="relative w-full h-[600px] bg-slate-950 rounded-[48px] overflow-hidden border border-white/5 shadow-2xl">
+    <div className="relative w-full h-[600px] bg-slate-950 rounded-2xl overflow-hidden border border-white/5 shadow-2xl">
       {/* BACKGROUND GRID */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
@@ -179,7 +179,7 @@ export function EcosystemGraph() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
-            className="absolute top-8 right-8 w-80 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-[32px] p-8 shadow-3xl z-30"
+            className="absolute top-8 right-8 w-80 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-md z-30"
           >
              <div className="space-y-6">
                 <div className="flex items-center justify-between">
@@ -196,7 +196,7 @@ export function EcosystemGraph() {
                 </div>
 
                 <div className="space-y-4 pt-4 border-t border-white/5">
-                   <p className="text-[9px] font-black uppercase tracking-[0.2em] text-primary">Node Telemetry</p>
+                   <p className="text-[9px] font-black uppercase tracking-wide text-primary">Node Telemetry</p>
                    <div className="grid grid-cols-2 gap-4">
                       {Object.entries(selectedNode.metadata).map(([key, val]) => (
                          <div key={key} className="p-3 rounded-xl bg-white/5 border border-white/5">

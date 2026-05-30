@@ -47,35 +47,35 @@ export default function OpportunityRadarPage() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-muted-foreground animate-pulse">Scanning Global Opportunity Grids...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Scanning Global Opportunity Grids...</p>
       </div>
     );
   }
 
   return (
-    <main className="flex-1 space-y-12 p-4 md:p-12 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-12">
+    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Radar node: FORESIGHT_ALPHA</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Radar node: FORESIGHT_ALPHA</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Opportunity <br />Radar.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Opportunity <br />Radar.</h2>
         </div>
         <div className="flex items-center gap-4">
            <div className="flex items-center gap-3 px-6 py-3 bg-background rounded-2xl border-2 border-primary/5 shadow-xl text-xs font-black uppercase tracking-widest text-primary">
               <Radio className="h-4 w-4 text-emerald-600 animate-ping" />
               Real-time Pulse Active
            </div>
-           <Button className="h-16 px-10 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-3xl hover:scale-[1.02] transition-all">
+           <Button className="h-12 px-6 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md hover:scale-[1.02] transition-all">
               <Compass className="mr-3 h-4 w-4" /> Calibrate Forecast
            </Button>
         </div>
       </div>
 
-      <div className="grid gap-12 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* RADAR SWEEP VIEW */}
-        <div className="lg:col-span-8 space-y-10">
+        <div className="lg:col-span-8 space-y-6">
            <div className="grid gap-8">
               {opportunities.map((opp, i) => (
                 <motion.div 
@@ -84,15 +84,15 @@ export default function OpportunityRadarPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all rounded-[40px] overflow-hidden bg-background group">
+                  <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
                     <CardContent className="p-0 flex flex-col md:flex-row">
-                       <div className="md:w-64 bg-primary p-10 text-white flex flex-col justify-between relative overflow-hidden">
+                       <div className="md:w-64 bg-primary p-6 text-white flex flex-col justify-between relative overflow-hidden">
                           <div className="absolute top-0 right-0 p-6 opacity-10"><Radar className="h-40 w-40" /></div>
                           <div className="space-y-2 relative z-10">
                              <p className="text-[9px] font-black uppercase tracking-widest opacity-60">Relevance</p>
-                             <p className="text-6xl font-black tabular-nums tracking-tighter">{opp.opportunityScore}%</p>
+                             <p className="text-4xl font-black tabular-nums tracking-tighter">{opp.opportunityScore}%</p>
                           </div>
-                          <div className="space-y-4 pt-10 relative z-10 border-t border-white/10">
+                          <div className="space-y-4 pt-6 relative z-10 border-t border-white/10">
                              <div className="flex justify-between text-[8px] font-black uppercase tracking-widest opacity-60">
                                 <span>Stability</span>
                                 <span>{opp.stabilityIndex}%</span>
@@ -103,7 +103,7 @@ export default function OpportunityRadarPage() {
                           </div>
                        </div>
                        
-                       <div className="flex-1 p-10 space-y-8">
+                       <div className="flex-1 p-6 space-y-8">
                           <div className="flex justify-between items-start">
                              <div className="space-y-3">
                                 <div className="flex items-center gap-4">
@@ -121,7 +121,7 @@ export default function OpportunityRadarPage() {
                           </p>
                           
                           <div className="flex items-center justify-between pt-6 border-t border-muted/50">
-                             <div className="flex items-center gap-10">
+                             <div className="flex items-center gap-6">
                                 <div className="space-y-1">
                                    <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">Estimated Value</p>
                                    <p className="text-2xl font-black text-primary tracking-tighter">$12.4M</p>
@@ -131,7 +131,7 @@ export default function OpportunityRadarPage() {
                                    <p className="text-2xl font-black text-emerald-600 tracking-tighter">{opp.growthForecast}</p>
                                 </div>
                              </div>
-                             <Button className="h-14 px-10 font-black uppercase text-[10px] tracking-widest shadow-2xl rounded-2xl bg-primary">
+                             <Button className="h-14 px-6 font-black uppercase text-[10px] tracking-widest shadow-2xl rounded-2xl bg-primary">
                                 INITIATE SOURCING
                              </Button>
                           </div>
@@ -144,43 +144,43 @@ export default function OpportunityRadarPage() {
         </div>
 
         {/* RADAR ANALYTICS SIDEBAR */}
-        <div className="lg:col-span-4 space-y-12">
-           <Card className="shadow-4xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-4 space-y-8">
+           <Card className="shadow-lg border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Radar className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 relative border-b border-white/10 p-10">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 relative border-b border-white/10 p-6">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Zap className="h-5 w-5 text-yellow-400 animate-pulse" />
                     Foresight Sentinel
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter">
                     "AI Analysis: Systemic shift in the India-UAE corridor creates a critical 72h window for high-volume steel procurement. Recommended action: LOCK FLOOR PRICE."
                  </p>
                  <div className="grid grid-cols-2 gap-8">
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Confidence</span>
                        <span className="text-4xl font-black text-emerald-300 tracking-tighter block mt-2">99.8%</span>
                     </div>
-                    <div className="p-8 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-8 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">ROI Index</span>
                        <span className="text-4xl font-black text-blue-300 tracking-tighter block mt-2">A++</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-3xl bg-white text-primary border-none rounded-[20px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
                     EXECUTE STRATEGIC OPTIMIZATION
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Corridor Risk Pulse</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Corridor Risk Pulse</h4>
                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'Settlement Stress', val: 'Minimal', change: '-4%', icon: Zap, color: 'text-emerald-500' },
                    { label: 'Carrier Density', val: 'Optimal', change: '+12%', icon: ShipIcon, color: 'text-blue-500' },

@@ -64,24 +64,24 @@ export default function IdentityCommandCenter() {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-6">
         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-primary animate-pulse">Establishing Identity Handshake...</p>
+        <p className="text-[11px] font-black uppercase tracking-widest text-primary animate-pulse">Establishing Identity Handshake...</p>
       </div>
     );
   }
 
   return (
-    <main className="space-y-12 pb-24">
+    <main className="space-y-8 pb-24">
       {/* SECURITY HEADER */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b pb-8">
         <div className="space-y-4">
           <div className="flex items-center gap-3">
              <div className={cn(
                "h-2 w-2 rounded-full animate-pulse",
                threatLevel === 'STABLE' ? 'bg-emerald-500' : 'bg-red-500'
              )} />
-             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Authority Node: IDENTITY_CORE_A1</p>
+             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Authority Node: IDENTITY_CORE_A1</p>
           </div>
-          <h2 className="text-6xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Identity <br />Command.</h2>
+          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Identity <br />Command.</h2>
           <p className="text-muted-foreground font-medium italic text-lg max-w-2xl">"Authoritative planetary oversight of institutional access, multi-tenant boundaries, and trust finality."</p>
         </div>
         <div className="flex gap-4">
@@ -89,7 +89,7 @@ export default function IdentityCommandCenter() {
               <ShieldAlert className={cn("h-4 w-4 transition-colors", threatLevel === 'STABLE' ? 'text-emerald-400' : 'text-red-500')} />
               Threat State: {threatLevel}
            </div>
-           <Button className="h-16 px-12 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-3xl hover:scale-[1.02] transition-all">
+           <Button className="h-12 px-6 bg-primary text-white font-black uppercase tracking-widest text-xs shadow-md hover:scale-[1.02] transition-all">
               <Zap className="mr-3 h-5 w-5 fill-current" /> Provision Identity Node
            </Button>
         </div>
@@ -104,9 +104,9 @@ export default function IdentityCommandCenter() {
           { label: 'Trust Drift', val: '0.002%', delta: 'Minimal', icon: Fingerprint, color: 'text-primary' },
         ].map((kpi, i) => (
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
-             <Card className="shadow-none border-2 border-primary/5 bg-background rounded-[32px] overflow-hidden group hover:border-primary/40 transition-all">
+             <Card className="shadow-none border-2 border-primary/5 bg-background rounded-2xl overflow-hidden group hover:border-primary/40 transition-all">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 p-8 space-y-0">
-                  <CardTitle className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">{kpi.label}</CardTitle>
+                  <CardTitle className="text-[10px] font-black uppercase tracking-wide text-muted-foreground">{kpi.label}</CardTitle>
                   <kpi.icon className={cn("h-4 w-4", kpi.color)} />
                 </CardHeader>
                 <CardContent className="px-8 pb-8">
@@ -118,11 +118,11 @@ export default function IdentityCommandCenter() {
         ))}
       </div>
 
-      <div className="grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-6 lg:grid-cols-12">
         {/* TENANT BOUNDARY MONITOR */}
-        <div className="lg:col-span-8 space-y-10">
-           <Card className="shadow-none border-2 bg-background rounded-[40px] overflow-hidden flex flex-col">
-              <CardHeader className="bg-muted/10 border-b p-10 flex flex-row items-center justify-between">
+        <div className="lg:col-span-8 space-y-6">
+           <Card className="shadow-none border-2 bg-background rounded-2xl overflow-hidden flex flex-col">
+              <CardHeader className="bg-muted/10 border-b p-6 flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-xl font-black uppercase tracking-tighter">Sovereign Tenant Fabric</CardTitle>
                   <CardDescription className="text-sm font-medium italic">Active isolation boundaries for verified institutional nodes.</CardDescription>
@@ -132,9 +132,9 @@ export default function IdentityCommandCenter() {
               <CardContent className="p-0">
                  <div className="divide-y-2">
                     {tenants.map((tenant) => (
-                       <div key={tenant.id} className="p-10 flex flex-col md:flex-row items-center justify-between gap-10 group hover:bg-primary/[0.01] transition-colors">
+                       <div key={tenant.id} className="p-6 flex flex-col md:flex-row items-center justify-between gap-6 group hover:bg-primary/[0.01] transition-colors">
                           <div className="flex items-center gap-8 flex-1 min-w-0">
-                             <div className="h-16 w-16 rounded-[24px] bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                             <div className="h-12 w-16 rounded-2xl bg-muted border-2 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
                                 <Landmark className="h-8 w-8 text-primary opacity-60" />
                              </div>
                              <div className="space-y-1.5 min-w-0">
@@ -147,7 +147,7 @@ export default function IdentityCommandCenter() {
                              </div>
                           </div>
                           
-                          <div className="flex items-center gap-12 shrink-0">
+                          <div className="flex items-center gap-6 shrink-0">
                              <div className="text-right space-y-1">
                                 <p className="text-[9px] font-black text-muted-foreground uppercase opacity-40">Boundary State</p>
                                 <Badge variant="outline" className={cn(
@@ -164,49 +164,49 @@ export default function IdentityCommandCenter() {
                  </div>
               </CardContent>
               <div className="bg-muted/10 p-5 border-t-2 text-center">
-                 <Button variant="link" className="font-black text-[10px] uppercase tracking-[0.4em] text-muted-foreground hover:text-primary">MANAGE TENANT REGISTRY</Button>
+                 <Button variant="link" className="font-black text-[10px] uppercase tracking-widest text-muted-foreground hover:text-primary">MANAGE TENANT REGISTRY</Button>
               </div>
            </Card>
         </div>
 
         {/* SIDEBAR: RISK & IDENTITY */}
-        <div className="lg:col-span-4 space-y-10">
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-[48px]">
-              <div className="absolute top-0 right-0 p-12 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
+        <div className="lg:col-span-4 space-y-6">
+           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
+              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
                  <Key className="h-80 w-80 brightness-0 invert" />
               </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-10 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-[0.5em] opacity-80 flex items-center gap-4 text-white">
+              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
+                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
                     <Radio className="h-5 w-5 text-white animate-pulse" />
                     Identity Sentinel
                  </CardTitle>
               </CardHeader>
-              <CardContent className="p-10 relative space-y-12">
+              <CardContent className="p-6 relative space-y-8">
                  <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter">
                     "Security Oracle: Multi-node identity drift detected in the AP-Southeast cluster. Variance index: 0.04%. System has transitioned to high-trust gating mode."
                  </p>
                  <div className="grid grid-cols-2 gap-6">
-                    <div className="p-6 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-6 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Audit Pass</span>
                        <span className="text-4xl font-black text-emerald-300 tracking-tighter block mt-2">100%</span>
                     </div>
-                    <div className="p-6 rounded-[32px] bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
+                    <div className="p-6 rounded-2xl bg-white/10 border border-white/10 shadow-inner backdrop-blur-md">
                        <span className="text-[10px] font-black uppercase tracking-widest opacity-60 text-white">Consensus</span>
                        <span className="text-4xl font-black text-blue-300 tracking-tighter block mt-2">SECURE</span>
                     </div>
                  </div>
-                 <Button variant="secondary" className="w-full h-20 font-black uppercase text-[12px] tracking-[0.4em] shadow-4xl bg-white text-primary border-none rounded-[24px] hover:scale-[1.02] transition-transform">
+                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-lg bg-white text-primary border-none rounded-2xl hover:scale-[1.02] transition-transform">
                     RE-SYNC IDENTITY FABRIC
                  </Button>
               </CardContent>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-10 space-y-12 rounded-[48px]">
+           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
               <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-[0.4em] text-muted-foreground ml-1">Identity Health</h4>
+                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Identity Health</h4>
                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
-              <div className="space-y-10">
+              <div className="space-y-6">
                  {[
                    { label: 'ABAC Gating', val: 'ENFORCED', icon: ShieldCheck, color: 'text-emerald-500' },
                    { label: 'Identity Drift', val: '0.002%', icon: Fingerprint, color: 'text-blue-500' },
@@ -225,15 +225,15 @@ export default function IdentityCommandCenter() {
               </div>
            </Card>
 
-           <Card className="shadow-none border-2 bg-background p-12 text-center space-y-8 rounded-[48px] border-dashed group hover:border-primary/20 transition-all duration-700">
-              <History className="h-16 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-[-45deg]" />
+           <Card className="shadow-none border-2 bg-background p-6 text-center space-y-8 rounded-2xl border-dashed group hover:border-primary/20 transition-all duration-700">
+              <History className="h-12 w-16 mx-auto text-muted-foreground opacity-10 group-hover:text-primary group-hover:opacity-30 transition-all duration-1000 group-hover:rotate-[-45deg]" />
               <div className="space-y-3">
-                 <p className="text-sm font-black uppercase tracking-[0.3em] text-muted-foreground">Access Audit Replay</p>
+                 <p className="text-sm font-black uppercase tracking-wide text-muted-foreground">Access Audit Replay</p>
                  <p className="text-xs font-medium italic leading-relaxed px-4 opacity-60">
                     "Launch high-fidelity session replays for privileged administrative overrides. Every state mutation is cryptographically signed."
                  </p>
               </div>
-              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-[0.2em] bg-background">OPEN AUDIT VAULT</Button>
+              <Button variant="outline" className="w-full h-12 border-2 font-black uppercase text-[9px] tracking-wide bg-background">OPEN AUDIT VAULT</Button>
            </Card>
         </div>
       </div>
