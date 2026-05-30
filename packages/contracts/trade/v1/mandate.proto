@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package baalvion.trade.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/baalvion/contracts/trade/v1";
+
+// THE AUTHORITATIVE TRADE MANDATE
+// Every commercial agreement is projected into this schema for kernel execution.
+message TradeMandate {
+  string id = 1;
+  string tenant_id = 2;
+  string buyer_id = 3;
+  string seller_id = 4;
+  
+  message Product {
+    string name = 1;
+    string hts_code = 2;
+    double quantity = 3;
+    string unit = 4;
+  }
+  Product product = 5;
+
+  message Commercials {
+    double unit_price = 1;
+    double total_value = 2;
+    string currency = 3;
+    string incoterm = 4;
+  }
+  Commercials commercials = 6;
+
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_DRAFT = 1;
+    STATUS_OPEN = 2;
+    STATUS_NEGOTIATION = 3;
+    STATUS_AWARDED = 4;
+    STATUS_LOCKED = 5;
+    STATUS_IN_TRANSIT = 6;
+    STATUS_DELIVERED = 7;
+    STATUS_SETTLED = 8;
+  }
+  Status status = 7;
+
+  uint32 version = 8;
+  string governance_signature = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+}
+
+service TradeExecutionService {
+  rpc CommitMandate(TradeMandate) returns (CommitResponse);
+  rpc ResolveMandate(ResolveRequest) returns (TradeMandate);
+}
+
+message CommitResponse {
+  bool success = 1;
+  string correlation_id = 2;
+  string event_id = 3;
+}
+
+message ResolveRequest {
+  string mandate_id = 1;
+}

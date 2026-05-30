@@ -1,0 +1,20 @@
+# BAALVION CHAOS DOCTRINE: REGIONAL ISOLATION SIMULATION
+# Targets the Kafka Mesh to verify Sovereign Continuity
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: regional-corridor-partition
+  namespace: sovereign-core
+spec:
+  action: partition
+  mode: one
+  selector:
+    labelSelectors:
+      "app.kubernetes.io/name": "kafka"
+      "region": "apac-south"
+  direction: both
+  duration: "60s"
+  externalTargets:
+    - "api.zurich.baalvion.gov"
+  scheduler:
+    cron: "@hourly"

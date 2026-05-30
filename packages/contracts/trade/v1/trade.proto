@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package baalvion.trade.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// THE AUTHORITATIVE TRADE MANDATE
+message TradeMandate {
+  string id = 1;
+  string tenant_id = 2;
+  string actor_id = 3;
+  TradeType type = 4;
+  TradeStatus status = 5;
+  double amount = 6;
+  string currency = 7;
+  google.protobuf.Timestamp created_at = 8;
+  string governance_signature = 9;
+}
+
+enum TradeType {
+  TRADE_TYPE_UNSPECIFIED = 0;
+  TRADE_TYPE_RFQ = 1;
+  TRADE_TYPE_ORDER = 2;
+  TRADE_TYPE_SETTLEMENT = 3;
+}
+
+enum TradeStatus {
+  TRADE_STATUS_DRAFT = 0;
+  TRADE_STATUS_OPEN = 1;
+  TRADE_STATUS_COMMITTED = 2;
+  TRADE_STATUS_FINALIZED = 3;
+  TRADE_STATUS_LOCKED = 4;
+}
+
+// THE KERNEL EXECUTION SERVICE
+service ExecutionKernel {
+  rpc DispatchMandate(TradeMandate) returns (MandateResponse);
+  rpc ResolveCausality(TraceRequest) returns (TraceResponse);
+}
+
+message MandateResponse {
+  string correlation_id = 1;
+  bool success = 2;
+  string event_hash = 3;
+}
+
+message TraceRequest {
+  string aggregate_id = 1;
+}
+
+message TraceResponse {
+  repeated TradeMandate lineage = 1;
+}

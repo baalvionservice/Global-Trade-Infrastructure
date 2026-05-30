@@ -1,0 +1,13 @@
+{
+  "name": "@baalvion/trade-sdk",
+  "version": "1.0.0",
+  "description": "Authoritative Trade Ontology and Entity Models",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  }
+}

@@ -1,0 +1,48 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Utility functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isOrgMember(orgId) {
+      return getUserData().orgId == orgId;
+    }
+
+    function hasRole(role) {
+      return getUserData().role == role;
+    }
+
+    // Organizations
+    match /organizations/{orgId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && hasRole('Super Admin');
+      allow update: if isAuthenticated() && isOrgMember(orgId);
+    }
+
+    // Users
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId || hasRole('Super Admin'));
+    }
+
+    // RFQs
+    match /rfqs/{rfqId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isOrgMember(request.resource.data.orgId);
+      allow update, delete: if isAuthenticated() && isOrgMember(resource.data.orgId);
+    }
+
+    // Deals
+    match /deals/{dealId} {
+      allow read, update: if isAuthenticated() && (isOrgMember(resource.data.buyerId) || isOrgMember(resource.data.sellerId));
+      allow create: if isAuthenticated();
+    }
+  }
+}

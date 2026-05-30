@@ -1,0 +1,83 @@
+# BAALVION SOVEREIGN OS: KUBERNETES BLUEPRINT
+# Deployment Strategy: Multi-Cloud / Sovereign Regional Clusters
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baalvion-api-gateway
+  namespace: sovereign-core
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+        security.baalvion.gov/mtls: "true"
+        tier: sovereign-execution
+    spec:
+      containers:
+      - name: gateway
+        image: baalvion/api-gateway:v4.2.0
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - secretRef:
+            name: kernel-secrets
+        - configMapRef:
+            name: cluster-config
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gateway-hpa
+  namespace: sovereign-core
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: baalvion-api-gateway
+  minReplicas: 3
+  maxReplicas: 24
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: institutional-compute-quota
+  namespace: sovereign-core
+spec:
+  hard:
+    requests.cpu: "10"
+    requests.memory: "20Gi"
+    limits.cpu: "20"
+    limits.memory: "40Gi"

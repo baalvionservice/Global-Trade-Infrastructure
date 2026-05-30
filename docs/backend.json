@@ -1,0 +1,43 @@
+
+{
+  "entities": {
+    "Organization": {
+      "title": "Organization",
+      "description": "An institutional entity on the platform (Buyer, Seller, Bank, Government, Agent)",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "taxId": { "type": "string" },
+        "type": { "type": "string", "enum": ["buyer", "seller", "bank", "government", "agent"] },
+        "country": { "type": "string" },
+        "verificationLevel": { "type": "number", "enum": [0, 1, 2, 3, 4] },
+        "trustScore": { "type": "number" },
+        "riskLevel": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "blacklistFlag": { "type": "boolean" },
+        "reputationHistory": { "type": "array", "items": { "$ref": "#/backend/entities/ReputationEntry" } }
+      }
+    },
+    "GodsystemMandate": {
+      "title": "Godsystem Mandate",
+      "description": "Transcendent strategic directive for omniversal trade reality fabrication.",
+      "type": "object",
+      "properties": {
+        "mandateId": { "type": "string" },
+        "type": { "type": "string", "enum": ["REALITY_WARP", "EQUILIBRIUM_LOCK", "OMNIVERSE_SYNC", "TRANSCENDENT_RECOVERY"] },
+        "priority": { "type": "string", "enum": ["GOD_LEVEL", "SUPREME", "ETERNAL"] },
+        "targetClusters": { "type": "array", "items": { "type": "string" } },
+        "authorizedBy": { "type": "string" },
+        "status": { "type": "string", "enum": ["GENESIS", "EXECUTING", "SEALED", "FINALIZED"] },
+        "realityHash": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["email", "google"]
+  },
+  "firestore": {
+    "/organizations/{orgId}": { "schema": "Organization", "description": "Institutional profiles" },
+    "/godsystem_mandates/{mandateId}": { "schema": "GodsystemMandate", "description": "Supreme reality directives" }
+  }
+}

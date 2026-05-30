@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package baalvion.trade.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+/**
+ * @file mandate.proto
+ * @description Authoritative Protobuf contract for Alpha-Omega Trade Mandates.
+ */
+
+message TradeMandate {
+  string id = 1;
+  string tenant_id = 2;
+  string jurisdiction = 3;
+  string correlation_id = 4;
+  
+  TradeStatus status = 5;
+  TradeDomain domain = 6;
+  
+  google.protobuf.Struct payload = 7;
+  google.protobuf.Timestamp timestamp = 8;
+  
+  string signature = 9;
+  int32 version = 10;
+  string state_hash = 11;
+}
+
+enum TradeStatus {
+  TRADE_STATUS_UNSPECIFIED = 0;
+  TRADE_STATUS_GENESIS = 1;
+  TRADE_STATUS_NEGOTIATION = 2;
+  TRADE_STATUS_COMMITTED = 3;
+  TRADE_STATUS_IN_TRANSIT = 4;
+  TRADE_STATUS_FINALIZED = 5;
+  TRADE_STATUS_LOCKED = 6;
+  TRADE_STATUS_REVERTED = 7;
+}
+
+enum TradeDomain {
+  TRADE_DOMAIN_UNSPECIFIED = 0;
+  TRADE_DOMAIN_COMMERCE = 1;
+  TRADE_DOMAIN_FINANCE = 2;
+  TRADE_DOMAIN_LOGISTICS = 3;
+  TRADE_DOMAIN_GOVERNANCE = 4;
+}
+
+service TradeExecutionService {
+  rpc ExecuteMandate(TradeMandate) returns (MandateResponse);
+  rpc ResolveLineage(MandateQuery) returns (stream TradeMandate);
+}
+
+message MandateResponse {
+  string event_id = 1;
+  bool success = 2;
+  string audit_proof = 3;
+}
+
+message MandateQuery {
+  string entity_id = 1;
+  int32 min_version = 2;
+}

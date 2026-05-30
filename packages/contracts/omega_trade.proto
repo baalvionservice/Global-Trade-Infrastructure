@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package baalvion.omega.trade.v1;
+
+import "google/protobuf/timestamp.proto";
+
+/**
+ * THE AUTHORITATIVE TRADE MANDATE CONTRACT.
+ * Defines the cross-domain state required for atomic execution.
+ */
+message TradeMandate {
+  string id = 1;
+  string tenant_id = 2;
+  string buyer_id = 3;
+  string seller_id = 4;
+  
+  string product_name = 5;
+  double quantity = 6;
+  string unit = 7;
+  
+  Money target_price = 8;
+  TradeStatus status = 9;
+  
+  uint32 version = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+message Money {
+  double amount = 1;
+  string currency = 2;
+}
+
+enum TradeStatus {
+  TRADE_STATUS_UNSPECIFIED = 0;
+  TRADE_STATUS_DRAFT = 1;
+  TRADE_STATUS_OPEN = 2;
+  TRADE_STATUS_NEGOTIATION = 3;
+  TRADE_STATUS_FINALIZED = 4;
+  TRADE_STATUS_LOCKED = 5;
+  TRADE_STATUS_IN_TRANSIT = 6;
+  TRADE_STATUS_DELIVERED = 7;
+  TRADE_STATUS_SETTLED = 8;
+}
+
+service OmegaTradeService {
+  rpc ExecuteHandshake(TradeMandate) returns (HandshakeResponse);
+  rpc StreamOperationalPulse(StreamRequest) returns (stream OperationalSignal);
+}
+
+message HandshakeResponse {
+  string correlation_id = 1;
+  string signature = 2;
+  bool success = 3;
+}
+
+message StreamRequest {
+  string cluster_id = 1;
+}
+
+message OperationalSignal {
+  string source_node = 1;
+  string message = 2;
+  double intensity = 3;
+}

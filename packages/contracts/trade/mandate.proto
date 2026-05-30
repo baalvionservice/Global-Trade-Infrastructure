@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package baalvion.trade.v1;
+
+import "google/protobuf/timestamp.proto";
+
+/**
+ * THE AUTHORITATIVE TRADE MANDATE CONTRACT
+ */
+service TradeOrchestrator {
+  rpc ExecuteHandshake(MandateRequest) returns (MandateResponse);
+  rpc AuthorizeSettlement(SettlementRequest) returns (SettlementResponse);
+}
+
+message MandateRequest {
+  string mandate_id = 1;
+  string tenant_id = 2;
+  string buyer_id = 3;
+  string seller_id = 4;
+  double amount = 5;
+  string currency = 6;
+  google.protobuf.Timestamp issued_at = 7;
+}
+
+message MandateResponse {
+  string event_id = 1;
+  string status = 2;
+  string signature = 3;
+  google.protobuf.Timestamp finalized_at = 4;
+}
+
+message SettlementRequest {
+  string mandate_id = 1;
+  string release_trigger = 2;
+  bytes evidence_hash = 3;
+}
+
+message SettlementResponse {
+  bool success = 1;
+  string ledger_index = 2;
+}

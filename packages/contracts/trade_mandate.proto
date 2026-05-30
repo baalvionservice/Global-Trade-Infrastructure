@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package baalvion.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+/**
+ * @file trade_mandate.proto
+ * @description Authoritative schema for planetary trade mandates.
+ */
+
+service TradeExecutionService {
+  rpc ExecuteMandate(SingularityMandate) returns (MandateFinality);
+  rpc StreamEvents(EventFilter) returns (stream SovereignEvent);
+}
+
+message SingularityMandate {
+  string id = 1;
+  string domain = 2;
+  string entity_id = 3;
+  string action = 4;
+  google.protobuf.Struct payload = 5;
+  Metadata metadata = 6;
+}
+
+message Metadata {
+  string tenant_id = 1;
+  string actor_id = 2;
+  string correlation_id = 3;
+  string signature = 4;
+  int32 version = 5;
+}
+
+message MandateFinality {
+  string event_id = 1;
+  string status = 2;
+  int32 version = 3;
+  string state_hash = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message SovereignEvent {
+  string id = 1;
+  string type = 2;
+  google.protobuf.Struct payload = 3;
+  Metadata metadata = 4;
+}
+
+message EventFilter {
+  string tenant_id = 1;
+  string domain = 2;
+}
