@@ -72,6 +72,7 @@ export const PATHS = {
   
   // 6. COMPLIANCE & CUSTOMS
   KYC: '/compliance/kyc',
+  SANCTIONS_SCREENING: '/sanctions-screening',
   CUSTOMS_COMMAND: '/governance/customs',
   REGULATORY_INTEL: '/governance/regulatory',
   COMPLIANCE_CONTROL: '/governance/compliance',
