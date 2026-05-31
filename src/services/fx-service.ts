@@ -1,10 +1,13 @@
-
 /**
  * @file fx-service.ts
  * @description Foreign exchange engine for institutional trade conversion.
- * Enhanced with time-bound quoting and rate lock capabilities.
+ *
+ * Now backed by the REAL fx-service (financial-services-java :3038) via the auth-gateway BFF
+ * (/finance-bff/fx/*) through the typed SDK in `@/services/finance`. Rate-locks are genuine,
+ * server-issued firm quotes held for a validity window (no client-minted quotes). The legacy
+ * function/shape contract is preserved so existing callers compile unchanged.
  */
-import { apiClient } from '@/lib/api-client';
+import { fx } from '@/services/finance';
 import { logger } from './observability-service';
 
 export interface FXRate {
@@ -23,64 +26,71 @@ export interface FXQuote {
   status: 'active' | 'used' | 'expired';
 }
 
+const num = (v: unknown): number => (typeof v === 'number' ? v : Number(v) || 0);
+
+function lockStatusToQuote(s: string): FXQuote['status'] {
+  if (s === 'EXECUTED') return 'used';
+  if (s === 'EXPIRED' || s === 'CANCELLED') return 'expired';
+  return 'active';
+}
+
 /**
- * Retrieves the current conversion rate between two institutional currencies.
+ * Retrieves the current mid conversion rate between two institutional currencies from the live
+ * FX engine (short-TTL snapshot). Falls back to a static table ONLY if the API is unreachable.
  */
 export async function getFXRate(from: string, to: string): Promise<number> {
   if (from === to) return 1.0;
-
-  // Real FX provider (Frankfurter/ECB live, with backend circuit-breaker fallback).
-  const res = await apiClient.get<{ rate: number }>('/fx/rates', { base: from, target: to });
-  if (res.success && res.data && typeof res.data.rate === 'number') {
-    return res.data.rate;
+  try {
+    const r = await fx.rate(from, to);
+    const rate = num(r.midRate);
+    if (rate > 0) return rate;
+  } catch (e) {
+    logger.warn('FXEngine', `RATE_FALLBACK ${from}/${to}: ${(e as Error)?.message}`);
   }
-
-  // Client-side static fallback (only if the API is unreachable).
-  const mockRates: Record<string, number> = {
-    'USD_INR': 83.45,
-    'USD_EUR': 0.92,
-    'USD_SGD': 1.35,
-    'EUR_USD': 1.09,
-    'INR_USD': 0.012,
+  const fallback: Record<string, number> = {
+    USD_INR: 83.45, USD_EUR: 0.92, USD_SGD: 1.35, EUR_USD: 1.09, INR_USD: 0.012,
   };
-
-  const key = `${from}_${to}`;
-  if (mockRates[key]) return mockRates[key];
-
-  return 1.0; 
+  return fallback[`${from}_${to}`] ?? 1.0;
 }
 
 /**
- * Generates a time-bound FX quote (60-second lock) for a trade transaction.
+ * Issues a real, time-bound FX rate-lock (firm quote) for a trade transaction. `amount` is the
+ * sell-side notional being locked; defaults to a unit quote when omitted.
  */
-export async function requestFXQuote(from: string, to: string): Promise<FXQuote> {
-  const currentRate = await getFXRate(from, to);
-  
-  const res = await apiClient.post<FXQuote>('/fx_quotes', {
-    baseCurrency: from,
-    targetCurrency: to,
-    rate: currentRate,
-    expiresAt: new Date(Date.now() + 60000).toISOString(), // 60s lock
-    status: 'active'
-  });
-
-  logger.info('FXEngine', `QUOTE_ISSUED: ${from}/${to} @ ${currentRate}`);
-  return res.data!;
+export async function requestFXQuote(from: string, to: string, amount = 1): Promise<FXQuote> {
+  const lock = await fx.lock({ sellCurrency: from, buyCurrency: to, sellAmount: amount });
+  logger.info('FXEngine', `QUOTE_ISSUED: ${from}/${to} @ ${lock.lockedRate} (lock ${lock.id})`);
+  return {
+    id: lock.id,
+    baseCurrency: lock.sellCurrency,
+    targetCurrency: lock.buyCurrency,
+    rate: num(lock.lockedRate),
+    expiresAt: lock.expiresAt,
+    status: lockStatusToQuote(lock.status),
+  };
 }
 
 /**
- * Validates if an FX quote is still active and authorized for use.
+ * Validates that an FX rate-lock is still active and authorized for use, reading the live lock
+ * state from the FX engine.
  */
 export async function validateQuote(quoteId: string): Promise<FXQuote> {
-  const res = await apiClient.getDoc<FXQuote>('/fx_quotes', quoteId);
-  const quote = res.data;
+  const lock = await fx.getLock(quoteId);
+  const status = lockStatusToQuote(lock.status);
+  if (status === 'used') throw new Error('Quote has already been consumed.');
+  if (status === 'expired' || new Date(lock.expiresAt) < new Date()) throw new Error('Quote has expired.');
+  return {
+    id: lock.id,
+    baseCurrency: lock.sellCurrency,
+    targetCurrency: lock.buyCurrency,
+    rate: num(lock.lockedRate),
+    expiresAt: lock.expiresAt,
+    status,
+  };
+}
 
-  if (!quote) throw new Error('Quote identifier not found.');
-  if (quote.status !== 'active') throw new Error('Quote has already been consumed.');
-  if (new Date(quote.expiresAt) < new Date()) {
-    await apiClient.patch(`/fx_quotes/${quoteId}`, { status: 'expired' });
-    throw new Error('Quote has expired.');
-  }
-
-  return quote;
+/** Executes a previously issued rate-lock into a settled spot conversion at the locked rate. */
+export async function executeFXQuote(quoteId: string): Promise<{ id: string; buyAmount: number; rate: number }> {
+  const conv = await fx.executeLock(quoteId);
+  return { id: conv.id, buyAmount: num(conv.buyAmount), rate: num(conv.rate) };
 }

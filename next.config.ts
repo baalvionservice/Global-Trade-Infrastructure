@@ -57,6 +57,10 @@ const nextConfig: NextConfig = {
     return [
       { source: '/trade-bff/auth/:path*', destination: `${gateway}/auth/:path*` },
       { source: '/trade-bff/:path*', destination: `${gateway}/api/trade/v1/:path*` },
+      // Finance microservices (trade-finance/credit/fx/wallet) — same gateway, same session
+      // cookies + CSRF + signed identity; the gateway routes /api/<resource> to the Java
+      // resource server (financial-services-java) and prepends its /api/v1 base path.
+      { source: '/finance-bff/:path*', destination: `${gateway}/api/:path*` },
     ];
   },
   images: {
