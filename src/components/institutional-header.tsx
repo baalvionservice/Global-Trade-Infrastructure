@@ -77,7 +77,7 @@ export function InstitutionalHeader() {
 
         <div className="flex items-center gap-6">
           <Link href={PATHS.LOGIN || '/login'} className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 hover:text-primary transition-colors hidden lg:flex items-center gap-2">
-            <Globe className="h-3 w-3" /> Institutional Login
+            <Globe className="h-3 w-3" aria-hidden="true" /> Institutional Login
           </Link>
           <Button size="lg" className="font-black h-12 px-8 bg-white text-slate-950 rounded-none shadow-2xl hidden sm:flex hover:bg-slate-200" asChild>
             <Link href={PATHS.ACCESS_REQUEST || '#'}>Access Portal</Link>
@@ -85,7 +85,7 @@ export function InstitutionalHeader() {
           
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden rounded-none border border-white/10 h-11 w-11">
+              <Button variant="ghost" size="icon" className="md:hidden rounded-none border border-white/10 h-11 w-11" aria-label="Open navigation menu">
                 <Menu className="h-6 w-6 text-white" />
               </Button>
             </SheetTrigger>

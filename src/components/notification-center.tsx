@@ -50,7 +50,7 @@ export function NotificationCenter() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="relative rounded-full">
+        <Button variant="outline" size="icon" className="relative rounded-full" aria-label="Open notifications">
           <Bell className="h-5 w-5" />
           {unreadCount > 0 && (
             <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-destructive text-destructive-foreground border-2 border-background">

@@ -36,7 +36,7 @@ export function DashboardHeader() {
       {isMobile && (
         <Sheet>
           <SheetTrigger asChild>
-            <Button size="icon" variant="outline" className="border-2 rounded-xl h-11 w-11 shadow-sm mr-4">
+            <Button size="icon" variant="outline" className="border-2 rounded-xl h-11 w-11 shadow-sm mr-4" aria-label="Open navigation menu">
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
@@ -84,10 +84,10 @@ export function DashboardHeader() {
       <div className="flex items-center gap-3 md:gap-5">
         {!isMobile && (
           <div className="hidden xl:flex gap-3 mr-2">
-             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-2xl border-2 border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)}>
+             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-2xl border-2 border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all" onClick={() => router.push(PATHS.EXECUTIVE_COMMAND)} aria-label="Executive command center">
                 <Zap className="h-5 w-5 text-primary" />
              </Button>
-             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-2xl border-2 border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all" onClick={() => router.push(PATHS.FIELD_OPERATIONS)}>
+             <Button variant="ghost" size="icon" className="h-11 w-11 rounded-2xl border-2 border-transparent hover:border-primary/20 hover:bg-primary/5 transition-all" onClick={() => router.push(PATHS.FIELD_OPERATIONS)} aria-label="Field operations">
                 <Activity className="h-5 w-5 text-primary" />
              </Button>
           </div>
