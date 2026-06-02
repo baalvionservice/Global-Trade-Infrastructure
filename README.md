@@ -1,3 +1,7 @@
+<div align="center">
+  <img src=".github/preview.png" alt="Baalvion - Global Trade Operating System (baalvion.com)" width="100%" />
+</div>
+
 # Baalvion Global Trade Platform
 
 This project is the frontend for the Baalvion Global Trade Platform, a sophisticated dashboard for managing international trade operations. It's built with Next.js (App Router), TypeScript, ShadCN UI, and Tailwind CSS.
