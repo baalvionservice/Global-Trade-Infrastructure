@@ -33,7 +33,8 @@ export const participantIntelligence = {
       companyId,
       reliabilityScore: trust,
       metrics: {
-        fulfillmentRate: trust + (Math.random() * 5),
+        // Derived deterministically from the real trust score — no random jitter.
+        fulfillmentRate: Math.min(100, trust),
         avgSettlementTime: trust > 80 ? '< 4h' : '< 24h',
         disputeRate: Math.max(0, (100 - trust) / 20),
         corridorSpecialization: ['APAC-US', 'EU-India'],

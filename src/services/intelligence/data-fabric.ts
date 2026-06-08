@@ -15,7 +15,7 @@ export interface FabricRecord {
   provenance: {
     nodeId: string;
     timestamp: string;
-    signature: string;
+    signature?: string; // node attestation assigned by the fabric backend
   }[];
   integrityScore: number;
 }
@@ -59,9 +59,11 @@ class SovereignDataFabric {
         verifiedDocumentCount: compliance.filter(d => d.status === 'verified').length,
         syncStatus: 'SYNCHRONIZED'
       },
+      // Node attestation signatures are produced by the fabric backend, not the
+      // client; provenance entries carry node + timestamp only.
       provenance: [
-        { nodeId: 'LOG_01', timestamp: new Date().toISOString(), signature: `0x${Math.random().toString(16).substring(2, 40)}` },
-        { nodeId: 'TREAS_02', timestamp: new Date().toISOString(), signature: `0x${Math.random().toString(16).substring(2, 40)}` }
+        { nodeId: 'LOG_01', timestamp: new Date().toISOString() },
+        { nodeId: 'TREAS_02', timestamp: new Date().toISOString() }
       ],
       integrityScore: 0.9998
     };

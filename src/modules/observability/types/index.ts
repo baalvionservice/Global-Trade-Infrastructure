@@ -19,7 +19,7 @@ export interface TelemetryPoint {
   unit: string;
   nodeId: string;
   timestamp: string;
-  integrityHash: string; // SHA-256 bound to parent node
+  integrityHash?: string; // SHA-256 bound to parent node — assigned server-side, never client-fabricated
 }
 
 /**

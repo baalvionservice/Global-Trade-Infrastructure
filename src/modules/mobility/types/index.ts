@@ -27,7 +27,7 @@ export interface SyncQueueItem {
   payload: any;
   timestamp: string;
   retryCount: number;
-  hash: string;
+  hash?: string; // integrity hash assigned by the backend; never client-fabricated
 }
 
 export interface FieldWorkflow {

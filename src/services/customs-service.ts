@@ -34,11 +34,12 @@ class CustomsService {
   async submitDeclaration(data: Partial<CustomsEntry>): Promise<CustomsEntry> {
     logger.info('Customs_Orchestrator', `SUBMITTING_DECLARATION: Shipment ${data.shipmentId}`);
 
+    // The audit hash is authoritative and must be computed server-side. A
+    // client-fabricated hash would be a fake integrity proof, so it is omitted.
     const res = await apiClient.post<CustomsEntry>('/customs_entries', {
       ...data,
       status: 'PENDING',
       timestamp: new Date().toISOString(),
-      auditHash: `sha256_0x${Math.random().toString(16).substring(2, 64)}`
     });
 
     await eventBus.publish('SIGNAL_ANOMALY_DETECTED' as any, { 

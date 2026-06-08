@@ -47,9 +47,10 @@ class HardeningService {
     
     metricsService.recordMetric('hardening_audits_passed', 1);
     
+    // integrityHash is a cryptographic proof owned by the hardening backend;
+    // the client never fabricates one.
     return {
       success: true,
-      integrityHash: '0x88fA992...STABLE',
       recommendations: ['Increase write-buffer on APAC node', 'Synchronize Swiss standby cluster']
     };
   }

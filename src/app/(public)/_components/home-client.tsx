@@ -232,7 +232,7 @@ export function HomeClient() {
                              <div className="p-3 rounded-2xl bg-white/5"><Lock className="h-6 w-6 text-indigo-400" /></div>
                              <div className="space-y-1">
                                 <p className="text-[10px] font-black text-slate-500 uppercase">Auth Signature</p>
-                                <p className="text-sm font-mono text-slate-400 truncate">sha256_0x88fA992d99c42...</p>
+                                <p className="text-sm font-mono text-slate-400 truncate">SHA-256 HMAC · issued per request</p>
                              </div>
                           </div>
                        </div>

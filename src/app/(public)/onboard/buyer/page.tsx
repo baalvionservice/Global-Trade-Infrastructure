@@ -45,9 +45,8 @@ export default function BuyerOnboardingWizard() {
   const [step, setStep] = useState(0);
   const [docs, setDocs] = useState<Record<string, string>>({});
   const [checkIndex, setCheckIndex] = useState(0);
-  const [creditScore, setCreditScore] = useState(0);
 
-  // Step 4 (index 3): simulate the AI KYC pipeline, then advance to approval.
+  // Step 4 (index 3): walk through the KYC checklist, then advance to approval.
   useEffect(() => {
     if (step !== 3) return;
     setCheckIndex(0);
@@ -55,7 +54,6 @@ export default function BuyerOnboardingWizard() {
       setCheckIndex((prev) => {
         if (prev >= KYC_CHECKS.length - 1) {
           clearInterval(interval);
-          setCreditScore(720 + Math.floor(Math.random() * 180));
           setTimeout(() => setStep(4), 700);
           return prev;
         }
@@ -192,8 +190,8 @@ export default function BuyerOnboardingWizard() {
                     <div className="grid grid-cols-2 gap-5 max-w-md mx-auto">
                       <div className="p-6 rounded-3xl border-2 bg-muted/20 space-y-1">
                         <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Trade Credit Score</p>
-                        <p className="text-4xl font-black text-primary tabular-nums tracking-tighter">{creditScore}</p>
-                        <p className="text-[9px] font-bold text-muted-foreground">of 1000</p>
+                        <p className="text-lg font-black text-primary tracking-tight">Pending Assessment</p>
+                        <p className="text-[9px] font-bold text-muted-foreground">Issued after your first transactions</p>
                       </div>
                       <div className="p-6 rounded-3xl border-2 bg-muted/20 space-y-2 flex flex-col justify-center">
                         <div className="flex items-center justify-center gap-2 text-emerald-600"><Sparkles className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">Welcome Bonus</span></div>

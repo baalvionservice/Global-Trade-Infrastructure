@@ -21,17 +21,9 @@ export const telemetryService = {
       order: 'desc' 
     });
     
-    // Mock fallback for high-fidelity demo
-    return res.data?.[0] || {
-      timestamp: new Date().toISOString(),
-      gps: { lat: 31.2304, lng: 121.4737, speed: 12.4 },
-      environmental: { 
-        temperature: 22.4 + (Math.random() * 2), 
-        humidity: 45 + (Math.random() * 5),
-        shock: 0.1 
-      },
-      sealIntact: true
-    };
+    // Return the real reading or null. Fabricated sensor values (random
+    // temperature/humidity) would misrepresent live telemetry, so none are synthesized.
+    return res.data?.[0] ?? null;
   },
 
   /**

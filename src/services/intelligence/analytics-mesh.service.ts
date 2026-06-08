@@ -37,11 +37,12 @@ class AnalyticsMeshService {
    */
   async resolveDataProduct(domain: string) {
     logger.info('AnalyticsMesh', `RESOLVING_DOMAIN_PRODUCT: ${domain}`);
+    // lineageHash is a cryptographic provenance proof owned by the mesh backend;
+    // the client never fabricates one.
     return {
       domain,
       status: 'HEALTHY',
       freshnessSeconds: 14,
-      lineageHash: 'sha256_0x88fA992...'
     };
   }
 }

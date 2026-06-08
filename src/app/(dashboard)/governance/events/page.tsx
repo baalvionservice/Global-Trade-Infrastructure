@@ -47,16 +47,21 @@ export default function EventCommandCenterPage() {
     };
 
     eventBus.subscribe('*', (payload) => {
-       const mockEvent: PlatformEvent = {
+       // Severity reflects the real event payload when present; it is never
+       // fabricated. Unclassified signals default to INFO.
+       const severity = (payload?.severity === 'CRITICAL' || payload?.severity === 'WARNING')
+         ? payload.severity
+         : 'INFO';
+       const liveEvent: PlatformEvent = {
          id: `EVT-${Math.random().toString(36).substring(7).toUpperCase()}`,
-         type: 'CROSS_LAYER_CONTEXT_PROPAGATED',
-         severity: Math.random() > 0.9 ? 'CRITICAL' : 'INFO',
+         type: payload?.type ?? 'CROSS_LAYER_CONTEXT_PROPAGATED',
+         severity,
          payload,
-         source: 'CORE_KERNEL',
-         timestamp: new Date().toISOString(),
-         correlationId: 'IDEM-992'
+         source: payload?.source ?? 'CORE_KERNEL',
+         timestamp: payload?.timestamp ?? new Date().toISOString(),
+         correlationId: payload?.correlationId ?? 'IDEM-992'
        };
-       if (isStreaming) addEvent(mockEvent);
+       if (isStreaming) addEvent(liveEvent);
     });
   }, [addEvent, isStreaming]);
 

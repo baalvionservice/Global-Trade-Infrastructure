@@ -118,7 +118,8 @@ class DocumentService {
       doc_type: data.type,
       title: data.fileName,
       file_url: `https://vault.baalvion.gov/files/${companyId}/${data.referenceId}/${data.fileName}`,
-      file_hash: `sha256_0x${Math.random().toString(16).substring(2, 18)}`,
+      // file_hash (cryptographic fingerprint) is computed by the vault backend
+      // on the stored bytes. A client-side hash would be a fake integrity proof.
       status: 'vaulted',
       classification: data.classification || 'OPERATIONAL',
       version: newVersion,

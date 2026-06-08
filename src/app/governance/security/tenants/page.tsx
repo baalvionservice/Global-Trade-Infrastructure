@@ -103,7 +103,7 @@ export default function TenantGovernancePage() {
                                       </div>
                                       <div className="space-y-1">
                                          <p className="font-black text-lg uppercase tracking-tighter text-foreground">{tenant.institutionName}</p>
-                                         <p className="text-[9px] font-bold text-muted-foreground uppercase opacity-40 tracking-widest">ID: {tenant.id} • {tenant.activeSessions} Active Handshakes</p>
+                                         <p className="text-[9px] font-bold text-muted-foreground uppercase opacity-40 tracking-widest">ID: {tenant.id}{typeof tenant.activeSessions === 'number' ? ` • ${tenant.activeSessions} Active Handshakes` : ''}</p>
                                       </div>
                                    </div>
                                 </TableCell>

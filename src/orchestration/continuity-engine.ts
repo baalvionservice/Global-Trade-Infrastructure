@@ -28,7 +28,6 @@ class ContinuityEngine {
       step,
       data,
       timestamp: new Date().toISOString(),
-      hash: `0x${Math.random().toString(16).substring(2, 64)}`
     };
 
     if (typeof window !== 'undefined') {

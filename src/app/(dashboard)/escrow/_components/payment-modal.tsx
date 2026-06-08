@@ -92,7 +92,7 @@ export function PaymentModal({ isOpen, onClose, amount, currency, escrowId, orde
             </div>
             <h3 className="text-2xl font-bold">Settlement Confirmed</h3>
             <p className="text-muted-foreground max-w-xs text-sm">
-              The amount of {currency} {amount.toLocaleString()} has been securely moved to platform escrow. Ledger ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}
+              The amount of {currency} {amount.toLocaleString()} has been securely moved to platform escrow.
             </p>
             <Button className="w-full mt-6" onClick={handleClose}>Return to Escrow</Button>
           </div>
