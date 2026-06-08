@@ -6,6 +6,7 @@
 import { apiClient } from '@/lib/api-client';
 import { eventBus } from './event-bus';
 import { logger, metricsService } from './observability-service';
+import { requireSessionOrgId } from './session-org';
 
 export type DocumentType = 
   | 'commercial_invoice' 
@@ -99,7 +100,8 @@ class DocumentService {
     classification?: DocumentClassification;
     companyId?: string;
   }): Promise<TradeDocument> {
-    const companyId = data.companyId || 'COMP-101';
+    // Vault ownership must be the authenticated org, not a fixed demo tenant.
+    const companyId = data.companyId || (await requireSessionOrgId());
     logger.info('DocumentVault', `INITIATING_VAULT_PROTOCOL: ${data.fileName}`);
 
     // 1. Resolve lineage version (count existing docs of this type for the entity).

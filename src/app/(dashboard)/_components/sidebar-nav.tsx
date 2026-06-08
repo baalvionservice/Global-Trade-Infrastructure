@@ -8,21 +8,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useAppState } from './app-state';
-import { USER_ROLES } from '@/core/roles';
 import { useWorkspaceStore } from '@/modules/workspace/store/workspace-store';
 import { ROUTE_REGISTRY, RouteMetadata, RouteCategory, CATEGORY_ORDER } from '@/core/routes';
+import { getPersona, personaAllowsPath } from '@/core/personas';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
-// Privileged roles see the FULL navigation rail (every section + all admin/sovereign panels),
-// rather than the role-scoped subset a buyer/seller node would see.
-const FULL_ACCESS_ROLES: string[] = [
-  USER_ROLES.SUPER_ADMIN,
-  USER_ROLES.PLATFORM_ADMIN,
-  USER_ROLES.SOVEREIGN_ADMIN,
-  USER_ROLES.SOVEREIGN_OPERATOR,
-  USER_ROLES.ORG_OWNER,
-  USER_ROLES.EXECUTIVE_DIRECTOR,
-];
 
 // Sections expanded by default — the high-traffic operational + governance ones. The rest stay
 // collapsed (one click to open) so the rail is scannable, not a wall of links.
@@ -37,10 +26,10 @@ export function SidebarNav({ collapsed }: SidebarNavProps) {
   const { role } = useAppState();
   const { addTab } = useWorkspaceStore();
 
-  // Role authority: privileged roles see everything, operational roles see their scoped subset.
-  const visibleRoutes = FULL_ACCESS_ROLES.includes(role)
-    ? ROUTE_REGISTRY
-    : ROUTE_REGISTRY.filter((route) => route.roles.includes(role));
+  // Persona authority: each persona sees only the modules curated for its mandate. The sovereign /
+  // platform tiers carry the `'*'` allowlist and therefore see the full registry (god-view).
+  const persona = getPersona(role);
+  const visibleRoutes = ROUTE_REGISTRY.filter((route) => personaAllowsPath(persona, route.path));
 
   const byCategory = (cat: RouteCategory): RouteMetadata[] =>
     visibleRoutes.filter((r) => r.category === cat);

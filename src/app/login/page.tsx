@@ -18,6 +18,7 @@ import { BaalvionLogo } from '@/components/icons';
 import { ShieldCheck, Lock, Loader2, Globe, AlertCircle, KeyRound } from 'lucide-react';
 import { PATHS } from '@/lib/paths';
 import { useAppState } from '@/app/(dashboard)/_components/app-state';
+import { getPersonaHome } from '@/core/personas';
 import { motion } from 'framer-motion';
 
 export default function LoginPage() {
@@ -37,8 +38,14 @@ export default function LoginPage() {
     const password = (form.elements.namedItem('password') as HTMLInputElement)?.value;
     const mfaCode = (form.elements.namedItem('mfaCode') as HTMLInputElement)?.value || undefined;
     try {
-      await login(email, password, mfaCode);
-      router.push(PATHS.DASHBOARD);
+      const resolvedRole = await login(email, password, mfaCode);
+      // Route to where this persona belongs: an explicit ?redirect= wins (deep-link gate),
+      // otherwise the persona's own console — never a generic shared dashboard. Read the param
+      // from the URL at click-time (client-only) so the page needs no useSearchParams Suspense gate.
+      const redirectTo = typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search).get('redirect')
+        : null;
+      router.push(redirectTo || getPersonaHome(resolvedRole));
     } catch (err) {
       const code = (err as Error & { code?: string }).code;
       const message = (err as Error).message;
@@ -132,7 +139,10 @@ export default function LoginPage() {
               </div>
             </CardHeader>
             <CardContent className="space-y-8 pt-10">
-              <form onSubmit={handleLogin} className="space-y-6">
+              {/* method="post" is a safety net: if a submit fires before React hydrates (slow/failed JS),
+                  the browser's native fallback sends credentials in the POST body instead of leaking them
+                  into the URL/history via the default GET. Once hydrated, handleLogin's preventDefault wins. */}
+              <form onSubmit={handleLogin} method="post" className="space-y-6">
                 <div className="space-y-3">
                   <Label htmlFor="email" className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Corporate Identifier</Label>
                   <div className="relative group">

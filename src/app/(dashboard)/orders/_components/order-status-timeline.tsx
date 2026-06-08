@@ -14,7 +14,8 @@ const steps = [
   { id: 'processing', label: 'Processing', icon: Package },
   { id: 'shipped', label: 'Shipped', icon: Truck },
   { id: 'delivered', label: 'Delivered', icon: Home },
-  { id: 'completed', label: 'Completed', icon: Check },
+  // 'delivered' is the terminal UI state (the order mapper collapses delivered+closed → delivered),
+  // so a delivered order fills the timeline to 100% with no dangling 'completed' step.
 ];
 
 export function OrderStatusTimeline({ status }: OrderStatusTimelineProps) {

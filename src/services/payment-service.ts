@@ -11,6 +11,7 @@ import { markEscrowAsFunded } from './escrow-service';
 export { markEscrowAsFunded } from './escrow-service';
 import { getFXRate } from './fx-service';
 import { logger } from './observability-service';
+import { resolveSessionOrgId } from './session-org';
 
 export type PaymentMethod = 'wallet' | 'bank' | 'card';
 export type TransactionStatus = 'pending' | 'processing' | 'completed' | 'failed' | 'reversed' | 'held';
@@ -38,9 +39,13 @@ export interface Transaction {
 
 /**
  * Retrieves the institutional wallet for a specific company and currency.
+ * When `companyId` is omitted it is resolved from the authenticated session; if there
+ * is no session the call returns null rather than leaking another tenant's wallet.
  */
-export async function getWalletByCurrency(currency: string, companyId: string = 'COMP-101'): Promise<Wallet | null> {
-  const res = await apiClient.get<Wallet[]>('/wallets', { companyId, currency });
+export async function getWalletByCurrency(currency: string, companyId?: string): Promise<Wallet | null> {
+  const orgId = companyId ?? (await resolveSessionOrgId());
+  if (!orgId) return null;
+  const res = await apiClient.get<Wallet[]>('/wallets', { companyId: orgId, currency });
   return res.data?.[0] || null;
 }
 
@@ -57,7 +62,10 @@ export async function fundEscrow(data: {
   method: PaymentMethod;
   companyId?: string;
 }): Promise<boolean> {
-  const companyId = data.companyId || 'COMP-101';
+  const companyId = data.companyId || (await resolveSessionOrgId());
+  if (!companyId) {
+    throw new Error('Cannot fund escrow: no authenticated organization in session.');
+  }
   logger.info('PaymentService', `FUNDING_ESCROW: Ref ${data.escrowId} for amount ${data.amount} ${data.orderCurrency}`);
 
   // 1. Calculate Settlement Amount (FX Simulation)
@@ -82,17 +90,23 @@ export async function fundEscrow(data: {
 }
 
 export async function getWallet(): Promise<Wallet | undefined> {
-  const res = await apiClient.get<Wallet[]>('/wallets', { companyId: 'COMP-101', currency: 'USD' });
+  const companyId = await resolveSessionOrgId();
+  if (!companyId) return undefined;
+  const res = await apiClient.get<Wallet[]>('/wallets', { companyId, currency: 'USD' });
   return toList<Wallet>(res)[0];
 }
 
 export async function getWallets(): Promise<Wallet[]> {
-  const res = await apiClient.get<Wallet[]>('/wallets', { companyId: 'COMP-101' });
+  const companyId = await resolveSessionOrgId();
+  if (!companyId) return [];
+  const res = await apiClient.get<Wallet[]>('/wallets', { companyId });
   return toList(res);
 }
 
 export async function getTransactions(): Promise<Transaction[]> {
-  const res = await apiClient.get<Transaction[]>('/ledger_entries', { companyId: 'COMP-101' });
+  const companyId = await resolveSessionOrgId();
+  if (!companyId) return [];
+  const res = await apiClient.get<Transaction[]>('/ledger_entries', { companyId });
   return toList(res);
 }
 

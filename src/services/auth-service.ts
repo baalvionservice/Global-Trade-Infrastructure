@@ -9,6 +9,7 @@
 import { authApi } from '@/lib/api-client';
 import { apiClient } from '@/lib/api-client';
 import { logger } from './observability-service';
+import { clearSessionOrgCache } from './session-org';
 
 export const authService = {
   /**
@@ -16,6 +17,8 @@ export const authService = {
    */
   async login(email: string, password: string, mfaCode?: string) {
     logger.info('AuthService', `Login attempt: ${email}`);
+    // A new identity invalidates any cached session org so service modules re-resolve it.
+    clearSessionOrgCache();
     const session = await authApi.login(email, password, mfaCode);
     return session.user ?? { id: session.userId, role: session.role, orgId: session.orgId };
   },

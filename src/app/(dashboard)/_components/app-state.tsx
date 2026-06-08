@@ -12,6 +12,8 @@ import { presenceService } from '@/modules/collaboration/services/presence.servi
 import { edgeSync } from '@/modules/mobility/services/edge-sync.service';
 import { mobilityGovernance } from '@/modules/mobility/services/mobility-governance.service';
 import { authApi, clearToken } from '@/lib/api-client';
+import { getPersonaHome } from '@/core/personas';
+import { clearSessionOrgCache } from '@/services/session-org';
 
 // SECURITY (P0): the forgeable base64 `baalvion_trade_session` role cookie has been REMOVED.
 // The session is the httpOnly `refresh_token` cookie (set by trade-service) + the in-memory access
@@ -51,8 +53,10 @@ interface AppState {
   startTour: () => void;
   nextTourStep: () => void;
   endTour: () => void;
-  login: (email: string, password: string, mfaCode?: string) => Promise<void>;
+  login: (email: string, password: string, mfaCode?: string) => Promise<UserRole>;
   logout: () => void;
+  /** The landing route for the current persona — where this role belongs. */
+  homePath: string;
 }
 
 const AppContext = createContext<AppState | undefined>(undefined);
@@ -116,17 +120,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isDemoMode]);
 
-  const login = async (email: string, password: string, mfaCode?: string): Promise<void> => {
+  const login = async (email: string, password: string, mfaCode?: string): Promise<UserRole> => {
     const session = await authApi.login(email, password, mfaCode);
+    // Invalidate any cached session org so service modules resolve THIS account's tenant.
+    clearSessionOrgCache();
     setUserId(session.userId || email);
     setTenantId(session.orgId ? String(session.orgId) : 'T-DEMO');
     setIsAuthenticated(true);
-    setRole(mapAuthorityRole(session.role));
+    const resolvedRole = mapAuthorityRole(session.role);
+    setRole(resolvedRole);
+    // Return the resolved authority so the caller can route to the persona's own console.
+    return resolvedRole;
   };
 
   const logout = (): void => {
     authApi.logout();
     clearToken();
+    clearSessionOrgCache();
     setIsAuthenticated(false);
     setUserId('USR-101');
     setTenantId('T-101');
@@ -148,6 +158,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setActiveScenario(scenario);
       await demoService.injectScenario(scenario);
     },
+    homePath: getPersonaHome(role),
     isTourActive,
     currentTourStep,
     startTour: () => {

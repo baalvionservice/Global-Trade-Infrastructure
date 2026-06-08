@@ -7,6 +7,7 @@ import { apiClient } from '@/lib/api-client';
 import { logger } from './observability-service';
 import { eventBus } from './event-bus';
 import { notificationDispatcher } from './notification-dispatcher';
+import { resolveSessionOrgId } from './session-org';
 
 export type RFQStatus = 
   | 'DRAFT' 
@@ -120,8 +121,8 @@ function mapRfqFromApi(raw: any): RFQ {
     status: STATUS_TO_UI[raw?.status] || 'OPEN',
     createdAt: raw?.created_at || raw?.createdAt || new Date().toISOString(),
     updatedAt: raw?.updated_at || raw?.updatedAt || new Date().toISOString(),
-    orgId: String(raw?.buyer_org_id ?? 'COMP-101'),
-    buyer: { country: country || 'Global', buyer_id: String(raw?.buyer_org_id ?? 'COMP-101'), type: 'institution' },
+    orgId: String(raw?.buyer_org_id ?? ''),
+    buyer: { country: country || 'Global', buyer_id: String(raw?.buyer_org_id ?? ''), type: 'institution' },
     pricing: { target_price: price, currency, pricing_model: incoterm },
     logistics: { destination_port: country, shipment_terms: incoterm },
     compliance: { certifications: [] },
@@ -281,7 +282,11 @@ export async function submitQuote(data: any): Promise<RFQResponse> {
 }
 
 export async function getMyResponses(): Promise<RFQResponse[]> {
-  const res = await apiClient.get<any>('/quotations', { sellerId: 'COMP-102' });
+  // "My" responses are the quotes submitted by the authenticated seller org. Resolve the
+  // real org id from the session; if anonymous, return nothing rather than another tenant's quotes.
+  const sellerId = await resolveSessionOrgId();
+  if (!sellerId) return [];
+  const res = await apiClient.get<any>('/quotations', { sellerId });
   return res.data?.items ?? [];
 }
 
