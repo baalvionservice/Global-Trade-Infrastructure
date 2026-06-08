@@ -142,8 +142,8 @@ export default function OrderExecutionPipeline() {
                            <td className="p-6">
                               <Badge variant="outline" className={cn(
                                  "text-[9px] font-black uppercase h-7 px-3 border-2 rounded-full",
-                                 order.status === 'COMPLETED' ? "bg-green-50 text-green-700 border-green-200" : 
-                                 order.status === 'CANCELLED' ? "bg-red-50 text-red-700 border-red-200" : "bg-muted"
+                                 order.status === 'delivered' ? "bg-green-50 text-green-700 border-green-200" :
+                                 order.status === 'cancelled' ? "bg-red-50 text-red-700 border-red-200" : "bg-muted"
                               )}>{order.status}</Badge>
                            </td>
                            <td className="p-6">
