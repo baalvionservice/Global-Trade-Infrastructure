@@ -17,7 +17,7 @@ export default function PaymentsDashboardPage() {
   useEffect(() => {
     Promise.all([getWallet(), getTransactions()])
       .then(([w, t]) => {
-        setWallet(w);
+        setWallet(w ?? null);
         setTransactions(t);
       })
       .finally(() => setLoading(false));

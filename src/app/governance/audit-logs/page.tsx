@@ -56,8 +56,8 @@ export default function GlobalAuditLedgerPage() {
   }, []);
 
   const filtered = events.filter(e => {
-     const matchesSearch = e.aggregateId.toLowerCase().includes(search.toLowerCase()) ||
-                           e.eventType.toLowerCase().includes(search.toLowerCase());
+     const haystack = `${e.aggregateId ?? ''} ${e.eventType ?? e.type ?? ''}`.toLowerCase();
+     const matchesSearch = haystack.includes(search.toLowerCase());
      return matchesSearch;
   });
 
@@ -132,8 +132,8 @@ export default function GlobalAuditLedgerPage() {
                              <TableCell>
                                 <div className="space-y-1">
                                    <div className="flex items-center gap-3">
-                                      <p className="font-black text-sm uppercase tracking-tight text-foreground">{event.eventType}</p>
-                                      <Badge variant="outline" className="text-[8px] font-black h-5 border-none bg-slate-900 text-white uppercase">{event.aggregateType}</Badge>
+                                      <p className="font-black text-sm uppercase tracking-tight text-foreground">{event.eventType ?? event.type}</p>
+                                      <Badge variant="outline" className="text-[8px] font-black h-5 border-none bg-slate-900 text-white uppercase">{event.aggregateType ?? '—'}</Badge>
                                    </div>
                                    <p className="text-[10px] font-bold text-muted-foreground uppercase opacity-60 tracking-widest">Aggregate: {event.aggregateId}</p>
                                 </div>
@@ -141,7 +141,7 @@ export default function GlobalAuditLedgerPage() {
                              <TableCell>
                                 <div className="flex items-center gap-3">
                                    <div className="p-1.5 rounded-lg bg-muted border shadow-inner"><Cpu className="h-3 w-3 text-muted-foreground" /></div>
-                                   <span className="text-[10px] font-black uppercase tracking-widest text-foreground">{event.metadata.tenantId}</span>
+                                   <span className="text-[10px] font-black uppercase tracking-widest text-foreground">{String(event.metadata?.tenantId ?? '—')}</span>
                                 </div>
                              </TableCell>
                              <TableCell>
