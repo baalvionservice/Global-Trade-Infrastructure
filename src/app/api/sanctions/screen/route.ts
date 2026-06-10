@@ -9,11 +9,23 @@
  * in the integration notes). A request timeout guards against a slow/hung upstream.
  */
 
+import { verifyIdentity, UnauthorizedError } from '@/server/http/identity';
+
+export const runtime = 'nodejs';
+
 const SANCTIONS_API_URL = process.env.SANCTIONS_API_URL || 'http://localhost:3035/api/v1/sanctions';
-const TENANT_ID = process.env.SANCTIONS_TENANT_ID || '00000000-0000-0000-0000-000000000000';
 const TIMEOUT_MS = Number(process.env.SANCTIONS_TIMEOUT_MS || 20000);
 
 export async function POST(req: Request): Promise<Response> {
+  // CR-11: authentication is mandatory and the tenant is the verified principal's
+  // organization, never a hardcoded zero-UUID. Anonymous screening is rejected.
+  let tenantId: string;
+  try {
+    tenantId = verifyIdentity(req).organizationId;
+  } catch (e) {
+    return json({ error: e instanceof UnauthorizedError ? e.message : 'Authentication required.' }, 401);
+  }
+
   let body: { name?: unknown; country?: unknown };
   try {
     body = await req.json();
@@ -34,9 +46,8 @@ export async function POST(req: Request): Promise<Response> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Dev: risk-service runs gateway-trusted (security disabled) and reads X-Tenant-ID.
-        // Prod: route through the gateway, which supplies the verified tenant from the session.
-        'X-Tenant-ID': TENANT_ID,
+        // Tenant is the verified principal's organization (never client-supplied).
+        'X-Tenant-ID': tenantId,
       },
       body: JSON.stringify({ name, country }),
       signal: controller.signal,
