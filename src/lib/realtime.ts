@@ -90,7 +90,9 @@ class RealtimeClient {
   // --- internals ---
   private orgCode(): string | null {
     try {
-      const t = localStorage.getItem(TOKEN_KEY);
+      // In-memory access token only (P0: never localStorage). Decode the JWT
+      // payload to read the org code claim.
+      const t = getAccessToken();
       if (!t) return null;
       return JSON.parse(atob(t.split('.')[1])).orgCode || null;
     } catch { return null; }

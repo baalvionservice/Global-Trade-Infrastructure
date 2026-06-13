@@ -53,7 +53,16 @@ class CompensationEngine {
   }
 
   private async revertOrderState(orderId: string) {
-    await apiClient.patch(`/orders/${orderId}`, { status: 'cancelled' });
+    // Order lifecycle moved to the GTOS order-execution-service: it is a forward-only saga with
+    // NO client status PATCH (the legacy PATCH /orders/:id now 410s). Order cancellation is
+    // driven by compensation events the saga consumes, not a direct mutation. Best-effort log so
+    // a missing cancel path never rejects the compensation chain.
+    logger.warn('CompensationEngine', `ORDER_REVERSAL (saga-driven): ${orderId} — emitting compensation signal`);
+    try {
+      eventBus.publish('ORDER_COMPENSATION_REQUESTED', { orderId });
+    } catch (e) {
+      logger.warn('CompensationEngine', `Order reversal signal failed: ${(e as Error).message}`);
+    }
   }
 }
 

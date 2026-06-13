@@ -1,0 +1,788 @@
+// Baalvion GTI — Orchestration Datastore (Phase 2/3)
+// Source of truth for the TradeTransaction aggregate, workflow/event/audit
+// persistence and the domain projection. Domain side-effects still run through
+// the live backend microservices via the Phase-1 execution adapters; this
+// store makes a single tradeId retrieve the full graph and survive restart,
+// workflow replay and event replay.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Enums (orchestration-owned vocabularies)
+// ──────────────────────────────────────────────────────────────────────────
+
+enum TradeState {
+  RFQ_CREATED
+  RFQ_SUBMITTED
+  RFQ_ACCEPTED
+  RFQ_REJECTED
+  DEAL_CREATED
+  DEAL_NEGOTIATION
+  DEAL_APPROVED
+  ORDER_CREATED
+  ORDER_CONFIRMED
+  ORDER_EXECUTING
+  ESCROW_CREATED
+  ESCROW_FUNDED
+  SHIPMENT_CREATED
+  SHIPMENT_PICKED_UP
+  SHIPMENT_IN_TRANSIT
+  SHIPMENT_CUSTOMS
+  SHIPMENT_DELIVERED
+  SETTLEMENT_PENDING
+  SETTLEMENT_COMPLETED
+  TRADE_COMPLETED
+  TRADE_CANCELLED
+}
+
+enum RiskStatus {
+  PENDING
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+  CLEARED
+  BLOCKED
+}
+
+enum ComplianceStatus {
+  PENDING
+  PASSED
+  FAILED
+  UNDER_REVIEW
+}
+
+enum WorkflowEventType {
+  TRANSITION
+  COMPENSATION
+  GENESIS
+}
+
+enum EventSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum NotificationStatus {
+  QUEUED
+  SENT
+  FAILED
+  READ
+}
+
+enum OrganizationType {
+  PLATFORM_OWNER
+  BUYER
+  SUPPLIER
+  BANK
+  CUSTOMS
+  CARRIER
+  INSURER
+  REGULATOR
+  INSPECTOR
+  GENERIC
+}
+
+enum ComplianceCheckType {
+  KYC
+  KYB
+  AML
+  PEP
+  SANCTIONS
+  COUNTRY_RISK
+  DOCUMENT_VALIDATION
+  TRADE_RISK
+}
+
+enum ComplianceOutcome {
+  PASS
+  FAIL
+  REVIEW
+  BLOCKED
+}
+
+enum FinanceInstrumentType {
+  LETTER_OF_CREDIT
+  BANK_GUARANTEE
+  INVOICE_FINANCING
+  FACTORING
+  SUPPLY_CHAIN_FINANCE
+  PURCHASE_ORDER_FINANCE
+}
+
+enum FinanceStatus {
+  REQUESTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  ACTIVE
+  SETTLED
+  CANCELLED
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Identity & tenancy
+// ──────────────────────────────────────────────────────────────────────────
+
+model Organization {
+  id        String           @id @default(uuid()) @db.Uuid
+  name      String
+  slug      String           @unique
+  type      OrganizationType @default(GENERIC)
+  metadata  Json?
+  version   Int              @default(1)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  deletedAt DateTime?
+
+  users        User[]
+  buyers       Buyer[]
+  suppliers    Supplier[]
+  trades       TradeTransaction[]
+  rfqs         Rfq[]
+  deals        Deal[]
+  orders       Order[]
+  escrows      Escrow[]
+  payments     Payment[]
+  shipments    Shipment[]
+  customs      CustomsDeclaration[]
+  settlements  Settlement[]
+  documents    Document[]
+  notifications Notification[]
+  auditLogs    AuditLog[]
+  riskAssessments    RiskAssessment[]
+  complianceChecks   ComplianceCheck[]
+  financeInstruments TradeFinanceInstrument[]
+  financingRequests  FinancingRequest[]
+
+  @@index([deletedAt])
+  @@map("organizations")
+}
+
+model User {
+  id             String     @id @default(uuid()) @db.Uuid
+  organizationId String     @db.Uuid
+  email          String     @unique
+  name           String
+  status         String     @default("active")
+  metadata       Json?
+  version        Int        @default(1)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  roles        UserRole[]
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model Role {
+  id          String           @id @default(uuid()) @db.Uuid
+  name        String           @unique
+  description String?
+  version     Int              @default(1)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
+
+  permissions RolePermission[]
+  users       UserRole[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id        String           @id @default(uuid()) @db.Uuid
+  resource  String
+  action    String
+  createdAt DateTime         @default(now())
+
+  roles RolePermission[]
+
+  @@unique([resource, action])
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String     @db.Uuid
+  permissionId String     @db.Uuid
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model UserRole {
+  userId String @db.Uuid
+  roleId String @db.Uuid
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model Buyer {
+  id             String    @id @default(uuid()) @db.Uuid
+  organizationId String    @db.Uuid
+  name           String
+  externalRef    String?
+  metadata       Json?
+  version        Int       @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  trades       TradeTransaction[]
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("buyers")
+}
+
+model Supplier {
+  id             String    @id @default(uuid()) @db.Uuid
+  organizationId String    @db.Uuid
+  name           String
+  externalRef    String?
+  metadata       Json?
+  version        Int       @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  trades       TradeTransaction[]
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("suppliers")
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Aggregate root
+// ──────────────────────────────────────────────────────────────────────────
+
+model TradeTransaction {
+  id             String           @id @default(uuid()) @db.Uuid
+  organizationId String           @db.Uuid
+  reference      String           @unique
+  correlationId  String
+
+  buyerId    String? @db.Uuid
+  supplierId String? @db.Uuid
+
+  // Denormalised pointers to the orchestration-owned sub-entity rows (spec).
+  rfqId        String? @db.Uuid
+  dealId       String? @db.Uuid
+  orderId      String? @db.Uuid
+  escrowId     String? @db.Uuid
+  paymentId    String? @db.Uuid
+  shipmentId   String? @db.Uuid
+  customsId    String? @db.Uuid
+  settlementId String? @db.Uuid
+
+  currentState     TradeState       @default(RFQ_CREATED)
+  riskStatus       RiskStatus       @default(PENDING)
+  complianceStatus ComplianceStatus @default(PENDING)
+
+  terms    Json
+  metadata Json?
+
+  version   Int       @default(1)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  buyer        Buyer?       @relation(fields: [buyerId], references: [id])
+  supplier     Supplier?    @relation(fields: [supplierId], references: [id])
+
+  rfq        Rfq?
+  deal       Deal?
+  order      Order?
+  escrow     Escrow?
+  payment    Payment?
+  shipment   Shipment?
+  customs    CustomsDeclaration?
+  settlement Settlement?
+
+  workflowEvents     WorkflowEvent[]
+  documents          Document[]
+  riskAssessments    RiskAssessment[]
+  complianceChecks   ComplianceCheck[]
+  financeInstruments TradeFinanceInstrument[]
+  financingRequests  FinancingRequest[]
+
+  @@index([organizationId])
+  @@index([currentState])
+  @@index([buyerId])
+  @@index([supplierId])
+  @@index([deletedAt])
+  @@index([correlationId])
+  @@map("trade_transactions")
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Domain entities (projection + orchestration-owned references)
+// ──────────────────────────────────────────────────────────────────────────
+
+model Rfq {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  status             String    @default("RFQ_CREATED")
+  commodity          String
+  quantity           Decimal   @db.Decimal(20, 4)
+  unitPrice          Decimal   @db.Decimal(20, 4)
+  currency           String    @default("USD")
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("rfqs")
+}
+
+model Deal {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  status             String    @default("DEAL_CREATED")
+  unitPrice          Decimal   @db.Decimal(20, 4)
+  quantity           Decimal   @db.Decimal(20, 4)
+  currency           String    @default("USD")
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("deals")
+}
+
+model Order {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  status             String    @default("ORDER_CREATED")
+  totalAmount        Decimal   @db.Decimal(20, 4)
+  currency           String    @default("USD")
+  destinationCountry String?
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("orders")
+}
+
+model Escrow {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  status             String    @default("ESCROW_CREATED")
+  amount             Decimal   @db.Decimal(20, 4)
+  currency           String    @default("USD")
+  fxRate             Decimal?  @db.Decimal(20, 8)
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("escrows")
+}
+
+model Payment {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  provider           String?
+  status             String    @default("pending")
+  amount             Decimal   @db.Decimal(20, 4)
+  currency           String    @default("USD")
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("payments")
+}
+
+model Shipment {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  status             String    @default("SHIPMENT_CREATED")
+  carrier            String?
+  origin             String?
+  destination        String?
+  trackingNumber     String?
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("shipments")
+}
+
+model CustomsDeclaration {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  status             String    @default("SHIPMENT_CUSTOMS")
+  country            String?
+  hsCode             String?
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("customs_declarations")
+}
+
+model Settlement {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @unique @db.Uuid
+  externalRef        String?
+  status             String    @default("SETTLEMENT_PENDING")
+  amount             Decimal   @db.Decimal(20, 4)
+  currency           String    @default("USD")
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([deletedAt])
+  @@map("settlements")
+}
+
+model Document {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  tradeTransactionId String?   @db.Uuid
+  entityType         String
+  entityId           String?   @db.Uuid
+  kind               String
+  url                String?
+  hash               String?
+  status             String    @default("active")
+  metadata           Json?
+  version            Int       @default(1)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction? @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([tradeTransactionId])
+  @@index([deletedAt])
+  @@map("documents")
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Workflow / event / audit persistence
+// ──────────────────────────────────────────────────────────────────────────
+
+model WorkflowEvent {
+  id                 String            @id @default(uuid()) @db.Uuid
+  organizationId     String            @db.Uuid
+  tradeTransactionId String            @db.Uuid
+  type               WorkflowEventType @default(TRANSITION)
+  fromState          TradeState?
+  toState            TradeState
+  actorId            String
+  actorRole          String
+  reason             String?
+  correlationId      String
+  metadata           Json?
+  sequence           Int
+  createdAt          DateTime          @default(now())
+
+  tradeTransaction TradeTransaction @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@unique([tradeTransactionId, sequence])
+  @@index([organizationId])
+  @@index([tradeTransactionId])
+  @@index([correlationId])
+  @@map("workflow_events")
+}
+
+model DomainEvent {
+  id            String        @id @default(uuid()) @db.Uuid
+  eventId       String        @unique
+  organizationId String?      @db.Uuid
+  type          String
+  tradeId       String?       @db.Uuid
+  correlationId String
+  userId        String?
+  source        String        @default("CORE")
+  severity      EventSeverity @default(INFO)
+  payload       Json
+  occurredAt    DateTime
+  createdAt     DateTime      @default(now())
+
+  @@index([type])
+  @@index([organizationId])
+  @@index([tradeId])
+  @@index([correlationId])
+  @@map("domain_events")
+}
+
+/// Transactional outbox (CR-6/CR-14): a transition's domain event is written in
+/// the SAME transaction as the state change, then relayed to the bus. The outbox
+/// row is the durable, atomically-consistent record of intent.
+model OutboxEvent {
+  id             String    @id @default(uuid()) @db.Uuid
+  organizationId String    @db.Uuid
+  tradeId        String?   @db.Uuid
+  eventType      String
+  payload        Json
+  correlationId  String
+  status         String    @default("PENDING") // PENDING | PUBLISHED
+  sequence       Int       @default(0)
+  createdAt      DateTime  @default(now())
+  publishedAt    DateTime?
+
+  @@index([status])
+  @@index([organizationId])
+  @@index([tradeId])
+  @@map("outbox_events")
+}
+
+model DeadLetterEvent {
+  id        String   @id @default(uuid()) @db.Uuid
+  eventId   String
+  type      String
+  payload   Json
+  error     String
+  attempts  Int
+  recovered Boolean  @default(false)
+  failedAt  DateTime
+  createdAt DateTime @default(now())
+
+  @@index([eventId])
+  @@index([recovered])
+  @@map("dead_letter_events")
+}
+
+model AuditLog {
+  id             String   @id @default(uuid()) @db.Uuid
+  organizationId String   @db.Uuid
+  tradeId        String?  @db.Uuid
+  entityType     String
+  entityId       String
+  action         String
+  actorId        String
+  actorRole      String?
+  source         String   @default("orchestrator")
+  beforeState    Json?
+  afterState     Json?
+  correlationId  String?
+  ip             String?
+  createdAt      DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([tradeId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model Notification {
+  id             String             @id @default(uuid()) @db.Uuid
+  organizationId String             @db.Uuid
+  userId         String?            @db.Uuid
+  tradeId        String?            @db.Uuid
+  title          String
+  message        String
+  channel        String             @default("inApp")
+  priority       String             @default("medium")
+  type           String             @default("trade")
+  status         NotificationStatus @default(QUEUED)
+  metadata       Json?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([tradeId])
+  @@index([status])
+  @@map("notifications")
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Risk & compliance (Agent 7)
+// ──────────────────────────────────────────────────────────────────────────
+
+model RiskAssessment {
+  id                 String     @id @default(uuid()) @db.Uuid
+  organizationId     String     @db.Uuid
+  tradeTransactionId String     @db.Uuid
+  score              Int
+  level              RiskStatus
+  factors            Json
+  model              String     @default("default-v1")
+  createdAt          DateTime   @default(now())
+
+  organization     Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([tradeTransactionId])
+  @@map("risk_assessments")
+}
+
+model ComplianceCheck {
+  id                 String              @id @default(uuid()) @db.Uuid
+  organizationId     String              @db.Uuid
+  tradeTransactionId String              @db.Uuid
+  type               ComplianceCheckType
+  outcome            ComplianceOutcome
+  subject            String
+  reasons            Json
+  details            Json?
+  createdAt          DateTime            @default(now())
+
+  organization     Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([tradeTransactionId])
+  @@index([type])
+  @@index([outcome])
+  @@map("compliance_checks")
+}
+
+// ──────────────────────────────────────────────────────────────────────────
+// Trade finance (Agent 8)
+// ──────────────────────────────────────────────────────────────────────────
+
+model TradeFinanceInstrument {
+  id                 String                @id @default(uuid()) @db.Uuid
+  organizationId     String                @db.Uuid
+  tradeTransactionId String                @db.Uuid
+  type               FinanceInstrumentType
+  status             FinanceStatus         @default(REQUESTED)
+  amount             Decimal               @db.Decimal(20, 4)
+  currency           String                @default("USD")
+  provider           String?
+  externalRef        String?
+  terms              Json?
+  version            Int                   @default(1)
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction   @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+  requests         FinancingRequest[]
+
+  @@index([organizationId])
+  @@index([tradeTransactionId])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("trade_finance_instruments")
+}
+
+model FinancingRequest {
+  id                 String                @id @default(uuid()) @db.Uuid
+  organizationId     String                @db.Uuid
+  tradeTransactionId String                @db.Uuid
+  instrumentId       String?               @db.Uuid
+  type               FinanceInstrumentType
+  amount             Decimal               @db.Decimal(20, 4)
+  currency           String                @default("USD")
+  status             FinanceStatus         @default(REQUESTED)
+  requestedBy        String
+  decidedBy          String?
+  reason             String?
+  version            Int                   @default(1)
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  deletedAt          DateTime?
+
+  organization     Organization            @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  tradeTransaction TradeTransaction        @relation(fields: [tradeTransactionId], references: [id], onDelete: Cascade)
+  instrument       TradeFinanceInstrument? @relation(fields: [instrumentId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId])
+  @@index([tradeTransactionId])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("financing_requests")
+}

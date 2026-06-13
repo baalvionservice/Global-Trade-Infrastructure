@@ -49,10 +49,6 @@ const TIERS = [
   { key: 'Platinum', color: 'text-indigo-600', min: 900 },
 ];
 
-function resolveTier(score: number) {
-  return [...TIERS].reverse().find((t) => score >= t.min) ?? TIERS[0];
-}
-
 export default function SellerOnboardingWizard() {
   const router = useRouter();
   const [step, setStep] = useState(0);
@@ -61,7 +57,6 @@ export default function SellerOnboardingWizard() {
   const [certDone, setCertDone] = useState(false);
   const [factoryRunning, setFactoryRunning] = useState(false);
   const [factoryVerified, setFactoryVerified] = useState(false);
-  const [score, setScore] = useState(0);
 
   // Step 3 (index 2): simulate AI certificate validation.
   useEffect(() => {
@@ -81,11 +76,6 @@ export default function SellerOnboardingWizard() {
     return () => clearInterval(interval);
   }, [step]);
 
-  // Step 5 (index 4): compute credit score & tier on entry.
-  useEffect(() => {
-    if (step === 4 && score === 0) setScore(680 + Math.floor(Math.random() * 280));
-  }, [step, score]);
-
   const runFactoryCheck = () => {
     setFactoryRunning(true);
     setTimeout(() => { setFactoryRunning(false); setFactoryVerified(true); }, 1800);
@@ -99,7 +89,6 @@ export default function SellerOnboardingWizard() {
 
   const next = () => setStep((s) => Math.min(s + 1, STEPS.length - 1));
   const back = () => setStep((s) => Math.max(s - 1, 0));
-  const tier = resolveTier(score);
 
   return (
     <div className="bg-muted/20 min-h-screen">
@@ -196,25 +185,21 @@ export default function SellerOnboardingWizard() {
 
                 {step === 4 && (
                   <div className="space-y-8 py-2">
-                    <StepHeader icon={Award} title="Credit score & seller tier" sub="Computed from verification depth, documents & trade signals." />
+                    <StepHeader icon={Award} title="Credit score & seller tier" sub="Assessed by our trade-risk engine from your verification depth, documents & trade signals." />
                     <div className="flex items-center justify-center gap-8">
                       <div className="text-center">
-                        <p className="text-5xl font-black text-primary tabular-nums tracking-tighter">{score}</p>
+                        <p className="text-2xl font-black text-primary tracking-tight">Pending Assessment</p>
                         <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Trade Score / 1000</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-4 gap-3">
-                      {TIERS.map((t) => {
-                        const active = t.key === tier.key;
-                        return (
-                          <div key={t.key} className={cn('p-4 rounded-2xl border-2 text-center transition-all', active ? 'border-primary bg-primary/5 scale-105 shadow-lg' : 'border-muted opacity-50')}>
-                            <p className={cn('text-[11px] font-black uppercase tracking-tight', active ? t.color : 'text-muted-foreground')}>{t.key}</p>
-                            {active && <CheckCircle2 className="h-4 w-4 mx-auto mt-2 text-primary" />}
-                          </div>
-                        );
-                      })}
+                      {TIERS.map((t) => (
+                        <div key={t.key} className="p-4 rounded-2xl border-2 text-center border-muted opacity-50">
+                          <p className="text-[11px] font-black uppercase tracking-tight text-muted-foreground">{t.key}</p>
+                        </div>
+                      ))}
                     </div>
-                    <p className="text-center text-xs text-muted-foreground font-medium">You've been assigned <span className="font-black text-foreground uppercase">{tier.key}</span> tier. Higher tiers unlock as your trade history grows.</p>
+                    <p className="text-center text-xs text-muted-foreground font-medium">Your trade score and tier are assigned after assessment completes. Higher tiers unlock as your trade history grows.</p>
                   </div>
                 )}
 
@@ -225,7 +210,7 @@ export default function SellerOnboardingWizard() {
                     </motion.div>
                     <div className="space-y-2">
                       <h2 className="text-3xl font-black uppercase tracking-tighter">Welcome, Verified Seller</h2>
-                      <p className="text-sm text-muted-foreground font-medium">Your <span className="font-black text-foreground">{tier.key}</span> storefront is live. Create your first listing to reach global buyers.</p>
+                      <p className="text-sm text-muted-foreground font-medium">Your storefront is live. Create your first listing to reach global buyers.</p>
                     </div>
                     <div className="flex items-center justify-center gap-2 text-indigo-600"><Sparkles className="h-4 w-4" /><span className="text-[10px] font-black uppercase tracking-widest">First 6 months subscription-free</span></div>
                   </div>

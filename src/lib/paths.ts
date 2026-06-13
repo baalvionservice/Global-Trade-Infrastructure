@@ -19,6 +19,12 @@ export const PATHS = {
   ONBOARD: '/onboard',
   ONBOARD_BUYER: '/onboard/buyer',
   ONBOARD_SELLER: '/onboard/seller',
+  ONBOARD_ENTERPRISE: '/onboard/enterprise',
+  ONBOARD_BANKING: '/onboard/banking',
+  ONBOARD_CUSTOMS: '/onboard/customs',
+  ONBOARD_LOGISTICS: '/onboard/logistics',
+  GOVERNANCE_ONBOARDING: '/governance/onboarding',
+  GOVERNANCE_PLATFORM_STATUS: '/governance/platform-status',
   LOGIN: '/login',
   PRIVACY_POLICY: '/privacy',
   TERMS_OF_USE: '/terms',
@@ -96,6 +102,18 @@ export const PATHS = {
   AUTOMATION_OPS: '/governance/automation',
 
   // 9. SYSTEM ADMINISTRATION
+  // Platform console (platform_owner org type only)
+  PLATFORM_ORGANIZATIONS: '/platform/organizations',
+  // Organization self-administration (all org types, owner/admin capability)
+  ORGANIZATION_SETTINGS: '/organization/settings',
+  ORGANIZATION_USERS: '/organization/users',
+  ORGANIZATION_AUDIT: '/organization/audit',
+  // Auth utility routes (public — no session required)
+  ACCEPT_INVITE: '/accept-invite',
+  FORGOT_PASSWORD: '/forgot-password',
+  RESET_PASSWORD: '/reset-password',
+  // Account security (auth-required, covered by /settings prefix)
+  MFA_SETUP: '/settings/mfa',
   PROFILE: '/profile',
   DOCUMENTS: '/documents',
   MESSAGES: '/messages',

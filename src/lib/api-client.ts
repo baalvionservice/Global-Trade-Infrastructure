@@ -179,6 +179,7 @@ export interface AuthSession {
   userId: string;
   role: string;
   orgId?: string | null;
+  orgType?: string | null;
   csrfToken?: string;
   user?: GatewayUser;
 }
@@ -190,6 +191,8 @@ export interface GatewayUser {
   fullName?: string;
   roles?: string[];
   orgId?: string | null;
+  /** Organization type — drives dashboard access in the multi-tenant model. */
+  orgType?: string | null;
   permissions?: string[];
 }
 
@@ -232,6 +235,7 @@ export const authApi = {
       userId: String(json.user?.id ?? json.user?.userId ?? email),
       role: (json.user?.roles && json.user.roles[0]) || 'client',
       orgId: json.user?.orgId ?? null,
+      orgType: json.user?.orgType ?? null,
       csrfToken: json.csrfToken,
       user: json.user,
     };
@@ -292,12 +296,18 @@ export const authApi = {
     return res.success;
   },
 
-  /** Revokes the session server-side (best-effort) and clears the local session. */
-  logout(): void {
-    fetch(`${BASE_URL}/auth/logout`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-    }).catch(() => { /* best-effort */ });
+  /**
+   * Revokes the session server-side and clears the httpOnly session cookies. Awaitable so callers
+   * can guarantee the cookies are gone BEFORE navigating to /login (otherwise the edge would
+   * immediately bounce the user back into the app).
+   */
+  async logout(): Promise<void> {
+    try {
+      await fetch(`${BASE_URL}/auth/logout`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch { /* best-effort: client state is cleared regardless by the caller */ }
   },
 };

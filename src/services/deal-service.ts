@@ -183,19 +183,21 @@ class DealService {
 
     const qty = Number((deal as any).currentQuantity ?? deal.quantity) || 0;
     const price = Number((deal as any).currentPrice ?? deal.price) || 0;
-    const total = price * qty;
 
-    // Provision the Institutional Order Node (flat snake_case Order model).
+    // Provision the order on the GTOS order-execution-service. The TOTAL is COMPUTED
+    // server-side from `lines` (+ customs duty/tax + FX normalization) — we deliberately
+    // send NO client total (R3 money-truth).
     const orderRes = await apiClient.post<any>('/orders', {
       deal_id: dealId,
       buyer_org_id: deal.buyerOrgId ?? deal.buyerId,
       seller_org_id: deal.sellerOrgId ?? deal.sellerId,
-      product: deal.productName ?? deal.product,
-      quantity: qty,
-      price,
-      total_value: total,
+      lines: [{
+        product_id: deal.productName ?? deal.product ?? (deal as any).commodity ?? 'COMMODITY',
+        quantity: qty,
+        unit_price: price,
+        ...(((deal as any).hsCode) ? { hs_code: (deal as any).hsCode } : {}),
+      }],
       currency: deal.currency,
-      status: 'pending',
     });
     if (!orderRes.success || !orderRes.data) {
       throw new Error(orderRes.error?.message || 'Failed to provision order.');
@@ -203,15 +205,21 @@ class DealService {
     const order = orderRes.data;
     const orderId = String(order.id);
 
-    // Auto-provision the Escrow Mandate (snake_case Escrow model; status defaults to 'pending').
-    await apiClient.post('/escrows', {
-      order_id: order.id,
-      buyer_org_id: deal.buyerOrgId ?? deal.buyerId,
-      seller_org_id: deal.sellerOrgId ?? deal.sellerId,
-      amount: Number(order.total_value) || total,
-      currency: deal.currency,
-      release_conditions: { type: 'MILESTONE_VERIFIED' },
-    });
+    // Escrow auto-provisioning belongs to the legacy settlement rails (int-keyed order_id) and
+    // is being re-homed in the Bank wedge; it cannot accept the new UUID order. Best-effort so a
+    // failure never blocks the money-true order placement.
+    try {
+      await apiClient.post('/escrows', {
+        order_id: order.id,
+        buyer_org_id: deal.buyerOrgId ?? deal.buyerId,
+        seller_org_id: deal.sellerOrgId ?? deal.sellerId,
+        amount: Number(order.total_value) || price * qty,
+        currency: deal.currency,
+        release_conditions: { type: 'MILESTONE_VERIFIED' },
+      });
+    } catch (e) {
+      logger.warn('NegotiationCore', `Escrow auto-provision skipped (legacy rails; Bank-wedge follow-up): ${(e as Error).message}`);
+    }
 
     await notificationDispatcher.dispatch({
       companyId: deal.buyerOrgId ?? deal.buyerId,

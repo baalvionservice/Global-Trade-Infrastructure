@@ -18,11 +18,18 @@ export interface LogEntry {
   tenantId?: string;
   actorId?: string;
   clusterId?: string;
-  integrityHash: string;
+  integrityHash?: string; // assigned server-side; never client-fabricated
   createdAt: string;
 }
 
 const TELEMETRY_URL = '/api/v1';
+
+// Network telemetry ingestion is OPT-IN. The browser firing a POST per log/metric/alert is a
+// performance anti-pattern, and with no ingestion sink configured locally every call proxies to
+// the (unreachable) prod backend and 502s — flooding the console and the network tab. Default OFF;
+// the in-app BAALVION_LOG_SIGNAL event + console still work. Enable with NEXT_PUBLIC_TELEMETRY_INGEST=1
+// once a real /api/v1 ingestion endpoint exists.
+const TELEMETRY_INGEST_ENABLED = process.env.NEXT_PUBLIC_TELEMETRY_INGEST === '1';
 
 /**
  * High-scale telemetry transport with circuit-breaking.
@@ -30,7 +37,8 @@ const TELEMETRY_URL = '/api/v1';
  */
 async function dispatchTelemetry(endpoint: string, payload: any) {
   if (typeof window === 'undefined') return;
-  
+  if (!TELEMETRY_INGEST_ENABLED) return; // no sink configured — skip the network round-trip entirely
+
   try {
     return fetch(`${TELEMETRY_URL}${endpoint}`, {
       method: 'POST',
@@ -60,7 +68,8 @@ export const loggingService = {
       action,
       message: message ?? action,
       metadata,
-      integrityHash: `sha256_0x${Math.random().toString(16).substring(2, 64)}`,
+      // integrityHash omitted: the log ingestion backend computes the authoritative
+      // hash. A client-side random value would be a fake integrity proof.
       createdAt: new Date().toISOString()
     };
 
@@ -154,6 +163,9 @@ export const healthService = {
    * Resolves the real-time health index of the global runtime.
    */
   async getSystemHealth(): Promise<any> {
+    // Without a configured telemetry/health backend, don't hit the (unreachable) proxy — that 502s
+    // and would falsely render the runtime as DEGRADED. Report the nominal default instead.
+    if (!TELEMETRY_INGEST_ENABLED) return { status: 'OPTIMAL', score: 99.8 };
     try {
       const res = await fetch(`${TELEMETRY_URL}/health`);
       const json = await res.json();

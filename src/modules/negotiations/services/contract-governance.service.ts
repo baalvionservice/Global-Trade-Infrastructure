@@ -57,11 +57,12 @@ class ContractGovernanceService {
   async signContract(contractId: string, partyId: string, actorId: string) {
     logger.warn('LegalOracle', `AUTHORIZING_SIGNATURE: Party ${partyId} on ${contractId}`);
 
+    // The signature hash is a cryptographic proof of execution and must be
+    // produced by the signing/identity backend, not fabricated on the client.
     const signature = {
       partyId,
       actorId,
       timestamp: new Date().toISOString(),
-      hash: `sha256_0x${Math.random().toString(16).substring(2, 64)}`
     };
 
     const res = await apiClient.getDoc<SovereignContract>('contracts', contractId);

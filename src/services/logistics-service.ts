@@ -104,7 +104,7 @@ class LogisticsService {
         timestamp: new Date().toISOString(),
         isVerified: true,
         verifiedBy: 'SYSTEM_KERNEL',
-        evidenceHash: 'sha256_0xBOOKING_INIT'
+        // evidenceHash assigned server-side; not fabricated on the client.
       }]
     });
     if (!res.success || !res.data) {
@@ -135,7 +135,8 @@ class LogisticsService {
       notes: milestone.notes,
       isVerified: true,
       verifiedBy: 'IOT_SENTINEL_ALPHA',
-      evidenceHash: `sha256_0x${Math.random().toString(16).substring(2, 18)}`
+      // evidenceHash is a cryptographic proof of the milestone and is assigned
+      // by the logistics backend; the client never fabricates one.
     };
 
     logger.info('LogisticsEngine', `FINALIZING_MILESTONE: ${id} -> ${status}`);

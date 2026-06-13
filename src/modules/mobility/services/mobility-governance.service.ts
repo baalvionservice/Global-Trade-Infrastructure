@@ -46,14 +46,15 @@ class MobilityGovernanceService {
    */
   async executeBiometricHandshake(actionId: string): Promise<string> {
     logger.warn('MobilityGov', `BIOMETRIC_SIGN_OFF_INITIATED: Action ${actionId}`);
-    
-    // Simulate FaceID/TouchID delay
+
     await new Promise(r => setTimeout(r, 1000));
-    
-    const signature = `sha256_0x${Math.random().toString(16).substring(2, 64)}_BIOMETRIC`;
-    logger.info('MobilityGov', 'BIOMETRIC_FINALITY_REACHED');
-    
-    return signature;
+
+    // A biometric attestation signature can only be produced by the device's
+    // secure enclave and verified by the identity backend. The client cannot
+    // fabricate an authoritative signature, so none is returned here.
+    logger.info('MobilityGov', 'BIOMETRIC_PROMPT_COMPLETED');
+
+    return '';
   }
 }
 

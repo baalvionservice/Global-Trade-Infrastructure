@@ -33,6 +33,28 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Server-only AI/telemetry runtime. Genkit pulls in @opentelemetry/* + require-in-the-middle +
+  // protobufjs + express, all of which use dynamic `require(expr)` that webpack cannot statically
+  // analyse ("Critical dependency: the request of a dependency is an expression"). Keeping these
+  // packages external means Next leaves them as runtime `require()` (resolved from node_modules)
+  // instead of bundling+analysing them — the warnings disappear and behaviour is unchanged because
+  // this code only ever runs on the server (src/ai/* is `server-only`, reached via flows/route
+  // handlers). DO NOT remove without re-checking `next build` output for the warning.
+  serverExternalPackages: [
+    'genkit',
+    '@genkit-ai/core',
+    '@genkit-ai/ai',
+    '@genkit-ai/google-genai',
+    'dotprompt',
+    'handlebars',
+    '@opentelemetry/sdk-node',
+    '@opentelemetry/api',
+    '@opentelemetry/instrumentation',
+    'require-in-the-middle',
+    'import-in-the-middle',
+    'protobufjs',
+    'express',
+  ],
   typescript: {
     // The only tsc failures are the monorepo-wide @types/react 18-vs-19 dedup conflict
     // (lucide/Radix "not a valid JSX component" / bigint ReactNode) — pre-existing dependency

@@ -8,6 +8,7 @@ import { toList } from '@/lib/api-list';
 import { logger } from './observability-service';
 import { approvalService } from './approval-service';
 import { USER_ROLES } from '@/app/(dashboard)/_components/app-state';
+import { resolveSessionOrgId, requireSessionOrgId } from './session-org';
 
 export type KYCStatus = 'not_started' | 'pending' | 'verified' | 'rejected';
 export type { RiskLevel } from '@/types/institutional';
@@ -80,13 +81,17 @@ export const complianceService = {
  * Legacy support for older components
  */
 export async function getKYCStatus() {
-  const res = await apiClient.get<any>('/organizations/COMP-101');
+  const orgId = await resolveSessionOrgId();
+  if (!orgId) return 'not_started';
+  const res = await apiClient.get<any>(`/organizations/${orgId}`);
   return res.data?.verificationStatus || 'not_started';
 }
 
 export async function submitKYC(payload: any) {
+  // KYC mutates the org record — must target the authenticated org, never a fixed demo tenant.
+  const companyId = await requireSessionOrgId();
   return complianceService.submitKYC({
-    companyId: 'COMP-101',
+    companyId,
     documentType: payload.type || 'Identity Proof',
     fileName: payload.fileName || 'institutional_identity.pdf'
   });

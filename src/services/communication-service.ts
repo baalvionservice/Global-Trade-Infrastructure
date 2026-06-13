@@ -7,6 +7,7 @@ import { apiClient } from '@/lib/api-client';
 import { toList } from '@/lib/api-list';
 import { logger, metricsService } from './observability-service';
 import { eventBus } from '@/orchestration/event-bus';
+import { resolveSessionOrgId } from './session-org';
 
 export type ContextType = 'rfq' | 'deal' | 'order' | 'general' | 'incident' | 'compliance' | 'treasury' | 'logistics';
 
@@ -178,11 +179,18 @@ class CommunicationService {
 
 export const communicationService = CommunicationService.getInstance();
 
-// Legacy export compatibility
-export const getConversations = () => communicationService.getInbox('COMP-101');
+// Legacy export compatibility. Inbox + notifications are scoped to the authenticated org;
+// resolve the real org id from the session and return empty when anonymous (never a fixed tenant).
+export const getConversations = async (): Promise<Conversation[]> => {
+  const orgId = await resolveSessionOrgId();
+  return orgId ? communicationService.getInbox(orgId) : [];
+};
 export const getConversationById = (id: string) => apiClient.getDoc<Conversation>('/conversations', id).then(r => r.data);
 export const getConversationMessages = (id: string) => communicationService.getMessages(id);
 export const postMessage = (id: string, sender: string, content: string) => communicationService.sendMessage(id, sender, content);
-export const getNotifications = () => communicationService.getNotifications('COMP-101');
+export const getNotifications = async (): Promise<Notification[]> => {
+  const orgId = await resolveSessionOrgId();
+  return orgId ? communicationService.getNotifications(orgId) : [];
+};
 export const markNotificationAsRead = (id: string) => apiClient.patch(`/notifications/${id}`, { isRead: true });
 export const provisionWarRoom = (data: any) => communicationService.provisionWarRoom(data);

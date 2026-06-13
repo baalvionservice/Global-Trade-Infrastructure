@@ -27,7 +27,8 @@ export const supplierService = {
     return toList<Supplier>(res).map(s => ({
       ...s,
       esgRating: s.trustScore > 900 ? 'AAA' : s.trustScore > 700 ? 'AA' : 'A',
-      activeContracts: Math.floor(Math.random() * 20),
+      // Use the real contract count from the org record; never fabricate it.
+      activeContracts: typeof s.activeContracts === 'number' ? s.activeContracts : 0,
       totalVolume: (s.trustScore || 500) * 1000,
       certifications: ['ISO 9001', 'ESG-V', 'AEO T1']
     } as Supplier));

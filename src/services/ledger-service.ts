@@ -28,10 +28,11 @@ export interface LedgerEntry {
 export async function recordTransaction(entry: Omit<LedgerEntry, 'id' | 'createdAt'>): Promise<LedgerEntry> {
   logger.info('LedgerService', `Executing ${entry.type} for ${entry.companyId}`, { amount: entry.amount, ref: entry.referenceId });
 
-  // 1. Persist the ledger entry (Immutable Record)
+  // 1. Persist the ledger entry (Immutable Record). The cryptographic hash is
+  // the ledger backend's responsibility — a client-generated value would be a
+  // fake integrity proof, so it is not sent.
   const res = await apiClient.post<LedgerEntry>('/ledger_entries', {
     ...entry,
-    hash: `0x${Math.random().toString(16).substring(2, 64)}` // Simulated on-chain hash
   });
   
   if (!res.success || !res.data) {

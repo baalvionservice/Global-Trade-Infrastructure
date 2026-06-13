@@ -164,10 +164,12 @@ export default function ShipmentMissionControl() {
                              <span className="text-[10px] font-mono opacity-40">{m.timestamp}</span>
                           </div>
                           <p className="text-xs text-muted-foreground font-medium italic">"{m.notes || 'Automated state propagation from logistics node.'}"</p>
-                          <div className="flex items-center gap-2 pt-2">
-                             <Fingerprint className="h-3 w-3 text-emerald-600 opacity-40" />
-                             <span className="text-[9px] font-mono opacity-20 select-all">{m.evidenceHash}</span>
-                          </div>
+                          {m.evidenceHash && (
+                            <div className="flex items-center gap-2 pt-2">
+                               <Fingerprint className="h-3 w-3 text-emerald-600 opacity-40" />
+                               <span className="text-[9px] font-mono opacity-20 select-all">{m.evidenceHash}</span>
+                            </div>
+                          )}
                        </div>
                     </motion.div>
                  ))}

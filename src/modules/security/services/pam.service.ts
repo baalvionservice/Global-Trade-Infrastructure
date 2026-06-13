@@ -49,12 +49,15 @@ class PAMService {
   /**
    * Finalizes a privileged session using biometric attestation.
    */
-  async authorizeSession(sessionId: string, biometricHash: string) {
+  async authorizeSession(sessionId: string, biometricAttestation: string) {
     logger.info('PAM_Kernel', `SESSION_AUTHORIZED: Node ${sessionId}`);
-    
+
+    // Forward the device attestation to the backend, which verifies it and owns
+    // the authoritative governance signature. The client never fabricates a
+    // `sha256_0x...` proof from arbitrary input.
     return apiClient.patch(`/pam_sessions/${sessionId}`, {
       biometricVerified: true,
-      governanceSignature: `sha256_0x${biometricHash}`
+      biometricAttestation,
     });
   }
 }

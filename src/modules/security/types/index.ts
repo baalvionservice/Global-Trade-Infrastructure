@@ -17,7 +17,7 @@ export interface TenantBoundary {
   status: TenantStatus;
   riskScore: number;
   dataResidency: 'SOVEREIGN_SWISS' | 'US_EAST' | 'APAC_SOUTH' | 'EU_CENTRAL';
-  activeSessions: number;
+  activeSessions?: number; // real session count from the backend; absent when not provided
   updatedAt: string;
 }
 

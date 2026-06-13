@@ -45,12 +45,11 @@ class FreightOrchestrator {
   async executeHandoff(mandateId: string, fromCarrier: string, toCarrier: string, location: string) {
     logger.warn('FreightOrchestrator', `INTERMODAL_HANDOFF: ${fromCarrier} -> ${toCarrier} at ${location}`);
 
-    const signature = `sha256_0x${Math.random().toString(16).substring(2, 64)}_HANDOFF`;
-    
+    // The handoff signature is a cryptographic chain-of-custody proof owned by
+    // the logistics backend. The client does not fabricate it.
     await apiClient.patch(`/logistics_mandates/${mandateId}`, {
       carrierId: toCarrier,
       lastLocation: location,
-      handoffSignature: signature,
       updatedAt: new Date().toISOString()
     });
 
@@ -58,7 +57,7 @@ class FreightOrchestrator {
       domain: 'LOGISTICS',
       entityId: mandateId,
       action: 'INTERMODAL_HANDOFF',
-      payload: { fromCarrier, toCarrier, signature }
+      payload: { fromCarrier, toCarrier }
     });
   }
 }

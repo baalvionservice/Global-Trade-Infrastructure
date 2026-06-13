@@ -39,7 +39,6 @@ class EdgeSyncService {
       payload,
       timestamp: new Date().toISOString(),
       retryCount: 0,
-      hash: `sha256_0x${Math.random().toString(16).substring(2, 64)}`
     };
 
     if (store.isOfflineMode || !navigator.onLine) {
@@ -91,10 +90,9 @@ class EdgeSyncService {
     const res = await apiClient.post(`/events`, {
       type: item.action,
       payload: item.payload,
-      metadata: { 
+      metadata: {
         edgeId: item.id,
         edgeTimestamp: item.timestamp,
-        integrityHash: item.hash
       }
     });
 

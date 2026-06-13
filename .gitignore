@@ -49,3 +49,9 @@ firestore-debug.log
 # local verification/screenshot helpers (CDP screenshot + route sweep)
 /_*.cjs
 /_*.png
+
+# Playwright test artifacts
+/test-results/
+/playwright-report/
+/blob-report/
+/.playwright/

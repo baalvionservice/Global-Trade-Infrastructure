@@ -49,7 +49,7 @@ export interface SovereignContract {
     partyId: string;
     actorId: string;
     timestamp: string;
-    hash: string;
+    hash?: string; // cryptographic proof assigned by the signing backend
   }[];
   createdAt: string;
   updatedAt: string;

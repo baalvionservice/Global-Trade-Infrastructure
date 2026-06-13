@@ -1,10 +1,17 @@
+/**
+ * @file app/api/health/route.ts
+ * @description Liveness/readiness probe (Agent 20). Verifies DB connectivity.
+ */
+import { prisma } from '@/server/db/prisma';
+import { ok, fail } from '@/server/http/api';
 
-import { NextResponse } from 'next/server';
+export const runtime = 'nodejs';
 
 export async function GET() {
-  return NextResponse.json({
-    status: 'healthy',
-    timestamp: new Date().toISOString(),
-    service: 'Baalvion API'
-  });
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    return ok({ status: 'healthy', service: 'Baalvion API', database: 'up', timestamp: new Date().toISOString() });
+  } catch (err) {
+    return fail(503, `unhealthy: ${err instanceof Error ? err.message : 'database down'}`);
+  }
 }

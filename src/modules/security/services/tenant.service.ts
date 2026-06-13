@@ -32,7 +32,8 @@ class TenantService {
       status: (o.status || 'ACTIVE') as TenantStatus,
       riskScore: o.riskScore || 12,
       dataResidency: 'SOVEREIGN_SWISS',
-      activeSessions: Math.floor(Math.random() * 50),
+      // Only surface a real session count if the backend provides one — never fabricate it.
+      activeSessions: typeof o.activeSessions === 'number' ? o.activeSessions : undefined,
       updatedAt: o.updatedAt || new Date().toISOString()
     }));
   }

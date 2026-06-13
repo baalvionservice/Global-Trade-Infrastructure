@@ -1,215 +1,199 @@
-/**
- * @file onboarding/page.tsx
- * @description THE GLOBAL INSTITUTIONAL ONBOARDING COMMAND. 
- * Orchestrates the phased adoption of global enterprise tenants from Lead to Live Node.
- */
 'use client';
 
-import { useEffect, useState } from 'react';
-import { onboardingService, OnboardingStatus, OnboardingPhase } from '@/services/onboarding-service';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+/**
+ * @file governance/onboarding/page.tsx
+ * @description Onboarding Review Queue — the admin counterpart to the public
+ * department wizards. Institutions that complete a wizard land here as `pending`
+ * organizations; approvers activate or reject them. Reads the live queue from the
+ * authenticated platform surface and degrades gracefully when unavailable.
+ */
+
+import { useCallback, useEffect, useState } from 'react';
+import { onboardingService, type OnboardingStatus } from '@/services/onboarding-service';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { 
-  Users, 
-  ShieldCheck, 
-  Loader2, 
-  ArrowRight, 
-  History, 
-  ChevronRight,
-  Zap,
-  Building,
-  Landmark,
-  Globe,
-  Search,
-  Dna,
-  Shield,
-  Activity,
-  Scaling,
-  Lock
-} from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useToast } from '@/hooks/use-toast';
+import {
+  Landmark, Globe, Truck, Boxes, ShieldCheck, RefreshCw, Loader2, Check, X,
+  AlertTriangle, Inbox, Clock, type LucideIcon,
+} from 'lucide-react';
 
-export default function InstitutionalOnboardingPage() {
+const TYPE_META: Record<string, { icon: LucideIcon; label: string; tone: string }> = {
+  bank: { icon: Landmark, label: 'Banking', tone: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
+  government: { icon: Globe, label: 'Customs / Gov', tone: 'text-sky-500 bg-sky-500/10 border-sky-500/20' },
+  logistics: { icon: Truck, label: 'Logistics', tone: 'text-amber-500 bg-amber-500/10 border-amber-500/20' },
+  enterprise: { icon: Boxes, label: 'Enterprise', tone: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' },
+};
+
+function typeMeta(t: string) {
+  return TYPE_META[t] ?? { icon: Boxes, label: t || 'Other', tone: 'text-muted-foreground bg-muted border-border' };
+}
+
+export default function OnboardingReviewQueuePage() {
   const [queue, setQueue] = useState<OnboardingStatus[]>([]);
   const [loading, setLoading] = useState(true);
-  const [processingId, setProcessingId] = useState<string | null>(null);
-  const { toast } = useToast();
+  const [error, setError] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
 
-  const fetchData = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
-    const data = await onboardingService.getOnboardingQueue();
-    setQueue(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
+    setError(null);
+    try {
+      setQueue(await onboardingService.getOnboardingQueue());
+    } catch {
+      setError('Could not reach the onboarding service. The review queue is unavailable right now.');
+      setQueue([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const handleAdvance = async (id: string, currentPhase: OnboardingPhase) => {
-    setProcessingId(id);
+  useEffect(() => { void load(); }, [load]);
+
+  const act = async (id: string, action: 'approve' | 'reject') => {
+    setBusyId(id);
     try {
-      await onboardingService.advancePhase(id, 'GOVERNANCE_REVIEW');
-      toast({ title: "Tenant Advanced", description: "Institution moved to Governance Review phase." });
-      fetchData();
-    } catch (e) {
-      toast({ variant: 'destructive', title: "Transition Failed" });
+      if (action === 'approve') await onboardingService.approve(id);
+      else await onboardingService.reject(id);
+      setQueue((q) => q.filter((item) => item.companyId !== id));
+    } catch {
+      setError(`Failed to ${action} the application. Please retry.`);
     } finally {
-      setProcessingId(null);
+      setBusyId(null);
     }
   };
 
-  if (loading && queue.length === 0) {
-    return (
-      <div className="flex h-[80vh] flex-col items-center justify-center gap-4">
-        <Loader2 className="h-10 w-10 animate-spin text-primary opacity-20" />
-        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground animate-pulse">Syncing Adoption Matrix...</p>
-      </div>
-    );
-  }
+  const counts = queue.reduce<Record<string, number>>((acc, item) => {
+    acc[item.tenantType] = (acc[item.tenantType] ?? 0) + 1;
+    return acc;
+  }, {});
 
   return (
-    <main className="flex-1 space-y-8 p-4 md:p-6 bg-muted/20 min-h-screen">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-primary/5 pb-8">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-             <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-             <p className="text-[10px] font-black uppercase tracking-widest text-primary">Adoption Node: ADOPTION_COORD_ALPHA</p>
-          </div>
-          <h2 className="text-4xl font-black tracking-tight uppercase tracking-tighter leading-[0.8]">Onboarding <br />Command.</h2>
-          <p className="text-xl text-muted-foreground font-medium italic max-w-2xl leading-relaxed">
-            "Authoritative planetary oversight of institutional tenant onboarding and sovereign identity resolution."
+    <div className="p-6 md:p-10 space-y-8 max-w-6xl mx-auto bg-muted/10 min-h-screen">
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="space-y-2">
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-primary flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4" /> Governance · Onboarding
+          </p>
+          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">Onboarding Review Queue</h1>
+          <p className="text-sm text-muted-foreground font-medium max-w-2xl">
+            Institutions that completed a department wizard land here for review. Approving activates the organization; rejecting never grants access.
           </p>
         </div>
-        <div className="flex items-center gap-4">
-           <div className="flex items-center gap-2 px-6 py-3 bg-background rounded-2xl border-2 border-primary/5 shadow-xl text-xs font-black uppercase tracking-widest text-indigo-700">
-              <Users className="h-4 w-4" />
-              Active Pipeline: {queue.length} Institutions
-           </div>
-        </div>
+        <Button variant="outline" onClick={() => void load()} disabled={loading} className="h-11 font-black uppercase text-[11px] tracking-widest rounded-2xl">
+          <RefreshCw className={cn('mr-2 h-4 w-4', loading && 'animate-spin')} /> Refresh
+        </Button>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-12">
-        <div className="lg:col-span-8 space-y-6">
-           {/* ONBOARDING QUEUE */}
-           <div className="grid gap-8">
-              <AnimatePresence mode="popLayout">
-                 {queue.map((tenant, i) => (
-                    <motion.div 
-                      key={tenant.companyId}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                    >
-                       <Card className="shadow-2xl border-2 hover:border-primary/40 transition-all rounded-2xl overflow-hidden bg-background group">
-                          <CardHeader className="bg-muted/10 border-b p-6 flex flex-row items-center justify-between">
-                             <div className="flex items-center gap-6">
-                                <div className={cn(
-                                   "h-12 w-16 rounded-2xl bg-background border-2 shadow-inner flex items-center justify-center group-hover:scale-105 transition-transform",
-                                   tenant.tenantType === 'bank' ? "bg-emerald-50 border-emerald-100" : "bg-blue-50 border-blue-100"
-                                )}>
-                                   {tenant.tenantType === 'bank' ? <Landmark className="h-8 w-8 text-emerald-600" /> : <Building className="h-8 w-8 text-blue-600" />}
-                                </div>
-                                <div>
-                                   <h3 className="text-2xl font-black uppercase tracking-tighter leading-none">{tenant.institutionName}</h3>
-                                   <p className="text-[10px] font-bold text-muted-foreground uppercase mt-2 tracking-widest">ID: {tenant.companyId} • {tenant.tenantType.toUpperCase()} Node</p>
-                                </div>
-                             </div>
-                             <Badge variant="outline" className="text-[9px] font-black uppercase px-3 h-6 border-2 rounded-full shadow-sm bg-background">{tenant.phase.replace(/_/g, ' ')}</Badge>
-                          </CardHeader>
-                          <CardContent className="p-6 space-y-8">
-                             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-                                <div className="space-y-4">
-                                   <div className="flex justify-between text-[9px] font-black uppercase tracking-widest text-muted-foreground">
-                                      <span>Node Readiness</span>
-                                      <span>{tenant.progress}%</span>
-                                   </div>
-                                   <Progress value={tenant.progress} className="h-1.5 bg-muted rounded-full" />
-                                </div>
-                                <div className="space-y-1 border-l pl-8 border-muted">
-                                   <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest opacity-60">Verification Depth</p>
-                                   <p className="text-sm font-black uppercase">Level 4 Sovereign</p>
-                                </div>
-                                <div className="space-y-1 border-l pl-8 border-muted">
-                                   <p className="text-[9px] font-black text-muted-foreground uppercase tracking-widest opacity-60">Wait Intensity</p>
-                                   <Badge variant="secondary" className="bg-orange-600 text-white text-[8px] font-black h-5 px-2 border-none">HIGH_PRIORITY</Badge>
-                                </div>
-                             </div>
-                             
-                             <div className="flex justify-between items-center pt-2">
-                                <div className="flex gap-4">
-                                   <Button variant="outline" className="h-14 px-8 border-2 font-black uppercase text-[10px] tracking-widest bg-background rounded-2xl">
-                                      AUDIT LEGAL DOSSIER
-                                   </Button>
-                                </div>
-                                <Button 
-                                  className="h-14 px-6 bg-primary text-white font-black uppercase text-[10px] tracking-widest shadow-2xl rounded-2xl"
-                                  onClick={() => handleAdvance(tenant.companyId, tenant.phase)}
-                                  disabled={processingId === tenant.companyId}
-                                >
-                                   {processingId === tenant.companyId ? <Loader2 className="mr-3 h-4 w-4 animate-spin" /> : <Zap className="mr-3 h-4 w-4" />}
-                                   ADVANCE TO GOVERNANCE
-                                </Button>
-                             </div>
-                          </CardContent>
-                       </Card>
-                    </motion.div>
-                 ))}
-              </AnimatePresence>
-           </div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatTile icon={Inbox} label="Pending" value={queue.length} accent="text-primary" />
+        {(['bank', 'government', 'logistics'] as const).map((t) => {
+          const m = typeMeta(t);
+          return <StatTile key={t} icon={m.icon} label={m.label} value={counts[t] ?? 0} accent={m.tone.split(' ')[0]} />;
+        })}
+      </div>
+
+      {error && (
+        <div className="flex items-center gap-3 p-4 rounded-2xl border-2 border-amber-500/30 bg-amber-500/5 text-amber-700 dark:text-amber-400">
+          <AlertTriangle className="h-5 w-5 shrink-0" />
+          <span className="text-sm font-bold">{error}</span>
         </div>
+      )}
 
-        <div className="lg:col-span-4 space-y-8">
-           {/* ADOPTION KPI PANEL */}
-           <Card className="shadow-2xl border-none bg-primary text-primary-foreground relative overflow-hidden group rounded-2xl">
-              <div className="absolute top-0 right-0 p-6 opacity-10 rotate-12 scale-125 group-hover:scale-150 transition-transform duration-1000">
-                 <ShieldCheck className="h-80 w-80 brightness-0 invert" />
-              </div>
-              <CardHeader className="pb-6 border-b border-white/10 p-6 relative">
-                 <CardTitle className="text-[10px] font-black uppercase tracking-widest opacity-80 flex items-center gap-4 text-white">
-                    <Zap className="h-5 w-5 text-yellow-400 animate-pulse" />
-                    Adoption Sentinel
-                 </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 relative space-y-8">
-                 <p className="text-3xl font-bold italic leading-tight opacity-95 tracking-tighter">
-                    "Ecosystem Mapping: Systemic adoption from the Singapore banking cluster is trending +24%. Recommend accelerating the KYC audit for the pending 'Apex' node to capitalize on high-velocity liquidity pulses."
-                 </p>
-                 <Button variant="secondary" className="w-full h-14 font-black uppercase text-[12px] tracking-widest shadow-md bg-white text-primary border-none rounded-xl hover:scale-[1.02] transition-transform">
-                    EXECUTE BATCH AUTHORIZATION
-                 </Button>
-              </CardContent>
-           </Card>
-
-           <Card className="shadow-none border-2 bg-background p-6 space-y-8 rounded-2xl">
-              <div className="flex items-center justify-between">
-                 <h4 className="text-[11px] font-black uppercase tracking-widest text-muted-foreground ml-1">Pipeline Health</h4>
-                 <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              </div>
-              <div className="space-y-6">
-                 {[
-                   { label: 'KYC Sync Rate', val: '92.4%', icon: ShieldCheck, color: 'text-emerald-500' },
-                   { label: 'Decision Latency', val: '4.2 Days', icon: Activity, color: 'text-blue-500' },
-                   { label: 'Node Finality', val: '99.98%', icon: Scaling, color: 'text-indigo-500' }
-                 ].map(stat => (
-                   <div key={stat.label} className="flex items-center justify-between group cursor-default">
-                      <div className="flex items-center gap-6">
-                         <div className="p-4 rounded-3xl bg-muted border-2 shadow-inner group-hover:bg-primary/5 transition-colors">
-                            <stat.icon className={cn("h-6 w-6", stat.color)} />
-                         </div>
-                         <span className="text-[11px] font-black uppercase tracking-widest text-muted-foreground">{stat.label}</span>
+      {loading ? (
+        <div className="space-y-4">{[0, 1, 2].map((i) => <div key={i} className="h-32 rounded-[28px] border-2 bg-muted/20 animate-pulse" />)}</div>
+      ) : queue.length === 0 && !error ? (
+        <Card className="border-2 border-dashed rounded-[32px]">
+          <CardContent className="py-20 text-center space-y-3">
+            <Inbox className="h-12 w-12 text-muted-foreground/40 mx-auto" />
+            <h3 className="text-lg font-black uppercase tracking-tight">Queue is clear</h3>
+            <p className="text-sm text-muted-foreground font-medium">No institutions are awaiting review.</p>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="space-y-4">
+          {queue.map((item) => {
+            const m = typeMeta(item.tenantType);
+            const busy = busyId === item.companyId;
+            return (
+              <Card key={item.companyId} className="border-2 rounded-[28px] overflow-hidden">
+                <CardHeader className="flex flex-row items-center justify-between gap-4 p-6 pb-4">
+                  <div className="flex items-center gap-4 min-w-0">
+                    <div className={cn('h-12 w-12 rounded-2xl border-2 flex items-center justify-center shrink-0', m.tone)}>
+                      <m.icon className="h-6 w-6" />
+                    </div>
+                    <div className="min-w-0">
+                      <CardTitle className="text-lg font-black uppercase tracking-tight truncate">{item.institutionName}</CardTitle>
+                      <div className="flex items-center gap-2 mt-1">
+                        <Badge variant="outline" className={cn('text-[9px] font-black uppercase tracking-widest border', m.tone)}>{m.label}</Badge>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-1">
+                          <Clock className="h-3 w-3" /> {item.phase.replace(/_/g, ' ')}
+                        </span>
                       </div>
-                      <span className="text-2xl font-black tracking-tighter text-foreground">{stat.val}</span>
-                   </div>
-                 ))}
-              </div>
-           </Card>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <Button size="sm" variant="outline" disabled={busy} onClick={() => void act(item.companyId, 'reject')}
+                      className="h-10 font-black uppercase text-[10px] tracking-widest rounded-xl border-2 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30">
+                      {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <><X className="mr-1.5 h-4 w-4" /> Reject</>}
+                    </Button>
+                    <Button size="sm" disabled={busy} onClick={() => void act(item.companyId, 'approve')}
+                      className="h-10 font-black uppercase text-[10px] tracking-widest rounded-xl bg-emerald-600 hover:bg-emerald-700">
+                      {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Check className="mr-1.5 h-4 w-4" /> Approve</>}
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="px-6 pb-6 space-y-4">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                      <span>Verification Progress</span><span>{item.progress}%</span>
+                    </div>
+                    <Progress value={item.progress} className="h-1.5 rounded-full" />
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <ChecklistBlock title="Requirements met" items={item.requirementsMet} tone="emerald" />
+                    <ChecklistBlock title="Pending actions" items={item.pendingActions} tone="amber" />
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
-      </div>
-    </main>
+      )}
+    </div>
+  );
+}
+
+function StatTile({ icon: Icon, label, value, accent }: { icon: LucideIcon; label: string; value: number; accent: string }) {
+  return (
+    <Card className="border-2 rounded-[24px]">
+      <CardContent className="p-5 flex items-center gap-4">
+        <Icon className={cn('h-7 w-7', accent)} />
+        <div>
+          <p className="text-2xl font-black tabular-nums">{value}</p>
+          <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{label}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function ChecklistBlock({ title, items, tone }: { title: string; items: string[]; tone: 'emerald' | 'amber' }) {
+  const dot = tone === 'emerald' ? 'bg-emerald-500' : 'bg-amber-500';
+  return (
+    <div className="space-y-2">
+      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{title}</p>
+      <ul className="space-y-1.5">
+        {items.length === 0 ? (
+          <li className="text-xs text-muted-foreground font-medium opacity-60">—</li>
+        ) : items.map((it) => (
+          <li key={it} className="flex items-center gap-2 text-xs font-bold text-foreground">
+            <span className={cn('h-1.5 w-1.5 rounded-full shrink-0', dot)} /> {it}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

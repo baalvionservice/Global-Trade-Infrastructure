@@ -15,8 +15,14 @@ export async function proxyToBackend(req: Request, entity: string, id?: string):
   const headers: Record<string, string> = {};
   const ct = req.headers.get('content-type');
   if (ct) headers['content-type'] = ct;
-  const auth = req.headers.get('authorization');
-  if (auth) headers['authorization'] = auth;
+  // M-6/CR-11: do NOT forward the client's raw Authorization header. Forward the
+  // verified gateway identity envelope so the backend can attribute the request.
+  const envelope = req.headers.get('x-identity-envelope');
+  const signature = req.headers.get('x-identity-signature');
+  if (envelope && signature) {
+    headers['x-identity-envelope'] = envelope;
+    headers['x-identity-signature'] = signature;
+  }
 
   const init: RequestInit = { method: req.method, headers };
   if (!['GET', 'HEAD'].includes(req.method)) init.body = await req.text();

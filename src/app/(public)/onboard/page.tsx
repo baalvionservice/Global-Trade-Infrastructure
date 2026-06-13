@@ -10,13 +10,8 @@ import Link from 'next/link';
 import { PATHS } from '@/lib/paths';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, Store, ArrowRight, ShieldCheck, Landmark, Building2, Users } from 'lucide-react';
-
-const INSTITUTIONAL = [
-  { label: 'Bank / Financier', icon: Landmark },
-  { label: 'Government', icon: Building2 },
-  { label: 'Agent / Reseller', icon: Users },
-];
+import { ShoppingCart, Store, ArrowRight, ShieldCheck, Building2 } from 'lucide-react';
+import { DEPARTMENT_CARDS } from './_lib/department-configs';
 
 export default function OnboardEntryPage() {
   return (
@@ -60,20 +55,42 @@ export default function OnboardEntryPage() {
           ))}
         </div>
 
-        <div className="text-center space-y-6 pt-6 border-t">
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
-            Banks, governments &amp; agents onboard via institutional review
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            {INSTITUTIONAL.map((inst) => (
-              <Button key={inst.label} variant="outline" asChild className="h-12 px-6 border-2 font-black uppercase text-[10px] tracking-widest rounded-2xl bg-background">
-                <Link href={PATHS.ACCESS_REQUEST}><inst.icon className="mr-2 h-4 w-4" /> {inst.label}</Link>
-              </Button>
+        <div className="space-y-8 pt-6 border-t">
+          <div className="text-center space-y-2">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Institutions &amp; Departments</p>
+            <h2 className="text-2xl font-black uppercase tracking-tighter">Onboard By Role</h2>
+            <p className="text-sm text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed">
+              Each path collects exactly what your department needs to verify — settlement authority, customs gateways, lane coverage — and routes to governance review.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {DEPARTMENT_CARDS.map((dept) => (
+              <Link key={dept.slug} href={`${PATHS.ONBOARD}/${dept.slug}`} className="group">
+                <Card className="h-full border-2 hover:border-primary/50 transition-all rounded-[28px] bg-background hover:shadow-xl">
+                  <CardContent className="p-7 space-y-4">
+                    <div className="h-12 w-12 rounded-2xl bg-primary/5 border-2 flex items-center justify-center group-hover:bg-primary transition-all">
+                      <dept.icon className="h-6 w-6 text-primary group-hover:text-white transition-colors" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <h3 className="text-base font-black uppercase tracking-tight leading-tight">{dept.title}</h3>
+                      <p className="text-xs text-muted-foreground font-medium leading-relaxed">{dept.desc}</p>
+                    </div>
+                    <span className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      Begin <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                    </span>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground font-medium">
-            Already verified? <Link href={PATHS.LOGIN} className="text-primary font-black hover:underline">Sign in</Link>
-          </p>
+          <div className="text-center space-y-2 pt-2">
+            <p className="text-xs text-muted-foreground font-medium">
+              Another institution type? <Link href={PATHS.ACCESS_REQUEST} className="text-primary font-black hover:underline inline-flex items-center gap-1"><Building2 className="h-3.5 w-3.5" /> Request institutional access</Link>
+            </p>
+            <p className="text-xs text-muted-foreground font-medium">
+              Already verified? <Link href={PATHS.LOGIN} className="text-primary font-black hover:underline">Sign in</Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

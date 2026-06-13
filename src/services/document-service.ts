@@ -6,6 +6,7 @@
 import { apiClient } from '@/lib/api-client';
 import { eventBus } from './event-bus';
 import { logger, metricsService } from './observability-service';
+import { requireSessionOrgId } from './session-org';
 
 export type DocumentType = 
   | 'commercial_invoice' 
@@ -99,7 +100,8 @@ class DocumentService {
     classification?: DocumentClassification;
     companyId?: string;
   }): Promise<TradeDocument> {
-    const companyId = data.companyId || 'COMP-101';
+    // Vault ownership must be the authenticated org, not a fixed demo tenant.
+    const companyId = data.companyId || (await requireSessionOrgId());
     logger.info('DocumentVault', `INITIATING_VAULT_PROTOCOL: ${data.fileName}`);
 
     // 1. Resolve lineage version (count existing docs of this type for the entity).
@@ -116,7 +118,8 @@ class DocumentService {
       doc_type: data.type,
       title: data.fileName,
       file_url: `https://vault.baalvion.gov/files/${companyId}/${data.referenceId}/${data.fileName}`,
-      file_hash: `sha256_0x${Math.random().toString(16).substring(2, 18)}`,
+      // file_hash (cryptographic fingerprint) is computed by the vault backend
+      // on the stored bytes. A client-side hash would be a fake integrity proof.
       status: 'vaulted',
       classification: data.classification || 'OPERATIONAL',
       version: newVersion,

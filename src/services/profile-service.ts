@@ -5,6 +5,8 @@
  */
 import { UserRole } from '@/app/(dashboard)/_components/app-state';
 import { apiClient } from '@/lib/api-client';
+import { authApi } from '@/lib/api-client';
+import { resolveSessionOrgId } from './session-org';
 
 export type KYCStatus = 'pending' | 'verified' | 'rejected' | 'not_started';
 export type BadgeLevel = 'basic' | 'verified' | 'premium';
@@ -59,17 +61,18 @@ export interface TrustMetrics {
 const API_LATENCY = 600;
 
 export async function getProfile(): Promise<UserProfile> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve({
-      id: 'USR-101',
-      name: 'Alexander Chen',
-      email: 'a.chen@global-trade.com',
-      role: 'Institutional Buyer' as any,
-      companyId: 'COMP-101',
-      kycStatus: 'verified',
-      amlRiskScore: 12,
-    }), API_LATENCY);
-  });
+  // Source real identity (id / email / org) from the authenticated session. The remaining
+  // display fields are demo placeholders until a real profile endpoint is wired.
+  const [me, orgId] = await Promise.all([authApi.me(), resolveSessionOrgId()]);
+  return {
+    id: String(me?.id ?? me?.userId ?? ''),
+    name: me?.fullName ?? '',
+    email: me?.email ?? '',
+    role: ((me?.roles && me.roles[0]) ?? 'Institutional Buyer') as any,
+    companyId: orgId ?? '',
+    kycStatus: 'verified',
+    amlRiskScore: 12,
+  };
 }
 
 export async function getCompany(id: string): Promise<Company | null> {

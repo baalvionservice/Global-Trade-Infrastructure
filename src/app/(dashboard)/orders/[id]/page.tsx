@@ -183,8 +183,8 @@ export default function OrderDetailPage() {
                  ) : order.status === 'confirmed' ? (
                    <div className="space-y-4">
                       <p className="text-sm font-medium">Order confirmed. Funds must now be authorized for platform escrow.</p>
-                      <Button variant="secondary" className="w-full font-black text-[10px] py-6 shadow-sm" onClick={() => router.push(`${PATHS.ESCROW}/${escrowId}`)}>
-                         <Wallet className="mr-2 h-4 w-4" /> AUTHORIZE ESCROW FUNDING
+                      <Button variant="secondary" disabled={!escrowId} className="w-full font-black text-[10px] py-6 shadow-sm disabled:opacity-50" onClick={() => escrowId && router.push(`${PATHS.ESCROW}/${escrowId}`)}>
+                         <Wallet className="mr-2 h-4 w-4" /> {escrowId ? 'AUTHORIZE ESCROW FUNDING' : 'ESCROW PENDING PROVISION'}
                       </Button>
                    </div>
                  ) : order.status === 'processing' || order.status === 'shipped' ? (

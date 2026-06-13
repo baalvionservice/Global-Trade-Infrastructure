@@ -45,6 +45,10 @@ export const USER_ROLES = {
   INSURANCE_ADMIN: 'Insurance Authority',
   CUSTOMS_AGENT: 'Customs Authority',
   ARBITRATOR: 'Legal Adjudicator',
+
+  // --- BASELINE PARTICIPANT (least privilege; the FAIL-CLOSED default authority) ---
+  // Any session whose backend role is unrecognized resolves here — never to a sovereign tier.
+  MEMBER: 'Trade Participant',
 } as const;
 
 export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
@@ -205,5 +209,10 @@ export const PERMISSION_MATRIX: Record<UserRole, Partial<Record<PermissionResour
   [USER_ROLES.ARBITRATOR]: {
     governance: ['read', 'approve', 'audit'],
     compliance: ['read', 'audit'],
+  },
+  [USER_ROLES.MEMBER]: {
+    // Baseline read-only participant — no privileged actions until the backend grants a real role.
+    sourcing: ['read'],
+    negotiation: ['read'],
   },
 };

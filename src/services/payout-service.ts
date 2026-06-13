@@ -32,8 +32,8 @@ export async function requestPayout(data: {
   // 1. Regulatory & Identity Check
   await validateInstitution(data.companyId);
 
-  // 2. Balance Verification
-  const wallet = await getWalletByCurrency(data.currency);
+  // 2. Balance Verification — scope the wallet lookup to the same institution being debited.
+  const wallet = await getWalletByCurrency(data.currency, data.companyId);
   if (!wallet || wallet.balance < data.amount) {
     throw new Error(`Insufficient ${data.currency} balance for payout.`);
   }

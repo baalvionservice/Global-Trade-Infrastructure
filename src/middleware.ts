@@ -1,75 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isAdminPath, needsAuth } from '@/lib/route-access';
+import { safeInternalPath } from '@/lib/safe-redirect';
 
 /**
  * SECURITY MODEL (P0 remediation): the access token is in memory and not visible to the edge, so
  * this gates on the un-forgeable httpOnly `refresh_token` cookie set by trade-service. The old
- * forgeable base64-JSON `baalvion_trade_session` role cookie is NO LONGER read or trusted; per-role
- * (admin) authorization is enforced at the API + client guards.
+ * forgeable base64-JSON `baalvion_trade_session` role cookie is NO LONGER read or trusted.
+ *
+ * The edge proves a SESSION exists. The SPECIFIC authority (who may see /governance, /financials,
+ * etc.) is enforced by two layers the edge can't reach: the client `RouteGuard` (persona allowlist)
+ * and the API (authoritative). Route classification lives in `@/lib/route-access` so the edge and
+ * the guard share one source of truth and can never drift.
  */
 const AUTH_COOKIE = process.env.NEXT_PUBLIC_REFRESH_COOKIE_NAME || 'refresh_token';
-
-const AUTH_REQUIRED_PREFIXES = [
-  '/dashboard',
-  '/buyer',
-  '/seller',
-  '/marketplace',
-  '/deals',
-  '/orders',
-  '/logistics-shipment',
-  '/payments',
-  '/finance-settlement',
-  '/escrow',
-  '/financials',
-  '/compliance',
-  '/documents',
-  '/messages',
-  '/profile',
-  '/insurance',
-  '/intelligence-hub',
-  '/negotiations',
-  '/discovery',
-  '/collaboration',
-  '/executive',
-  '/crisis-center',
-  '/customs',
-  '/sourcing',
-  '/shipments',
-  '/carriers',
-  '/field',
-  '/agents',
-  '/suppliers',
-  '/trade-management',
-  '/settings',
-];
-
-const ADMIN_PREFIXES = [
-  '/governance',
-  '/oversight',
-];
-
-const PUBLIC_EXACT = new Set([
-  '/',
-  '/login',
-  '/about',
-  '/contact',
-  '/pricing',
-  '/privacy',
-  '/terms',
-  '/platform',
-  '/banks',
-  '/governments',
-  '/enterprises',
-  '/access/request',
-  '/access/pending',
-]);
-
-function needsAuth(pathname: string): boolean {
-  return AUTH_REQUIRED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
-}
-
-function needsAdmin(pathname: string): boolean {
-  return ADMIN_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
-}
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
@@ -86,33 +29,54 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
   const isAuthenticated = Boolean(request.cookies.get(AUTH_COOKIE)?.value);
 
-  // Admin areas require an authenticated session at the edge; the specific admin-role check is
-  // enforced at the API + client guards (the access token / role is not visible to middleware).
-  if (needsAdmin(pathname)) {
+  // Every protected surface (operational OR governance) requires an authenticated session at the
+  // edge. Per-authority checks happen in the RouteGuard + API.
+  if (isAdminPath(pathname) || needsAuth(pathname)) {
     if (!isAuthenticated) {
-      return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathname)}`, request.url));
+      const back = safeInternalPath(pathname, '/dashboard');
+      return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(back)}`, request.url));
     }
-    return addSecurityHeaders(NextResponse.next());
+    return secureHeaders(NextResponse.next(), request);
   }
 
-  if (needsAuth(pathname)) {
-    if (!isAuthenticated) {
-      return NextResponse.redirect(new URL(`/login?redirect=${encodeURIComponent(pathname)}`, request.url));
-    }
-    return addSecurityHeaders(NextResponse.next());
-  }
-
+  // Already authenticated and hitting /login: send them on. The redirect target is validated to be
+  // same-origin (open-redirect / CWE-601 defense) before we trust it.
   if (pathname === '/login' && isAuthenticated) {
-    const redirectTo = request.nextUrl.searchParams.get('redirect') ?? '/dashboard';
-    return NextResponse.redirect(new URL(redirectTo, request.url));
+    const target = safeInternalPath(request.nextUrl.searchParams.get('redirect'), '/dashboard');
+    return NextResponse.redirect(new URL(target, request.url));
   }
 
-  return addSecurityHeaders(NextResponse.next());
+  return secureHeaders(NextResponse.next(), request);
 }
 
-function addSecurityHeaders(response: NextResponse): NextResponse {
-  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+function secureHeaders(response: NextResponse, _request: NextRequest): NextResponse {
+  const isDev = process.env.NODE_ENV !== 'production';
+
+  // Content-Security-Policy. `script-src` keeps 'unsafe-inline' (and 'unsafe-eval' in dev) because
+  // Next.js injects inline bootstrap/hydration scripts; the high-value clamps are object-src 'none',
+  // base-uri 'self', and frame-ancestors 'none' (clickjacking). Nonce-based script-src is the next
+  // hardening step but requires per-request nonce plumbing.
+  const csp = [
+    "default-src 'self'",
+    `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data: https://fonts.gstatic.com",
+    `connect-src 'self'${isDev ? ' ws: wss:' : ''}`,
+    "object-src 'none'",
+    "base-uri 'self'",
+    "frame-ancestors 'none'",
+    "form-action 'self'",
+  ].join('; ');
+
+  response.headers.set('Content-Security-Policy', csp);
+  response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  if (!isDev) {
+    response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  }
   return response;
 }
 

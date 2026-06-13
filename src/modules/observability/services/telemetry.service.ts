@@ -33,9 +33,8 @@ class TelemetryService {
         metric: 'Workflow Finality', 
         value: 99.98, 
         unit: '%', 
-        nodeId: 'KERN-ALPHA', 
+        nodeId: 'KERN-ALPHA',
         timestamp: new Date().toISOString(),
-        integrityHash: 'sha256_0x88f...SYNC'
       },
       { 
         id: 'T-2', 
@@ -43,9 +42,8 @@ class TelemetryService {
         metric: 'Settlement Velocity', 
         value: 12.4, 
         unit: 's', 
-        nodeId: 'TRES-SYNC', 
+        nodeId: 'TRES-SYNC',
         timestamp: new Date().toISOString(),
-        integrityHash: 'sha256_0x88f...SYNC'
       },
       { 
         id: 'T-3', 
@@ -53,9 +51,8 @@ class TelemetryService {
         metric: 'Node Consensus', 
         value: 450, 
         unit: 'ms', 
-        nodeId: 'GLOBAL-MESH', 
+        nodeId: 'GLOBAL-MESH',
         timestamp: new Date().toISOString(),
-        integrityHash: 'sha256_0x88f...SYNC'
       },
       { 
         id: 'T-4', 
@@ -63,9 +60,8 @@ class TelemetryService {
         metric: 'Audit Readiness', 
         value: 100, 
         unit: '%', 
-        nodeId: 'SOV-AUDIT', 
+        nodeId: 'SOV-AUDIT',
         timestamp: new Date().toISOString(),
-        integrityHash: 'sha256_0x88f...SYNC'
       }
     ];
   }
@@ -77,10 +73,11 @@ class TelemetryService {
   async recordSignal(point: Omit<TelemetryPoint, 'id' | 'timestamp' | 'integrityHash'>) {
     logger.info('TelemetryHub', `INGESTING_SIGNAL: ${point.metric} = ${point.value}${point.unit}`);
     
+    // integrityHash is omitted: the telemetry backend computes the authoritative
+    // SHA-256 over the ingested point. A client-generated hash would be fake.
     const telemetry: TelemetryPoint = {
       id: `SIG-${Math.random().toString(36).substring(7).toUpperCase()}`,
       timestamp: new Date().toISOString(),
-      integrityHash: `sha256_0x${Math.random().toString(16).substring(2, 64)}`,
       ...point
     };
 

@@ -13,6 +13,8 @@ import Link from 'next/link';
 import { Menu, UserCircle, ShieldCheck, Zap, Activity, Globe, Landmark, ChevronDown, Command } from 'lucide-react';
 import { useAppState } from './app-state';
 import { SidebarNav } from './sidebar-nav';
+import { getPersona, getPersonaHome } from '@/core/personas';
+import { getOrgTypeLabel } from '@/core/organizations';
 import { PATHS } from '@/lib/paths';
 import { NotificationCenter } from '@/components/notification-center';
 import { DemoControl } from './demo-control';
@@ -23,10 +25,30 @@ import { useDeviceClass } from '@/hooks/use-device-class';
 import { useAppStore } from '@/store/use-app-store';
 
 export function DashboardHeader() {
-  const { role, setRole, availableRoles } = useAppState();
+  const { role, orgType, isPlatformAdmin, setRole, availableRoles, logout } = useAppState();
   const { isMobile } = useDeviceClass();
   const router = useRouter();
   const setCommandPaletteOpen = useAppStore((state) => state.setCommandPaletteOpen);
+
+  const persona = getPersona(role);
+  const PersonaIcon = persona.icon;
+  // Identity label: the ORGANIZATION TYPE for tenant users, the persona for platform/legacy sessions.
+  const identityLabel = orgType && !isPlatformAdmin ? getOrgTypeLabel(orgType) : persona.label;
+  // Cross-console switching is a PLATFORM-administration privilege only (super_admin / platform_owner).
+  // Every other authority is locked to its own console — no "become any role" lens in production.
+  const canSwitchPersona = isPlatformAdmin;
+
+  // Switching persona moves you into that persona's own console. The context's setRole is itself
+  // gated (a non-god authority is a no-op), so this is defense-in-depth, not the only check.
+  const switchPersona = (nextRole: typeof role) => {
+    setRole(nextRole);
+    router.push(getPersonaHome(nextRole));
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace(PATHS.LOGIN || '/login');
+  };
 
   return (
     <header className={cn(
@@ -59,9 +81,19 @@ export function DashboardHeader() {
       <div className="flex-1 flex items-center gap-6">
         <div className="flex items-center gap-4">
            {!isMobile && <div className="h-8 w-1 bg-primary rounded-full" />}
-           <h1 className="text-lg md:text-xl font-black uppercase tracking-tighter text-foreground truncate max-w-[150px] md:max-w-none">
-            {role}
-           </h1>
+           <div className="flex items-center gap-3 min-w-0">
+             {!isMobile && <PersonaIcon className={cn('h-6 w-6 shrink-0', persona.accent)} />}
+             <div className="flex flex-col leading-none min-w-0">
+               <h1 className="text-lg md:text-xl font-black uppercase tracking-tighter text-foreground truncate max-w-[150px] md:max-w-none">
+                {identityLabel}
+               </h1>
+               {!isMobile && (
+                 <span className="text-[10px] font-medium text-muted-foreground truncate max-w-[260px] hidden md:block">
+                   {persona.tagline}
+                 </span>
+               )}
+             </div>
+           </div>
         </div>
         
         {!isMobile && (
@@ -116,18 +148,35 @@ export function DashboardHeader() {
           <DropdownMenuContent align="end" className="w-72 rounded-2xl border-2 shadow-2xl p-2 mt-2">
             <DropdownMenuLabel className="text-[10px] font-black uppercase opacity-60 px-4 py-3 tracking-widest">Operational Context</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="p-1 space-y-1">
-               <p className="text-[8px] font-black text-muted-foreground uppercase tracking-wide px-3 mb-2 opacity-40">Switch Strategic Lens</p>
-               {availableRoles.map((r) => (
-                 <DropdownMenuItem key={r} onClick={() => setRole(r)} className="rounded-xl px-4 py-3 cursor-pointer group">
-                    <div className="flex items-center gap-3 w-full">
-                       <Landmark className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                       <span className="text-xs font-bold group-hover:text-primary transition-colors">{r}</span>
-                       {role === r && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />}
+            {/* Cross-persona switching is a sovereign/platform god-view privilege. Every other
+                authority is locked to its own console — no "become any role" lens. */}
+            {canSwitchPersona ? (
+              <>
+                <div className="p-1 space-y-1 max-h-[40vh] overflow-y-auto">
+                   <p className="text-[8px] font-black text-muted-foreground uppercase tracking-wide px-3 mb-2 opacity-40">Enter Persona Console</p>
+                   {availableRoles.map((r) => (
+                     <DropdownMenuItem key={r} onClick={() => switchPersona(r)} className="rounded-xl px-4 py-3 cursor-pointer group">
+                        <div className="flex items-center gap-3 w-full">
+                           <Landmark className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                           <span className="text-xs font-bold group-hover:text-primary transition-colors">{r}</span>
+                           {role === r && <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />}
+                        </div>
+                     </DropdownMenuItem>
+                   ))}
+                </div>
+                <DropdownMenuSeparator />
+              </>
+            ) : (
+              <div className="px-4 py-3">
+                 <div className="flex items-center gap-3">
+                    <PersonaIcon className={cn('h-4 w-4', persona.accent)} />
+                    <div className="flex flex-col leading-tight">
+                       <span className="text-xs font-bold">{persona.label}</span>
+                       <span className="text-[9px] text-muted-foreground uppercase tracking-wide opacity-60">Authority Locked</span>
                     </div>
-                 </DropdownMenuItem>
-               ))}
-            </div>
+                 </div>
+              </div>
+            )}
             <DropdownMenuSeparator />
             <div className="p-1 space-y-1">
                <DropdownMenuItem className="rounded-xl px-4 py-3" onClick={() => router.push(PATHS.PROFILE)}>
@@ -138,8 +187,11 @@ export function DashboardHeader() {
                </DropdownMenuItem>
             </div>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-               <Link href={PATHS.LOGIN || '/login'} className="text-red-600 font-black uppercase text-[10px] py-4 hover:bg-red-50 tracking-wide rounded-xl px-4 justify-center flex">TERMINATE SESSION</Link>
+            <DropdownMenuItem
+               onSelect={(e) => { e.preventDefault(); void handleLogout(); }}
+               className="text-red-600 font-black uppercase text-[10px] py-4 hover:bg-red-50 tracking-wide rounded-xl px-4 justify-center flex cursor-pointer"
+            >
+               TERMINATE SESSION
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

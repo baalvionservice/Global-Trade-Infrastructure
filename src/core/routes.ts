@@ -89,6 +89,7 @@ export const ROUTE_REGISTRY: RouteMetadata[] = [
   // ── EXECUTION ──
   { path: '/orders', label: 'Order Pipeline', icon: PackageCheck, roles: [...TRADE, ...ADMIN], category: 'EXECUTION' },
   { path: '/trade-management', label: 'Trade Management', icon: Workflow, roles: [...TRADE, ...ADMIN], category: 'EXECUTION' },
+  { path: '/trade-ops', label: 'Trade Operations', icon: Ship, roles: [...TRADE, ...ADMIN], category: 'EXECUTION' },
   { path: '/agents', label: 'Agent Marketplace', icon: Users, roles: TRADE, category: 'EXECUTION' },
   { path: '/field/operations', label: 'Field Operations', icon: Crosshair, roles: ADMIN, category: 'EXECUTION' },
 
@@ -131,6 +132,8 @@ export const ROUTE_REGISTRY: RouteMetadata[] = [
   { path: '/governance', label: 'Admin Overview', icon: ShieldCheck, roles: ADMIN, category: 'GOVERNANCE' },
   { path: '/governance/platform-admin', label: 'Platform Admin', icon: Server, roles: ADMIN, category: 'GOVERNANCE' },
   { path: '/governance/organizations', label: 'Organizations', icon: Building2, roles: ADMIN, category: 'GOVERNANCE' },
+  { path: '/governance/onboarding', label: 'Onboarding Review', icon: BadgeCheck, roles: ADMIN, category: 'GOVERNANCE' },
+  { path: '/governance/platform-status', label: 'Platform Status', icon: Activity, roles: ADMIN, category: 'GOVERNANCE' },
   { path: '/governance/commerce-command', label: 'Commerce Command', icon: Store, roles: ADMIN, category: 'GOVERNANCE' },
   { path: '/governance/economic-command', label: 'Economic Command', icon: Activity, roles: ADMIN, category: 'GOVERNANCE' },
   { path: '/governance/bank-admin', label: 'Bank Admin', icon: Landmark, roles: [...ADMIN, USER_ROLES.BANK_ADMIN], category: 'GOVERNANCE' },
@@ -170,6 +173,14 @@ export const ROUTE_REGISTRY: RouteMetadata[] = [
   { path: '/governance/war-room', label: 'War Room', icon: Siren, roles: ADMIN, category: 'SOVEREIGN' },
   { path: '/governance/emergency-ops', label: 'Emergency Ops', icon: Siren, roles: ADMIN, category: 'SOVEREIGN' },
   { path: '/governance/ecosystem', label: 'Ecosystem', icon: Globe, roles: ADMIN, category: 'SOVEREIGN' },
+
+  // ── PLATFORM CONSOLE (platform_owner org type only) ──
+  { path: '/platform/organizations', label: 'Organizations', icon: Building2, roles: ADMIN, category: 'GOVERNANCE' },
+
+  // ── ORGANIZATION SELF-ADMINISTRATION (all org types) ──
+  { path: '/organization/settings', label: 'Organization Settings', icon: Settings, roles: [...TRADE, ...ADMIN], category: 'ADMINISTRATION' },
+  { path: '/organization/users',    label: 'Users & Roles',          icon: Users,    roles: [...TRADE, ...ADMIN], category: 'ADMINISTRATION' },
+  { path: '/organization/audit',    label: 'Activity Log',           icon: History,  roles: [...TRADE, ...ADMIN], category: 'ADMINISTRATION' },
 
   // ── SETTINGS ──
   { path: '/profile', label: 'Profile & Organization', icon: Settings, roles: [...TRADE, ...ADMIN], category: 'ADMINISTRATION' },

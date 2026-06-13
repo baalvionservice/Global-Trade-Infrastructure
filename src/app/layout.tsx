@@ -3,6 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
 import { AppProvider } from "./(dashboard)/_components/app-state";
+import { RouteGuard } from "./(dashboard)/_components/route-guard";
 import { TourOverlay } from '@/components/tour-overlay';
 import { organizationJsonLd, webSiteJsonLd, jsonLdScriptProps } from '@/lib/seo';
 
@@ -14,6 +15,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://trade.baalvion.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  icons: { icon: 'data:,' },
   title: {
     default: 'Baalvion | The Global Trade Operating System',
     template: '%s | Baalvion OS',
@@ -74,7 +76,11 @@ export default function RootLayout({
         <script {...jsonLdScriptProps(organizationJsonLd())} />
         <script {...jsonLdScriptProps(webSiteJsonLd())} />
         <AppProvider>
-           {children}
+           {/* Per-persona authorization on every protected route (covers the (dashboard) group AND
+               top-level authenticated areas like /governance). Public routes pass through. */}
+           <RouteGuard>
+             {children}
+           </RouteGuard>
            <TourOverlay />
            <Toaster />
         </AppProvider>
