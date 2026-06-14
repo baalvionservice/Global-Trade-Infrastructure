@@ -60,7 +60,7 @@ function secureHeaders(response: NextResponse, _request: NextRequest): NextRespo
     "default-src 'self'",
     // Payment gateways: Razorpay Checkout.js + Stripe.js load as scripts; their hosted widgets run
     // in iframes (frame-src); PayU is a top-level form-POST (form-action).
-    `script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://js.stripe.com${isDev ? " 'unsafe-eval'" : ''}`,
+    `script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://*.razorpay.com https://js.stripe.com${isDev ? " 'unsafe-eval'" : ''}`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: blob: https:",
     "font-src 'self' data: https://fonts.gstatic.com",

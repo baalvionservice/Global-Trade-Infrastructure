@@ -20,7 +20,7 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       // Payment gateways (Razorpay Checkout.js / Stripe.js + their iframes; PayU top-level form-POST).
-      `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://checkout.razorpay.com https://js.stripe.com${isDev ? " 'unsafe-eval'" : ''}`,
+      `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://checkout.razorpay.com https://*.razorpay.com https://js.stripe.com${isDev ? " 'unsafe-eval'" : ''}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' data: blob: https://placehold.co https://images.unsplash.com https://picsum.photos",
       "font-src 'self' data: https://fonts.gstatic.com",
@@ -58,9 +58,6 @@ const nextConfig: NextConfig = {
     'express',
   ],
   typescript: {
-    // The only tsc failures are the monorepo-wide @types/react 18-vs-19 dedup conflict
-    // (lucide/Radix "not a valid JSX component" / bigint ReactNode) — pre-existing dependency
-    // type-debt, harmless at runtime. Don't let it block the optimized production build.
     ignoreBuildErrors: false,
   },
   eslint: {
