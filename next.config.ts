@@ -19,13 +19,15 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isDev ? " 'unsafe-eval'" : ''}`,
+      // Payment gateways (Razorpay Checkout.js / Stripe.js + their iframes; PayU top-level form-POST).
+      `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://checkout.razorpay.com https://js.stripe.com${isDev ? " 'unsafe-eval'" : ''}`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' data: blob: https://placehold.co https://images.unsplash.com https://picsum.photos",
       "font-src 'self' data: https://fonts.gstatic.com",
-      `connect-src 'self' https://api.baalvion.com wss://api.baalvion.com https://*.googleapis.com${isDev ? ' ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*' : ''}`,
+      `connect-src 'self' https://api.baalvion.com wss://api.baalvion.com https://*.googleapis.com https://api.razorpay.com https://*.razorpay.com https://api.stripe.com${isDev ? ' ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*' : ''}`,
+      "frame-src https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com https://js.stripe.com https://*.stripe.com",
       "frame-ancestors 'none'",
-      "form-action 'self'",
+      "form-action 'self' https://*.payu.in https://secure.payu.in https://test.payu.in https://checkout.stripe.com",
       "base-uri 'self'",
       "object-src 'none'",
     ].join('; '),
@@ -59,7 +61,7 @@ const nextConfig: NextConfig = {
     // The only tsc failures are the monorepo-wide @types/react 18-vs-19 dedup conflict
     // (lucide/Radix "not a valid JSX component" / bigint ReactNode) — pre-existing dependency
     // type-debt, harmless at runtime. Don't let it block the optimized production build.
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   eslint: {
     ignoreDuringBuilds: true,

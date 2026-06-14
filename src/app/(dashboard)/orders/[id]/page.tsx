@@ -7,6 +7,7 @@ import { getOrderById, updateOrderStatus, getOrderDocuments, Order, OrderDocumen
 import { getEscrows } from '@/services/escrow-service';
 import { OrderStatusTimeline } from '../_components/order-status-timeline';
 import { OrderDocuments } from '../_components/order-documents';
+import { GatewayPayment } from '../_components/gateway-payment';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -199,6 +200,10 @@ export default function OrderDetailPage() {
                  )}
               </CardContent>
            </Card>
+
+           {String((order as { paymentStatus?: string }).paymentStatus) !== 'confirmed' && (
+             <GatewayPayment order={order} onPaid={setOrder} />
+           )}
 
            <OrderDocuments documents={docs} />
         </div>

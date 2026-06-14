@@ -58,15 +58,18 @@ function secureHeaders(response: NextResponse, _request: NextRequest): NextRespo
   // hardening step but requires per-request nonce plumbing.
   const csp = [
     "default-src 'self'",
-    `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+    // Payment gateways: Razorpay Checkout.js + Stripe.js load as scripts; their hosted widgets run
+    // in iframes (frame-src); PayU is a top-level form-POST (form-action).
+    `script-src 'self' 'unsafe-inline' https://checkout.razorpay.com https://js.stripe.com${isDev ? " 'unsafe-eval'" : ''}`,
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: blob: https:",
     "font-src 'self' data: https://fonts.gstatic.com",
-    `connect-src 'self'${isDev ? ' ws: wss:' : ''}`,
+    `connect-src 'self' https://api.razorpay.com https://*.razorpay.com https://api.stripe.com${isDev ? ' ws: wss:' : ''}`,
+    "frame-src https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com https://js.stripe.com https://*.stripe.com",
     "object-src 'none'",
     "base-uri 'self'",
     "frame-ancestors 'none'",
-    "form-action 'self'",
+    "form-action 'self' https://*.payu.in https://secure.payu.in https://test.payu.in https://checkout.stripe.com",
   ].join('; ');
 
   response.headers.set('Content-Security-Policy', csp);

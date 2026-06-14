@@ -25,6 +25,29 @@ export interface OrderLine {
   unit_price: number;
 }
 
+/** Consumer gateway checkout (alongside the escrow/saga settlement rail). */
+export type GatewaySlug = 'razorpay' | 'stripe' | 'payu' | 'bank';
+
+export interface RazorpayVerification {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
+/** Provider-public params returned by POST /orders/:id/payment-intent. */
+export interface GatewayIntent {
+  intentId: string;
+  status: string;
+  keyId?: string;            // Razorpay key_id (open the popup)
+  amount?: number;           // minor units
+  currency?: string;
+  instructions?: string;     // bank transfer wire instructions
+  redirectUrl?: string;      // Stripe hosted Checkout
+  clientSecret?: string;
+  publishableKey?: string;
+  formPost?: { action: string; fields: Record<string, string> }; // PayU
+}
+
 /**
  * Map the GTOS saga status (+ payment_status) to the canonical lowercase LifecycleStatus the
  * UI timeline/detail expect. A `placed` order whose payment intent is in-flight reads as
@@ -153,6 +176,42 @@ class OrderService {
     return order;
   }
 
+  /**
+   * Consumer gateway checkout — create a payment intent for THIS order on the chosen gateway.
+   * Returns the provider-public params the page acts on (Razorpay key+orderId; Stripe redirectUrl;
+   * PayU signed formPost; bank instructions). Distinct from confirm-payment (the escrow/saga rail).
+   */
+  async createPaymentIntent(orderId: string, gateway: GatewaySlug): Promise<GatewayIntent> {
+    const res = await apiClient.post<GatewayIntent>(`/orders/${orderId}/payment-intent`, { gateway });
+    if (!res.success || !res.data) {
+      throw new Error(res.error?.message || 'Could not start the payment.');
+    }
+    return res.data;
+  }
+
+  /**
+   * Provider-authoritative capture. For Razorpay the page passes the signed handler triple; the
+   * backend verifies the HMAC and only then marks the order paid. Returns the updated order.
+   */
+  async capturePayment(
+    orderId: string,
+    intentId: string,
+    gateway: GatewaySlug,
+    verification?: RazorpayVerification,
+  ): Promise<TradeOrder> {
+    const res = await apiClient.post<any>(`/orders/${orderId}/payment-capture`, {
+      intentId,
+      gateway,
+      ...(verification ? { verification } : {}),
+    });
+    if (!res.success || !res.data) {
+      throw new Error(res.error?.message || 'Payment could not be confirmed.');
+    }
+    const order = mapOrderFromApi(res.data);
+    if (order.paymentStatus === 'confirmed') eventBus.publish('ORDER_CONFIRMED', order);
+    return order;
+  }
+
   async getOrderDocuments(orderId: string): Promise<any[]> {
     return documentService.getDossier(orderId);
   }
@@ -166,6 +225,8 @@ export const getOrderById = (id: string) => orderService.getOrderById(id);
 export const updateOrderStatus = (id: string, s: any) => orderService.updateOrderStatus(id, s);
 export const getOrderDocuments = (id: string) => orderService.getOrderDocuments(id);
 export const createOrder = (input: Parameters<OrderService['createOrder']>[0]) => orderService.createOrder(input);
+export const createPaymentIntent = (orderId: string, gateway: GatewaySlug) => orderService.createPaymentIntent(orderId, gateway);
+export const capturePayment = (orderId: string, intentId: string, gateway: GatewaySlug, v?: RazorpayVerification) => orderService.capturePayment(orderId, intentId, gateway, v);
 
 export type Order = TradeOrder;
 export type OrderStatus = TradeOrder['status'];
