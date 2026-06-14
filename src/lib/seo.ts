@@ -114,6 +114,41 @@ export function softwareApplicationJsonLd() {
   };
 }
 
+interface ServiceJsonLdInput {
+  /** Human-readable service name, e.g. "Trade Finance Solutions for Banks". */
+  name: string;
+  description: string;
+  /** Route path the service is described on, e.g. "/banks". */
+  path: string;
+  /** Audience the service serves, e.g. "Banks". */
+  audience?: string;
+}
+
+/**
+ * Service schema for the solution/persona pages (/banks, /governments, /enterprises,
+ * /logistics, /platform) — describes the offering to search engines as a provided
+ * service tied to the Baalvion brand entity.
+ */
+export function serviceJsonLd({ name, description, path, audience }: ServiceJsonLdInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    description,
+    url: absoluteUrl(path),
+    serviceType: name,
+    provider: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    areaServed: 'Worldwide',
+    ...(audience
+      ? { audience: { '@type': 'Audience', audienceType: audience } }
+      : {}),
+  };
+}
+
 /** BreadcrumbList schema for a page's position in the site hierarchy. */
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {

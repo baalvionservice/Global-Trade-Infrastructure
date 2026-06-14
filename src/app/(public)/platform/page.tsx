@@ -3,16 +3,19 @@ import { GanttChartSquare, Landmark, ShieldCheck, Truck, Key, Eye, Share2, HardD
 import type { LucideIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, serviceJsonLd, breadcrumbJsonLd, jsonLdScriptProps } from "@/lib/seo";
 
 /**
  * @file src/app/platform/page.tsx
  * @description The public-facing page detailing the Baalvion platform architecture and core principles.
  */
 
+const PLATFORM_TITLE = "Baalvion Platform — Institutional Operating System for Global Trade";
+const PLATFORM_DESCRIPTION = "Baalvion is an institutional-grade operating system for global trade, integrating execution, finance, compliance, and logistics into a single governed infrastructure.";
+
 export const metadata: Metadata = pageMetadata({
-    title: "Baalvion Platform — Institutional Operating System for Global Trade",
-    description: "Baalvion is an institutional-grade operating system for global trade, integrating execution, finance, compliance, and logistics into a single governed infrastructure.",
+    title: PLATFORM_TITLE,
+    description: PLATFORM_DESCRIPTION,
     path: "/platform",
     keywords: ['trade platform', 'trade operating system', 'trade execution', 'settlement', 'compliance', 'logistics infrastructure', 'institutional trade'],
 });
@@ -70,6 +73,8 @@ export default function PlatformPage() {
 
   return (
     <div className="flex flex-col bg-background text-foreground">
+      <script {...jsonLdScriptProps(serviceJsonLd({ name: PLATFORM_TITLE, description: PLATFORM_DESCRIPTION, path: '/platform', audience: 'Enterprises, Banks & Governments' }))} />
+      <script {...jsonLdScriptProps(breadcrumbJsonLd([{ name: 'Home', path: '/' }, { name: 'Platform', path: '/platform' }]))} />
       {/* 1. HERO SECTION */}
       <section className="py-24 md:py-32 bg-muted/50 border-b">
         <div className="container text-center px-4 md:px-6">
