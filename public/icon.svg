@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="GTI">
+  <rect width="512" height="512" rx="72" fill="#0E2A47"/>
+  <rect x="18" y="18" width="476" height="476" rx="56" fill="none" stroke="#3D4654" stroke-width="6"/>
+  <text x="256" y="268" font-family="'Segoe UI', Arial, sans-serif" font-size="168" font-weight="700" fill="#E6EAF0" text-anchor="middle" dominant-baseline="central">GTI</text>
+</svg>
